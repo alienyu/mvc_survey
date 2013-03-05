@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <title></title>
+  <link rel="stylesheet" type="text/css" href="js/lib/jquery-ui/jquery-ui.css" />
+  <script type="text/javascript" src="js/lib/spine.js"></script>
+  <script type="text/javascript" src="js/lib/jquery-1.8.0.min.js"></script>
+  <script type="text/javascript" src="js/lib/jquery-ui/jquery-ui.js"></script>
+  <script type="text/javascript" src="js/controller/baseinfo.js"></script>
+  <script type="text/javascript" src="js/controller/question.preview.js"></script>
+  <script type="text/javascript" src="js/controller/survey.create.js"></script>
+  <script type="text/javascript" src="js/model/survey.js"></script>
+  <script type="text/javascript" src="js/model/questions/question.js"></script>
+  <script type="text/javascript" src="js/model/questions/radio.question.js"></script>
+  <script type="text/javascript" src="js/model/questions/checked.question.js"></script>
+  <script type="text/javascript" src="js/index.js"></script>
+</head>
+<body>
+    <div id="tabs">
+        <ul>
+            <li><a href="#edit_servey">1.编辑问卷信息</a></li>
+            <li><a href="#build_servey">2.问卷制作</a></li>
+            <li><a href="#logic_setting">3.逻辑设置</a></li>
+            <li><a href="#quota_setting">4.配额设置</a></li>
+            <li><a href="#survey_preview">问卷预览</a></li>
+        </ul>
+        <div id="edit_servey">
+
+        </div>
+        <div id="build_servey">
+            <div id="container">
+            </div>
+            <input type="button" value="上一步" onclick="$('#tabs').tabs('option', 'active', 0 );" />
+            <input type="button" value="下一步" onclick="$('#tabs').tabs('enable', 2);$('#tabs').tabs('option', 'active', 2 );" />
+        </div>
+        <div id="logic_setting">
+            逻辑设置
+            <input type="button" value="上一步" onclick="$('#tabs').tabs('option', 'active', 1 );" />
+            <input type="button" value="下一步" onclick="$('#tabs').tabs('enable', 3);$('#tabs').tabs('option', 'active', 3 );" />
+        </div>
+        <div id="quota_setting">
+            配额设置
+            <input type="button" value="上一步" onclick="$('#tabs').tabs('option', 'active', 2 );" />
+            <input type="button" value="下一步" onclick="$('#tabs').tabs('enable', 4);$('#tabs').tabs('option', 'active', 4 );" />
+        </div>
+        <div id="survey_preview">
+            <div id="radio-template" style="visibility: hidden">
+                <div style="border: 1px #000000 solid">
+                    <div class="view-question-content">
+                    </div>
+                    <div class="option-list">
+                    </div>
+                    <div class="question_set" style="text-align: right; border: 1px #000000 dotted">
+                        <input type="checkbox" class="add-break" onchange="$(this).val($(this).attr('checked'))" />分页&nbsp;&nbsp;<a class="remove-question"
+                            href="#">删除</a>&nbsp;&nbsp;<a class="edit-quesiton" href="#">修改</a>
+                    </div>
+                </div>
+            </div>
+            <ul id="ul_serveyList" class="preview" style="list-style-type: none">
+            </ul>
+            <div id='tempDiv' style='display: none;'>
+            </div>
+            <input type="button" value="保存" onclick="listQuestionView.instanceSurvey();" />
+        </div>
+    </div>
+
+    <!-- These are templates for controller -->
+    <script type="text/x-jquery-tmpl" id="base-info-template">
+      <div style="float: left">
+                <div id="serveyt-num">
+                    <span>项目编号:</span> <span>
+                        <input type="text" class="pj-num" name="pj-num"></span>
+                </div>
+                <div id="servey-name">
+                    <span>问卷名:</span> <span>
+                        <input type="text" class="qu-name" name="qu-name"></span>
+                </div>
+                <div id="customer">
+                    <span>客户:</span> <span>
+                        <select class="customer">
+                            <option value="请选择" selected="">请选择</option>
+                            <option value="宝洁">宝洁</option>
+                            <option value="宝马">宝马</option>
+                            <option value="英菲尼迪">英菲尼迪</option>
+                        </select>
+                    </span>
+                </div>
+                <div id="propaganda-pic">
+                    <span>问卷宣传图:</span> <span>
+                        <input type="file" name="propaganda-pic" id="upload-propaganda-pic" /></span>
+                </div>
+                <div id="end-time">
+                    <span>结束时间:</span> <span>
+                        <input type="text" class="end-time"></span> <span>
+                            <input type="button" class="unlock-time" name="unlock-time" value="不限时间"></span>
+                </div>
+                <div id="cover">
+                    <span>封面:</span> <span>
+                        <input type="file" name="propaganda-pic" id="upload-cover-pic" /></span>
+                </div>
+                <div id="logo">
+                    <span>logo:</span> <span>
+                        <input type="file" name="propaganda-pic" id="upload-logo" /></span>
+                </div>
+                <div id="back-cover">
+                    <span>封底:</span> <span>
+                        <input type="file" name="propaganda-pic" id="upload-back-cover" /></span>
+                </div>
+                <div id="servey-template">
+                    <span>问卷模版:</span> <span>
+                        <select class="servey-template">
+                            <option value="请选择" selected="">请选择</option>
+                            <option value="模版1">模版1</option>
+                            <option value="模版2">模版2</option>
+                        </select>
+                    </span><span>
+                        <input type="button" class="template-manage" value="模版管理"></span>
+                </div>
+                <div id="order-way">
+                    <span>选择排列方式：</span> <span>
+                        <input type="checkbox" class="order-way" name="order-way">
+                    </span><span>随机排列</span>
+                </div>
+                <div id="credit-start">
+                    <span>参与问卷给与积分:</span> <span>
+                        <input type="text" class="credit" name="credit"></span>
+                </div>
+                <div id="credit-complete">
+                    <span>完成问卷给与积分:</span> <span>
+                        <input type="text" class="credit-complete" name="credit-complete"></span>
+                </div>
+                <div id="serveyt-type">
+                    <span>问卷类型:</span> <span>
+                        <select class="servey-type">
+                            <option value="趣味问卷" selected="">趣味问卷</option>
+                            <option value="试用问卷">试用问卷</option>
+                        </select>
+                    </span>
+                </div>
+                <div id="servey-description">
+                    <span>问卷说明：</span> <span>
+                        <textarea class="servey-description"></textarea>
+                    </span>
+                </div>
+                <div id="remark">
+                    <span>备注：</span> <span>
+                        <textarea class="remark"></textarea>
+                    </span>
+                </div>
+            </div>
+            <div style="float: right">
+                预览效果：</div>
+            <img id="imgPre-propaganda-pic" style="display: block; width: 200px; height: 200px" />
+            <img id="imgPre-cover-pic" style="display: block; width: 200px; height: 200px" />
+            <img id="imgPre-logo" style="display: block; width: 200px; height: 200px" />
+            <img id="imgPre-back-cover" style="display: block; width: 200px; height: 200px" />
+            <div id="servey-edit-next" style="clear: both;">
+                <span>
+                    <input type="button" value="下一步" onclick="$('#tabs').tabs('enable', 1);$('#tabs').tabs('option', 'active', 1 );" /></span>
+                <span>
+                    <input type="button" class="reset" value="reset"></span>
+            </div>
+    </script>
+</body>
+</html>

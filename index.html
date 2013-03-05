@@ -1,19 +1,20 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
-  <title></title>
-  <link rel="stylesheet" type="text/css" href="js/lib/jquery-ui/jquery-ui.css" />
-  <script type="text/javascript" src="js/lib/spine.js"></script>
-  <script type="text/javascript" src="js/lib/jquery-1.8.0.min.js"></script>
-  <script type="text/javascript" src="js/lib/jquery-ui/jquery-ui.js"></script>
-  <script type="text/javascript" src="js/controller/baseinfo.js"></script>
-  <script type="text/javascript" src="js/controller/question.preview.js"></script>
-  <script type="text/javascript" src="js/controller/survey.create.js"></script>
-  <script type="text/javascript" src="js/model/survey.js"></script>
-  <script type="text/javascript" src="js/model/questions/question.js"></script>
-  <script type="text/javascript" src="js/model/questions/radio.question.js"></script>
-  <script type="text/javascript" src="js/model/questions/checked.question.js"></script>
-  <script type="text/javascript" src="js/index.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="js/lib/jquery-ui/jquery-ui.css" />
+    <script type="text/javascript" src="js/lib/spine.js"></script>
+    <script type="text/javascript" src="js/lib/jquery-1.8.0.min.js"></script>
+    <script type="text/javascript" src="js/lib/jquery-ui/jquery-ui.js"></script>
+    <script type="text/javascript" src="js/controller/baseinfo.js"></script>
+    <script type="text/javascript" src="js/controller/question.preview.js"></script>
+    <script type="text/javascript" src="js/controller/survey.create.js"></script>
+    <script type="text/javascript" src="js/model/survey.js"></script>
+    <script type="text/javascript" src="js/model/questions/question.js"></script>
+    <script type="text/javascript" src="js/model/questions/radio.question.js"></script>
+    <script type="text/javascript" src="js/model/questions/checked.question.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
 </head>
 <body>
     <div id="tabs">
@@ -25,7 +26,6 @@
             <li><a href="#survey_preview">问卷预览</a></li>
         </ul>
         <div id="edit_servey">
-
         </div>
         <div id="build_servey">
             <div id="container">
@@ -51,8 +51,8 @@
                     <div class="option-list">
                     </div>
                     <div class="question_set" style="text-align: right; border: 1px #000000 dotted">
-                        <input type="checkbox" class="add-break" onchange="$(this).val($(this).attr('checked'))" />分页&nbsp;&nbsp;<a class="remove-question"
-                            href="#">删除</a>&nbsp;&nbsp;<a class="edit-quesiton" href="#">修改</a>
+                        <input type="checkbox" class="add-break" onchange="$(this).val($(this).attr('checked'))" />分页&nbsp;&nbsp;<a
+                            class="remove-question" href="#">删除</a>&nbsp;&nbsp;<a class="edit-quesiton" href="#">修改</a>
                     </div>
                 </div>
             </div>
@@ -63,7 +63,6 @@
             <input type="button" value="保存" onclick="listQuestionView.instanceSurvey();" />
         </div>
     </div>
-
     <!-- These are templates for controller -->
     <script type="text/x-jquery-tmpl" id="base-info-template">
       <div style="float: left">

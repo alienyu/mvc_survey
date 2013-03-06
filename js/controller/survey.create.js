@@ -5,27 +5,34 @@ var SurveyCreate = Spine.Controller.sub({
     },
 
     elements: {
-      "#creator-area": "creatorArea"
+        "#creator-area": "creatorArea"
     },
 
     events: {
-      "click #add-option-tag": "addOption",
-      "click .remove-option-tag": "removeOption"},
+        "click #add-option-tag": "addOption",
+        "click .remove-option-tag": "removeOption"
+    },
 
     show: function () {
         this.el.html(this.template());
     },
 
     initRadioCreator: function () {
-      this.questionTextCreator();
-      var optionCreatorTemp = $($("#radio-option-creator-template").html()).tmpl({"optionTag": "A"});
-      $(this.creatorArea).append(optionCreatorTemp);
+        this.questionTextCreator();
+        var optionCreatorTemp = $($("#radio-option-creator-template").html()).tmpl({ "optionTag": "A" });
+        $(this.creatorArea).append(optionCreatorTemp);
+    },
+
+    initCheckCreator: function () {
+        this.questionTextCreator();
+        var optionCreatorTemp = $($("#check-option-creator-template").html()).before($($("#radio-option-creator-template").html()).tmpl({ "optionTag": "A" }));
+        $(this.creatorArea).append(optionCreatorTemp);
     },
 
     questionTextCreator: function () {
-      var questionTextCreator = $("#question-text-creator-template").html();
-      $(this.creatorArea).append(questionTextCreator);
-      $("#question-text").wysiwyg();
+        var questionTextCreator = $("#question-text-creator-template").html();
+        $(this.creatorArea).append(questionTextCreator);
+        $("#question-text").wysiwyg();
     },
 
     bindDraggable: function () {
@@ -45,7 +52,7 @@ var SurveyCreate = Spine.Controller.sub({
                         that.initRadioCreator();
                         break;
                     case "multi-select":
-                        //TODO:create multi select question
+                        that.initCheckCreator();
                         break;
                     case "matrix":
                         //TODO:create matrix question
@@ -71,15 +78,15 @@ var SurveyCreate = Spine.Controller.sub({
     addOption: function () {
         var indexTag = String.fromCharCode(65 + $("#option-creators .option-creator").size());
         var optionCreatorTemp = $($("#radio-option-creator-template").html())
-                                .find("#option-creators").tmpl({"optionTag": indexTag});
+                                .find("#option-creators").tmpl({ "optionTag": indexTag });
         $("#option-creators").append(optionCreatorTemp);
     },
 
     removeOption: function (e) {
-      e.target.parentElement.remove();
-      var optionCreators = $('#option-creators .option-creator');
-      optionCreators.each(function (item, element) {
-          $(element).find("span").html((String.fromCharCode(65 + item)));
-      });
+        e.target.parentElement.remove();
+        var optionCreators = $('#option-creators .option-creator');
+        optionCreators.each(function (item, element) {
+            $(element).find("span").html((String.fromCharCode(65 + item)));
+        });
     }
 });

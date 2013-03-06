@@ -7,10 +7,8 @@ $(function () {
 
             this.baseinfo = new BaseInfo({ el: $("#add-base-info") });
             this.surveycreate = new SurveyCreate({ el: $("#build-survey-questions") });
+            this.questionPreview = new QuestionPreview({el: $("#survey-preview")});
 
-        },
-        showControlBar: function (obj) {
-            alert($(obj).index());
         }
     });
 

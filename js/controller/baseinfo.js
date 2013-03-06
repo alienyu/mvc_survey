@@ -13,8 +13,6 @@ var BaseInfo = Spine.Controller.sub({
         this.show();
         //init widgets
         $(".end-time").datepicker();
-
-        Spine.trigger("show_control_bar", this.el);
     },
     preImg: function (e) {
         var sourceId = $(e.target).attr("id");

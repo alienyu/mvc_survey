@@ -10,8 +10,6 @@ var QuestionPreview = Spine.Controller.sub({
     this.show();
     this.sortableList();
     //init widgets
-
-    Spine.trigger("show_control_bar", this.el);
   },
   sortableList: function () {
     $('#ul_serveyList').sortable({

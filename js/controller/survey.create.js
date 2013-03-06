@@ -17,12 +17,11 @@ var SurveyCreate = Spine.Controller.sub({
         this.el.html(this.template());
     },
 
-    initCreator: function (item) {
+    initQuestionCreator: function () {
         $(this.creatorArea).empty().height("auto");
         this.questionTextCreator();
-        var drag = item.attr("id");
         var creatorTemplate;
-        switch (drag) {
+        switch (this.question.type) {
             case "single-select":
                 creatorTemplate = this.initRadioCreator();
                 break;
@@ -80,7 +79,9 @@ var SurveyCreate = Spine.Controller.sub({
         //add question
         $(this.creatorArea).droppable({
             drop: function (e, ui) {
-                that.initCreator(ui.draggable);
+                var drag = ui.draggable.attr("id");
+                that.question.type = drag;
+                that.initQuestionCreator();
             }
         });
     },
@@ -90,6 +91,9 @@ var SurveyCreate = Spine.Controller.sub({
         this.show();
         //inital the question creator draggable
         this.bindDraggable();
+
+        //create an instance of Question
+        this.question = new Question();
     },
 
     addOption: function () {

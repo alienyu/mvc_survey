@@ -11,4 +11,7 @@
 #Ignore bundle binstub files
 .DS_Store
 
+#web storm
+.idea/*
+
 

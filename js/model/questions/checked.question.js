@@ -1,1 +1,0 @@
-//inherited from quesion model

@@ -17,16 +17,52 @@ var SurveyCreate = Spine.Controller.sub({
         this.el.html(this.template());
     },
 
-    initRadioCreator: function () {
+    initCreator: function (item) {
+        $(this.creatorArea).empty().height("auto");
         this.questionTextCreator();
+        var drag = item.attr("id");
+        var creatorTemplate;
+        switch (drag) {
+            case "single-select":
+                creatorTemplate = this.initRadioCreator();
+                break;
+            case "multi-select":
+                creatorTemplate = this.initCheckCreator();
+                break;
+            case "matrix":
+                //TODO:create matrix question
+                break;
+            case "open":
+                creatorTemplate = this.initOpenCreator();
+                break;
+            case "area":
+                creatorTemplate = this.initAreaCreator();
+                break;
+            default:
+                //TODO:others
+                break;
+        }
+        $(this.creatorArea).append(creatorTemplate);
+    },
+
+    initRadioCreator: function () {
         var optionCreatorTemp = $($("#radio-option-creator-template").html()).tmpl({ "optionTag": "A" });
-        $(this.creatorArea).append(optionCreatorTemp);
+        return optionCreatorTemp;
     },
 
     initCheckCreator: function () {
-        this.questionTextCreator();
         var optionCreatorTemp = $($("#check-option-creator-template").html()).before($($("#radio-option-creator-template").html()).tmpl({ "optionTag": "A" }));
-        $(this.creatorArea).append(optionCreatorTemp);
+        return optionCreatorTemp;
+    },
+
+    initOpenCreator: function () {
+        var optionCreatorTemp = $("#open-option-creator-template").html();
+        return optionCreatorTemp;
+    },
+
+    initAreaCreator: function () {
+        var optionCreatorTemp = $("#area-option-creator-template").html();
+        return optionCreatorTemp;
     },
 
     questionTextCreator: function () {
@@ -42,27 +78,9 @@ var SurveyCreate = Spine.Controller.sub({
         });
 
         //add question
-        $(that.creatorArea).droppable({
+        $(this.creatorArea).droppable({
             drop: function (e, ui) {
-                $(that.creatorArea).empty().height("auto");
-                var drag = ui.draggable.attr("id");
-                switch (drag) {
-                    case "single-select":
-                        that.initRadioCreator();
-                        break;
-                    case "multi-select":
-                        that.initCheckCreator();
-                        break;
-                    case "matrix":
-                        //TODO:create matrix question
-                        break;
-                    case "open":
-                        //TODO:create open question
-                        break;
-                    case "area":
-                        //TODO:create region question
-                        break;
-                }
+                that.initCreator(ui.draggable);
             }
         });
     },

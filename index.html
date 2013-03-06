@@ -184,7 +184,7 @@
             <div id="question_editor">
                 <span>问卷名：</span>
                 <span>汽车用户调研问卷</span><br/>
-                <div id="creator-area" style="width:200px;height:200px">
+                <div id="creator-area" style="height:200px">
                     将左侧的问题拖拽至此添加问卷问题
                 </div>
             </div>
@@ -226,7 +226,18 @@
     <!-- This is for radio question options template -->
     <script type="text/x-jquery-tmpl" id="check-option-creator-template">
         <div>
-            asdasd
+            <span>最多可选：</span>
+            <span>
+                <select id="max-select-num">
+                    <option value="1">1</option>
+                </select>
+            </span>
+            <span>最少可选：</span>
+            <span>
+                <select id="min-select-num">
+                    <option value="1">1</option>
+                </select>
+            </span>
         </div>
     </script>
 </body>

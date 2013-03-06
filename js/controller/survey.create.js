@@ -42,10 +42,9 @@ var SurveyCreate = Spine.Controller.sub({
         });
 
         //add question
-        $("#creator-area").droppable({
+        $(that.creatorArea).droppable({
             drop: function (e, ui) {
-                $("#creator-area").empty();
-                $("#creator-area").height("auto");
+                $(that.creatorArea).empty().height("auto");
                 var drag = ui.draggable.attr("id");
                 switch (drag) {
                     case "single-select":

@@ -27,7 +27,7 @@ var BaseInfo = Spine.Controller.sub({
         reader.onload = function (e) {
             var img = document.getElementById(targetId);
             img.src = this.result;
-        }
+        };
         reader.readAsDataURL(document.getElementById(sourceId).files[0]);
     }
 });

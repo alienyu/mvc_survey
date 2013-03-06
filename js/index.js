@@ -7,8 +7,8 @@ $(function () {
 
             Spine.bind('show_control_bar', this.showControlBar);
 
-            this.baseinfo = new BaseInfo({ el: $("#edit_servey") });
-            this.surveycreate = new SurveyCreate({ el: $("#build_servey") });
+            this.baseinfo = new BaseInfo({ el: $("#add-base-info") });
+            this.surveycreate = new SurveyCreate({ el: $("#build-survey-questions") });
 
         },
         showControlBar: function (obj) {

@@ -9,6 +9,7 @@
     <script type="text/javascript" src="js/lib/spine.js"></script>
     <script type="text/javascript" src="js/lib/jquery-1.8.0.min.js"></script>
     <script type="text/javascript" src="js/lib/jquery-ui/jquery-ui.js"></script>
+    <script type="text/javascript" src="js/lib/jquery.tmpl.js"></script>
     <script type="text/javascript" src="js/lib/jwysiwyg/jquery.wysiwyg.js"></script>
     <script type="text/javascript" src="js/controller/baseinfo.js"></script>
     <script type="text/javascript" src="js/controller/question.preview.js"></script>
@@ -55,69 +56,7 @@
                 </div>
             </div>
             <ul id="ul_serveyList" class="preview" style="list-style-type: none">
-                <li id="li_question_1">
-                    <div id="question_1" style="border: 1px #000000 solid">
-                        <div class="view-question-content">
-                            问题<span>1</span>：<div>
-                                你的洗发水品牌是什么?</div>
-                        </div>
-                        <div id="question_1_option">
-                            <div style="float: left">
-                                <input id="question_1_op1" type="checkbox" name="question_1_op"><span>海飞丝</span></div>
-                            <div style="float: left">
-                                <input id="question_1_op2" type="checkbox" name="question_1_op"><span>多芬</span></div>
-                            <div style="float: left">
-                                <input id="question_1_op3" type="checkbox" name="question_1_op"><span>夏士莲</span></div>
-                            <div style="float: left">
-                                <input id="question_1_op4" type="checkbox" name="question_1_op"><span>沙宣</span></div>
-                        </div>
-                        <div id="question_1_set" style="text-align: right; border: 1px #000000 dotted">
-                            <a href="#">分页</a>&nbsp;&nbsp;<a href="#">删除</a>&nbsp;&nbsp;<a href="#">修改</a>
-                        </div>
-                    </div>
-                </li>
-                <li id="li_question_2">
-                    <div id="q2" style="border: 1px #000000 solid">
-                        <div class="view-question-content">
-                            问题<span>2</span>：<div>
-                                你喜欢的服装品牌?</div>
-                        </div>
-                        <div class="option-list">
-                            <div>
-                                <input id="q2_op1" type="radio" name="question_2_op"><span>SELECT</span></div>
-                            <div>
-                                <input id="q2_op2" type="radio" name="question_2_op"><span>七匹狼</span></div>
-                            <div>
-                                <input id="q2_op3" type="radio" name="question_2_op"><span>美津浓</span></div>
-                            <div>
-                                <input id="q2_op4" type="radio" name="question_2_op"><span>佐丹奴</span></div>
-                        </div>
-                        <div class="question_set" style="text-align: right; border: 1px #000000 dotted">
-                            <a href="#">分页</a>&nbsp;&nbsp;<a href="#">删除</a>&nbsp;&nbsp;<a href="#">修改</a>
-                        </div>
-                    </div>
-                </li>
-                <li id="li_question_3">
-                    <div id="q3" style="border: 1px #000000 solid">
-                        <div class="view-question-content">
-                            问题<span>3</span>：<div>
-                                你喜欢的牙膏品牌?</div>
-                        </div>
-                        <div id="q3_option">
-                            <div>
-                                <input id="q3_op1" type="checkbox" name="question_3_op"><span>黑人</span></div>
-                            <div>
-                                <input id="q3_op2" type="checkbox" name="question_3_op"><span>高露洁</span></div>
-                            <div>
-                                <input id="q3_op3" type="checkbox" name="question_3_op"><span>佳洁士</span></div>
-                            <div>
-                                <input id="q3_op4" type="checkbox" name="question_3_op"><span>田七</span></div>
-                        </div>
-                        <div id="q3_set" style="text-align: right; border: 1px #000000 dotted">
-                            <a href="#">分页</a>&nbsp;&nbsp;<a href="#">删除</a>&nbsp;&nbsp;<a href="#">修改</a>
-                        </div>
-                    </div>
-                </li>
+
             </ul>
             <div id='tempDiv' style='display: none;'>
             </div>
@@ -246,7 +185,7 @@
             <div id="question_editor">
                 <span>问卷名：</span>
                 <span>汽车用户调研问卷</span><br/>
-                <div id="question-template" style="width:200px;height:200px">
+                <div id="creator-area" style="width:200px;height:200px">
                     将左侧的问题拖拽至此添加问卷问题
                 </div>
             </div>
@@ -254,6 +193,37 @@
         <div class="servey-edit-next" style="clear: both;">
             <input type="button" value="上一步" onclick="$('#tabs').tabs('option', 'active', 0 );" />
             <input type="button" value="下一步" onclick="$('#tabs').tabs('enable', 2);$('#tabs').tabs('option', 'active', 2 );" />
+        </div>
+    </script>
+
+    <!-- This is for question crearor text -->
+    <script type="text/x-jquery-tmpl" id="question-text-creator-template">
+        <span>问题：<textarea id="question-text" rows="5" cols="65"></textarea></span><input type="checkbox" /><span id="necessary">必须回答</span>
+    </script>
+
+    <!-- This is for radio question options template -->
+    <script type="text/x-jquery-tmpl" id="radio-option-creator-template">
+        <div>
+            <div id="option-creators">
+                <div class="option-creator">
+                    <span>${optionTag}</span>
+                    <select>
+                        <option value="0">选项</option>
+                        <option value="1">开放</option>
+                    </select>
+                    <input/>
+                    <img src="images/u501_normal.png">
+                    <img class="remove-option-tag" src="images/u156_normal.gif">
+                </div>
+            </div>
+            <img id="add-option-tag" src="images/u158_normal.gif">
+            <div>
+                <span>显示方式</span>
+                <select id="arrangement">
+                    <option value="横向显示">横向显示</option>
+                    <option value="纵向显示">纵向显示</option>
+                </select>
+            </div>
         </div>
     </script>
 </body>

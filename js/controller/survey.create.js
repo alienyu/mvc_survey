@@ -22,13 +22,19 @@ var SurveyCreate = Spine.Controller.sub({
               var drag = ui.draggable.text().trim();
               switch (drag) {
                   case '单选':
-                      createQuestion(0, 0);
+                      //TODO:create single select question
                       break;
                   case '多选':
-                      createQuestion(1, 0);
+                      //TODO:create multi select question
+                      break;
+                  case '矩阵':
+                      //TODO:create matrix question
                       break;
                   case '开放':
-                      createQuestion(3 ,0);
+                      //TODO:create open question
+                      break;
+                  case '地区':
+                      //TODO:create region question
                       break;
               }
           }

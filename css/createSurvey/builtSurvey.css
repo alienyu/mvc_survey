@@ -1,0 +1,24 @@
+#questionType ul li div{
+  width: 50px;
+  border: 1px #000000 solid;
+  margin: 5px
+}
+
+#question_editor {
+  width: 700px;
+  border: 1px solid #000000
+}
+
+#questionType {
+  float: left;
+  margin: 5px;
+  border: 1px solid #000000
+}
+
+.horizontal {
+  float: left;
+}
+
+.vertical {
+
+}

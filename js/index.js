@@ -5,8 +5,6 @@ $(function () {
             //tab initial
             $("#tabs").tabs({ disabled: [1, 2, 3] });
 
-            Spine.bind('show_control_bar', this.showControlBar);
-
             this.baseinfo = new BaseInfo({ el: $("#add-base-info") });
             this.surveycreate = new SurveyCreate({ el: $("#build-survey-questions") });
 

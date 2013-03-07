@@ -10,7 +10,8 @@ var SurveyCreate = Spine.Controller.sub({
 
     events: {
         "click #add-option-tag": "addOption",
-        "click .remove-option-tag": "removeOption"
+        "click .remove-option-tag": "removeOption",
+        "click #question-save": "saveQuestion"
     },
 
     show: function () {
@@ -80,6 +81,7 @@ var SurveyCreate = Spine.Controller.sub({
         $(this.creatorArea).droppable({
             drop: function (e, ui) {
                 var drag = ui.draggable.attr("id");
+                that.question = new Question();
                 that.question.type = drag;
                 that.initQuestionCreator();
             }
@@ -91,9 +93,6 @@ var SurveyCreate = Spine.Controller.sub({
         this.show();
         //inital the question creator draggable
         this.bindDraggable();
-
-        //create an instance of Question
-        this.question = new Question();
     },
 
     addOption: function () {
@@ -109,5 +108,26 @@ var SurveyCreate = Spine.Controller.sub({
         optionCreators.each(function (item, element) {
             $(element).find("span").html((String.fromCharCode(65 + item)));
         });
+    },
+
+    saveQuestion: function() {
+        this.question.description  =$('#question-textIFrame').contents().find('body').html();
+        this.question.necessary = !!($('#necessary').val());
+        var options = [];
+        $('.option-creator').each(function(){
+            optionIndex = $(this).find('span').html();
+            optionType = $(this).find("option:selected").text();
+            optionContent = $(this).find("input").val();
+            option = {
+                index: optionIndex,
+                type: optionType,
+                content: optionContent
+            };
+            options.push(option);
+        });
+        this.question.options = options;
+        this.question.arrangement = $('#arrangement').find("option:selected").text();
+        this.question.save();
+        console.log(this.question);
     }
 });

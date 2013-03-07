@@ -170,7 +170,7 @@
                 将左侧的问题拖拽至此添加问卷问题
             </div>
             <div>
-                <input type="button" value="保存" />
+                <input type="button" id="question-save" value="保存" />
                 <input type="button" value="取消" />
             </div>
         </div>
@@ -228,7 +228,7 @@
     </script>
     <!-- This is for question crearor text -->
     <script type="text/x-jquery-tmpl" id="question-text-creator-template">
-        <span>问题：<textarea id="question-text" rows="5" cols="65"></textarea></span><input type="checkbox" /><span id="necessary">必须回答</span>
+        <span>问题：<textarea id="question-text" rows="5" cols="65"></textarea></span><div><input type="checkbox" id="necessary" />必须回答</div>
     </script>
     <!-- This is for radio question options template -->
     <script type="text/x-jquery-tmpl" id="radio-option-creator-template">

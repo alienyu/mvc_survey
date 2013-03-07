@@ -43,6 +43,7 @@
             <input type="button" value="下一步" onclick="$('#tabs').tabs('enable', 4);$('#tabs').tabs('option', 'active', 4 );" />
         </div>
         <div id="survey-preview">
+            <ul id="survey-preview-list"></ul>
         </div>
     </div>
     <!-- These are templates for controller -->
@@ -170,7 +171,7 @@
                 将左侧的问题拖拽至此添加问卷问题
             </div>
             <div>
-                <input type="button" value="保存" />
+                <input type="button" id="question-save" value="保存" />
                 <input type="button" value="取消" />
             </div>
         </div>
@@ -180,55 +181,27 @@
         </div>
     </script>
     <script type="text/x-jquery-tmpl" id="survey-preview-template">
-            <div id="radio-template" style="visibility: hidden">
-                <div style="border: 1px #000000 solid">
-                    <div class="view-question-content">
+
+            <div class="radio-template">
+               <div style="border: 1px #000000 solid">
+                   <div class="view-question-content">
+                       <div>${questionIndex}.${questionDescription}</div>
+                   </div>
+                   <div class="option-list">
+                   </div>
+                   <div class="question_set" style="text-align: right; border: 1px #000000 dotted">
+                       <input type="checkbox" class="add-break" onchange="$(this).val($(this).attr('checked'))" />分页&nbsp;&nbsp;<a
+                           class="remove-question" href="#">删除</a>&nbsp;&nbsp;<a class="edit-quesiton" href="#">修改</a>
                     </div>
-                    <div class="option-list">
-                    </div>
-                    <div class="question_set" style="text-align: right; border: 1px #000000 dotted">
-                        <input type="checkbox" class="add-break" onchange="$(this).val($(this).attr('checked'))" />分页&nbsp;&nbsp;<a
-                            class="remove-question" href="#">删除</a>&nbsp;&nbsp;<a class="edit-quesiton" href="#">修改</a>
-                    </div>
-                </div>
+               </div>
             </div>
-            <ul id="survey-preview-list">
-                <li>
-                    <div class="view-question-content">
-                        <span>
-                            1
-                        </span>
-                    </div>
-                </li>
-                <li>
-                    <div class="view-question-content">
-                        <span>
-                            2
-                        </span>
-                    </div>
-                </li>
-                <li>
-                    <div class="view-question-content">
-                        <span>
-                            3
-                        </span>
-                    </div>
-                </li>
-                <li>
-                    <div class="view-question-content">
-                        <span>
-                            4
-                        </span>
-                    </div>
-                </li>
-            </ul>
-            <div id='tempDiv' style='display: none;'>
-            </div>
-            <input type="button" value="保存" />
+
+        <div id='tempDiv' style='display: none;'></div>
+        <input type="button" value="保存" />
     </script>
     <!-- This is for question crearor text -->
     <script type="text/x-jquery-tmpl" id="question-text-creator-template">
-        <span>问题：<textarea id="question-text" rows="5" cols="65"></textarea></span><input type="checkbox" /><span id="necessary">必须回答</span>
+        <span>问题：<textarea id="question-text" rows="5" cols="65"></textarea></span><div><input type="checkbox" id="necessary" />必须回答</div>
     </script>
     <!-- This is for radio question options template -->
     <script type="text/x-jquery-tmpl" id="radio-option-creator-template">

@@ -111,8 +111,9 @@ var SurveyCreate = Spine.Controller.sub({
     },
 
     saveQuestion: function() {
+        $('#survey-preview-list').empty();
         this.question.description  =$('#question-textIFrame').contents().find('body').html();
-        this.question.necessary = !!($('#necessary').val());
+        this.question.necessary = $('input[type=checkbox]').filter('#necessary')[0].checked;
         var options = [];
         $('.option-creator').each(function(){
             optionIndex = $(this).find('span').html();
@@ -123,6 +124,7 @@ var SurveyCreate = Spine.Controller.sub({
         });
         this.question.options = options;
         this.question.arrangement = $('#arrangement').find("option:selected").text();
+        //TODO:change logic
         this.question.save();
         new QuestionPreview({ el: $("#survey-preview") });
     }

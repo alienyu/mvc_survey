@@ -1,2 +1,2 @@
-var Options = Spine.Model.sub();
-Options.configure('Options', 'type');
+var Option = Spine.Model.sub();
+Option.configure('Options', 'index', 'type', 'content');

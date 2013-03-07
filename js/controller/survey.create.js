@@ -118,16 +118,12 @@ var SurveyCreate = Spine.Controller.sub({
             optionIndex = $(this).find('span').html();
             optionType = $(this).find("option:selected").text();
             optionContent = $(this).find("input").val();
-            option = {
-                index: optionIndex,
-                type: optionType,
-                content: optionContent
-            };
+            option = new Option({index:optionIndex, type:optionType, content:optionContent});
             options.push(option);
         });
         this.question.options = options;
         this.question.arrangement = $('#arrangement').find("option:selected").text();
         this.question.save();
-        console.log(this.question);
+        new QuestionPreview({ el: $("#survey-preview") });
     }
 });

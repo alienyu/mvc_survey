@@ -13,6 +13,7 @@ var QuestionPreview = Spine.Controller.sub({
         //show template
         this.show();
         this.sortableList();
+        this.showQuestions();
         //init widgets
     },
     sortableList: function () {
@@ -26,5 +27,10 @@ var QuestionPreview = Spine.Controller.sub({
             }
         });
         $(this.surveyPreviewList).disableSelection();
+    },
+
+    showQuestions: function(){
+      this.questions = Question.all();
+        console.log(this.questions);
     }
 });

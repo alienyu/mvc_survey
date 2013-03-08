@@ -43,7 +43,7 @@
             <input type="button" value="下一步" onclick="$('#tabs').tabs('enable', 4);$('#tabs').tabs('option', 'active', 4 );" />
         </div>
         <div id="survey-preview">
-            <ul id="survey-preview-list"></ul>
+            
         </div>
     </div>
     <!-- These are templates for controller -->
@@ -181,23 +181,25 @@
         </div>
     </script>
     <script type="text/x-jquery-tmpl" id="survey-preview-template">
+        <ul id="survey-preview-list">
 
-            <div class="radio-template">
-               <div style="border: 1px #000000 solid">
-                   <div class="view-question-content">
-                       <div>${questionIndex}.${questionDescription}</div>
-                   </div>
-                   <div class="option-list">
-                   </div>
-                   <div class="question_set" style="text-align: right; border: 1px #000000 dotted">
-                       <input type="checkbox" class="add-break" onchange="$(this).val($(this).attr('checked'))" />分页&nbsp;&nbsp;<a
-                           class="remove-question" href="#">删除</a>&nbsp;&nbsp;<a class="edit-quesiton" href="#">修改</a>
-                    </div>
-               </div>
-            </div>
-
-        <div id='tempDiv' style='display: none;'></div>
+        </ul>
         <input type="button" value="保存" />
+    </script>
+    <!-- This is for radio question options template -->
+    <script type="text/x-jquery-tmpl" id="question-priview-template">
+        <li>
+            <div>
+                ${questionIndex}.${questionDescription}
+            </div>
+            <div>
+                ${optionList}
+            </div>
+            <div style="text-align: right; border-bottom: 1px solid #ccc;">
+                <input type="checkbox" class="add-break" />分页&nbsp;&nbsp;<a
+                    class="remove-question" href="#">删除</a>&nbsp;&nbsp;<a class="edit-quesiton" href="#">修改</a>
+            </div>
+        </li>
     </script>
     <!-- This is for question crearor text -->
     <script type="text/x-jquery-tmpl" id="question-text-creator-template">

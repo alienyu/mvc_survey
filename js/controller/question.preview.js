@@ -34,11 +34,16 @@ var QuestionPreview = Spine.Controller.sub({
     },
 
     initRadioPreview: function (options, questionTag) {
+        var optionsValue = [];
         var questionOptions = "";
         $(options).each(function (index, element) {
-            questionOptions += '<input type="radio" name=' + questionTag + '/> ' + element.index + '.' + element.content
+            var radioValue = {};
+            radioValue.name = questionTag;
+            radioValue.index = element.index;
+            radioValue.content = element.content;
+            optionsValue.push(radioValue);
         });
-        $(".option-list:last").append(questionOptions);
+        $("#radio-option-tmplate").tmpl(optionsValue).appendTo(".option-list:last");
     },
 
     renderQuestions: function (e) {
@@ -57,6 +62,6 @@ var QuestionPreview = Spine.Controller.sub({
 
     removeQuestion: function (e) {
         var index = $(e.target).parents("li").index();
-        surveyInstance.deleteQuestion(surveyInstance.questions[index]);
+        surveyInstance.deleteQuestion(index);
     }
 });

@@ -43,7 +43,7 @@ var QuestionPreview = Spine.Controller.sub({
             radioValue.content = element.content;
             optionsValue.push(radioValue);
         });
-        $("#radio-option-tmplate").tmpl(optionsValue).appendTo(".option-list:last");
+        $("#radio-option-template").tmpl(optionsValue).appendTo(".option-list:last");
     },
 
     initMultiPreview: function (options, questionTag) {
@@ -56,7 +56,7 @@ var QuestionPreview = Spine.Controller.sub({
             multiValue.content = element.content;
             optionsValue.push(multiValue);
         });
-        $("#multi-option-tmplate").tmpl(optionsValue).appendTo(".option-list:last");
+        $("#multi-option-template").tmpl(optionsValue).appendTo(".option-list:last");
         //TODO:max and min restrict
     },
 

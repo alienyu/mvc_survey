@@ -19,8 +19,7 @@ var SurveyCreate = Spine.Controller.sub({
     },
 
     initQuestionCreator: function (type) {
-        this.question = new Question();
-        this.question.type = type;
+        this.question = new Question({"type":type});
 
         $(this.creatorArea).empty().height("auto");
         this.questionTextCreator();
@@ -124,6 +123,8 @@ var SurveyCreate = Spine.Controller.sub({
             });
             this.question.options = options;
             this.question.arrangement = $('#arrangement').find("option:selected").text();
+            this.question.maxSelection = $('#max-select-num').find("option:selected").text();
+            this.question.minSelection = $('#min-select-num').find("option:selected").text();
             //TODO:change logic
             //this.question.save();/
             surveyInstance.insertQuestion(this.question);

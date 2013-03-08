@@ -15,7 +15,8 @@ var QuestionPreview = Spine.Controller.sub({
         this.show();
         this.sortableList();
         //init widgets
-        this.proxyAll("renderQuestions");
+        //this.proxyAll("renderQuestions");
+        surveyInstance.bind("questionChange", this.proxy(this.renderQuestions));
     },
     sortableList: function () {
         $(this.surveyPreviewList).sortable({
@@ -30,29 +31,25 @@ var QuestionPreview = Spine.Controller.sub({
         $(this.surveyPreviewList).disableSelection();
     },
 
-    initRadioPreview: function (preview, index) {
-        var question = $($("#question-priview-template").html()).tmpl({ "questionIndex": index, "questionDescription": preview.description });
-        var questionOptions = '';
-        $(preview.options).each(function () {
-            questionOptions += '<input type="radio" name=' + index + '/> ' + this.index + '.' + this.content
+    initRadioPreview: function (options, questionTag) {
+        var questionOptions = "";
+        $(options).each(function (index, element) {
+            questionOptions += '<input type="radio" name=' + questionTag + '/> ' + element.index + '.' + element.content
         });
-        question.find('.option-list').append(questionOptions);
-        return question
+        $(".option-list:last").append(questionOptions);
     },
 
     renderQuestions: function (e) {
         $(this.surveyPreviewList).empty();
-
         var that = this;
         var previewContent = this.surveyPreviewList;
         $(e.questions).each(function (index, element) {
             $(previewContent).append($($("#question-priview-template").html()).tmpl({ "questionIndex": index + 1, "questionDescription": element.description }));
             switch (element.type) {
                 case "single-select":
-                    //previewTemplate = that.initRadioPreview(preview, index + 1);
+                    that.initRadioPreview(element.options, index + 1);
+                    break;
             };
-            //$(that.surveyPreviewList).append('<li>' + previewTemplate.html().trim() + '</li>');
         });
-        $(this.surveyPreviewList).append(previewContent);
     }
 });

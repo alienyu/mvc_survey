@@ -46,6 +46,28 @@ var QuestionPreview = Spine.Controller.sub({
         $("#radio-option-tmplate").tmpl(optionsValue).appendTo(".option-list:last");
     },
 
+    initMultiPreview: function (options, questionTag) {
+        var optionsValue = [];
+        var questionOptions = '';
+        $(options).each(function (index, element) {
+            var multiValue = {};
+            multiValue.name = questionTag;
+            multiValue.index = element.index;
+            multiValue.content = element.content;
+            optionsValue.push(multiValue);
+        });
+        $("#multi-option-tmplate").tmpl(optionsValue).appendTo(".option-list:last");
+        //TODO:max and min restrict
+    },
+
+    initMatrixPreview: function() {
+        //TODO:for matrix
+    },
+
+    initOpenPreview: function() {
+        var editArea = '<textarea></textarea>';
+        $(".option-list:last").append(editArea);
+    },
     renderQuestions: function (e) {
         $(this.surveyPreviewList).empty();
         var that = this;
@@ -56,7 +78,16 @@ var QuestionPreview = Spine.Controller.sub({
                 case "single-select":
                     that.initRadioPreview(element.options, index + 1);
                     break;
-            };
+                case "multi-select":
+                    that.initMultiPreview(element.options, index + 1);
+                    break;
+                case "matrix":
+                    that.initMatrixPreview();
+                    break;
+                case "open":
+                    that.initOpenPreview(index + 1);
+                    break;
+            }
         });
     },
 

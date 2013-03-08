@@ -43,7 +43,7 @@
             <input type="button" value="下一步" onclick="$('#tabs').tabs('enable', 4);$('#tabs').tabs('option', 'active', 4 );" />
         </div>
         <div id="survey-preview">
-            
+
         </div>
     </div>
     <!-- These are templates for controller -->
@@ -195,8 +195,9 @@
             <div class="option-list">
             </div>
             <div style="text-align: right; border-bottom: 1px solid #ccc;">
-                <input type="checkbox" class="add-break" />分页&nbsp;&nbsp;<a
-                    class="remove-question" href="#">删除</a>&nbsp;&nbsp;<a class="edit-quesiton" href="#">修改</a>
+                <input type="checkbox" class="add-break" />分页&nbsp;&nbsp;
+                <a class="remove-question" href="#">删除</a>&nbsp;&nbsp;
+                <a class="edit-quesiton" href="#">修改</a>
             </div>
         </li>
     </script>
@@ -277,6 +278,10 @@
                 说明：选择可选的地区级别。只有选择了上一级地区后，方可选择下一级地区项。例如：选择省后，市可选，但不可选择区。
             </p>
         </div>
+    </script>
+    <!-- This is for the radio option tmplate -->
+    <script type="text/x-jquery-tmpl" id="radio-option-tmplate">
+        <input type="radio" name=${name}/> ${index}.${content}
     </script>
 </body>
 </html>

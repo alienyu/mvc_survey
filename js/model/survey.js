@@ -6,8 +6,8 @@ Survey.include({
         this.questions.push(item);
         this.trigger("questionChange", this.questions);
     },
-    deleteQuestion: function (item) {
-        //To do: delete item from questions
+    deleteQuestion: function (index) {
+        this.questions.splice(index, 1);
         this.trigger("questionChange", this.questions);
     },
     updateQuestion: function (item) {

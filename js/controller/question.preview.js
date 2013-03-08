@@ -6,15 +6,17 @@ var QuestionPreview = Spine.Controller.sub({
     elements: {
         "#survey-preview-list": "surveyPreviewList"
     },
+    proxied: ["renderQuestions"],
     show: function () {
-        //this.el.html(this.template());
+        this.el.html(this.template());
     },
     init: function () {
         //show template
         this.show();
         this.sortableList();
-        this.showQuestions();
         //init widgets
+        //this.proxyAll("renderQuestions");
+        surveyInstance.bind("questionChange", this.proxy(this.renderQuestions));
     },
     sortableList: function () {
         $(this.surveyPreviewList).sortable({
@@ -22,41 +24,32 @@ var QuestionPreview = Spine.Controller.sub({
             items: "li",
             deactivate: function (event, ui) {
                 ui.item.parent().find("li").each(function (index, element) {
-                    $(element).find(".view-question-content").children("span").html(index + 1);
+                    //$(element).find(".view-question-content").children("span").html(index + 1);
                 });
             }
         });
         $(this.surveyPreviewList).disableSelection();
     },
 
-    showQuestions: function() {
-        var that = this;
-        $(Question.all()).each(function(index,element){
-            //set arguments for each type
-            var preview = {
-            type: this.type,
-            description: this.description,
-            necessary: this.necessary,
-            arrangement: this.arrangement,
-            options: this.options
-            };
-            var previewTemplate;
-            switch(preview.type) {
-                case "single-select":
-                    previewTemplate = that.initRadioPreview(preview,index+1);
-            };
-            $(that.surveyPreviewList).append('<li>' + previewTemplate.html().trim() + '</li>');
-
+    initRadioPreview: function (options, questionTag) {
+        var questionOptions = "";
+        $(options).each(function (index, element) {
+            questionOptions += '<input type="radio" name=' + questionTag + '/> ' + element.index + '.' + element.content
         });
+        $(".option-list:last").append(questionOptions);
     },
 
-    initRadioPreview: function(preview, index) {
-        var question = $($("#survey-preview-template").html()).tmpl({"questionIndex": index, "questionDescription": preview.description});
-        var questionOptions = '';
-        $(preview.options).each(function() {
-            questionOptions += '<input type="radio" name=' + index+ '/> '+ this.index + '.' + this.content
+    renderQuestions: function (e) {
+        $(this.surveyPreviewList).empty();
+        var that = this;
+        var previewContent = this.surveyPreviewList;
+        $(e.questions).each(function (index, element) {
+            $(previewContent).append($($("#question-priview-template").html()).tmpl({ "questionIndex": index + 1, "questionDescription": element.description }));
+            switch (element.type) {
+                case "single-select":
+                    that.initRadioPreview(element.options, index + 1);
+                    break;
+            };
         });
-        question.find('.option-list').append(questionOptions);
-        return question
     }
 });

@@ -18,7 +18,10 @@ var SurveyCreate = Spine.Controller.sub({
         this.el.html(this.template());
     },
 
-    initQuestionCreator: function () {
+    initQuestionCreator: function (type) {
+        this.question = new Question();
+        this.question.type = type;
+
         $(this.creatorArea).empty().height("auto");
         this.questionTextCreator();
         var creatorTemplate;
@@ -80,10 +83,7 @@ var SurveyCreate = Spine.Controller.sub({
         //add question
         $(this.creatorArea).droppable({
             drop: function (e, ui) {
-                var drag = ui.draggable.attr("id");
-                that.question = new Question();
-                that.question.type = drag;
-                that.initQuestionCreator();
+                that.initQuestionCreator(ui.draggable.attr("id"));
             }
         });
     },
@@ -110,22 +110,27 @@ var SurveyCreate = Spine.Controller.sub({
         });
     },
 
-    saveQuestion: function() {
-        $('#survey-preview-list').empty();
-        this.question.description  =$('#question-textIFrame').contents().find('body').html();
-        this.question.necessary = $('input[type=checkbox]').filter('#necessary')[0].checked;
-        var options = [];
-        $('.option-creator').each(function(){
-            optionIndex = $(this).find('span').html();
-            optionType = $(this).find("option:selected").text();
-            optionContent = $(this).find("input").val();
-            option = new Option({index:optionIndex, type:optionType, content:optionContent});
-            options.push(option);
-        });
-        this.question.options = options;
-        this.question.arrangement = $('#arrangement').find("option:selected").text();
-        //TODO:change logic
-        this.question.save();
-        new QuestionPreview({ el: $("#survey-preview") });
+    saveQuestion: function () {
+        if (this.question) {
+            this.question.description = $('#question-textIFrame').contents().find('body').html();
+            this.question.necessary = $('input[type=checkbox]').filter('#necessary')[0].checked;
+            var options = [];
+            $('.option-creator').each(function () {
+                optionIndex = $(this).find('span').html();
+                optionType = $(this).find("option:selected").text();
+                optionContent = $(this).find("input").val();
+                option = new Option({ index: optionIndex, type: optionType, content: optionContent });
+                options.push(option);
+            });
+            this.question.options = options;
+            this.question.arrangement = $('#arrangement').find("option:selected").text();
+            //TODO:change logic
+            //this.question.save();/
+            surveyInstance.insertQuestion(this.question);
+            $(this.creatorArea).empty().height(200);
+            this.question = null;
+        } else {
+            alert("No question has been created!");
+        }
     }
 });

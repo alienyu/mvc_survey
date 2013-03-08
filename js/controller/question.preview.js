@@ -6,7 +6,9 @@ var QuestionPreview = Spine.Controller.sub({
     elements: {
         "#survey-preview-list": "surveyPreviewList"
     },
-    proxied: ["renderQuestions"],
+    events: {
+        "click .remove-question": "removeQuestion"
+    },
     show: function () {
         this.el.html(this.template());
     },
@@ -51,5 +53,10 @@ var QuestionPreview = Spine.Controller.sub({
                     break;
             };
         });
+    },
+
+    removeQuestion: function (e) {
+        var index = $(e.target).parents("li").index();
+        surveyInstance.deleteQuestion(surveyInstance.questions[index]);
     }
 });

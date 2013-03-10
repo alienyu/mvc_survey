@@ -22,12 +22,17 @@ var QuestionPreview = Spine.Controller.sub({
     },
     sortableList: function () {
         $(this.surveyPreviewList).sortable({
-            containment: "parent",
             items: "li",
+            activate: function (event, ui) {
+                this.oldindex = ui.item.index();
+            },
             deactivate: function (event, ui) {
-                ui.item.parent().find("li").each(function (index, element) {
-                    //$(element).find(".view-question-content").children("span").html(index + 1);
-                });
+                if (this.oldindex != ui.item.index()) {
+                    ui.item.parent().find("li").each(function (index, element) {
+                        $(element).find("span").html(index + 1);
+                    });
+                    surveyInstance.sortQuestion(this.oldindex, ui.item.index());
+                }
             }
         });
         $(this.surveyPreviewList).disableSelection();

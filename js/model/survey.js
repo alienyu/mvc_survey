@@ -25,5 +25,8 @@ Survey.include({
     editQuestion: function (index) {
         this.questionIndex = index;
         this.trigger("editQuestion", this.questions[index]);
+    },
+    sortQuestion: function (oldIndex, newIndex) {
+        this.questions.move(oldIndex, newIndex);
     }
 });

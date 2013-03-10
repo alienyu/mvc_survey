@@ -7,7 +7,8 @@ var QuestionPreview = Spine.Controller.sub({
         "#survey-preview-list": "surveyPreviewList"
     },
     events: {
-        "click .remove-question": "removeQuestion"
+        "click .remove-question": "removeQuestion",
+        "click .edit-question": "editQuestion"
     },
     show: function () {
         this.el.html(this.template());
@@ -17,7 +18,6 @@ var QuestionPreview = Spine.Controller.sub({
         this.show();
         this.sortableList();
         //init widgets
-        //this.proxyAll("renderQuestions");
         surveyInstance.bind("questionChange", this.proxy(this.renderQuestions));
     },
     sortableList: function () {
@@ -60,11 +60,11 @@ var QuestionPreview = Spine.Controller.sub({
         //TODO:max and min restrict
     },
 
-    initMatrixPreview: function() {
+    initMatrixPreview: function () {
         //TODO:for matrix
     },
 
-    initOpenPreview: function() {
+    initOpenPreview: function () {
         var editArea = '<textarea></textarea>';
         $(".option-list:last").append(editArea);
     },
@@ -94,5 +94,10 @@ var QuestionPreview = Spine.Controller.sub({
     removeQuestion: function (e) {
         var index = $(e.target).parents("li").index();
         surveyInstance.deleteQuestion(index);
+    },
+
+    editQuestion: function (e) {
+        var index = $(e.target).parents("li").index();
+        surveyInstance.editQuestion(index);
     }
 });

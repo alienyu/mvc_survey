@@ -107,7 +107,7 @@ var SurveyCreate = Spine.Controller.sub({
         //inital the question creator draggable
         this.bindDraggable();
 
-        surveyInstance.bind("editQuestion", this.proxy(this.editQuestion));
+        Spine.bind("clickEdit", this.proxy(this.editQuestion));
     },
 
     addOption: function () {
@@ -125,7 +125,8 @@ var SurveyCreate = Spine.Controller.sub({
     },
 
     editQuestion: function (e) {
-        this.question = e.questions[surveyInstance.questionIndex];
+        surveyInstance.activeQustIndex = e;
+        this.question = surveyInstance.questions[surveyInstance.activeQustIndex];
         this.initQuestionCreator();
     },
 
@@ -134,25 +135,41 @@ var SurveyCreate = Spine.Controller.sub({
             this.question.description = $('#question-textIFrame').contents().find('body').html();
             this.question.necessary = $('input[type=checkbox]').filter('#necessary')[0].checked;
             var options = [];
-            $('.option-creator').each(function () {
-                optionIndex = $(this).find('span').html();
-                optionType = $(this).find("option:selected").text();
-                optionContent = $(this).find("input").val();
-                option = new Option({ index: optionIndex, type: optionType, content: optionContent });
-                options.push(option);
-            });
-            this.question.options = options;
-            this.question.arrangement = $('#arrangement').find("option:selected").text();
-            this.question.maxSelection = $('#max-select-num').find("option:selected").text();
-            this.question.minSelection = $('#min-select-num').find("option:selected").text();
-            //TODO:change logic
-            //this.question.save();/
+            switch(this.question.type) {
+                case "single-select":
+                    this.getOptions(options);
+                    break;
+                case "multi-select":
+                    this.getOptions(options);
+                    this.question.maxSelection = $('#max-select-num').find("option:selected").text();
+                    this.question.minSelection = $('#min-select-num').find("option:selected").text();
+                    break;
+                case "open":
+                    this.question.valid_type = $('input[type=checkbox]').filter('#valid')[0].checked ? $('#validation').find("option:selected").text() : '';
+                    this.question.input_type = $('#input-type').find("option:selected").text();
+                    break;
+                case "area":
+                    //TODO:for horse field
+            }
             surveyInstance.updateQuestion(this.question);
             $(this.creatorArea).empty().height(200);
             this.question = null;
             surveyInstance.questionIndex = null;
+            $('#tabs').tabs('option', 'active', 4);
         } else {
             alert("No question has been created!");
         }
+    },
+
+    getOptions: function(options) {
+        $('.option-creator').each(function () {
+            optionIndex = $(this).find('span').html();
+            optionType = $(this).find("option:selected").text();
+            optionContent = $(this).find("input").val();
+            option = new Option({ index: optionIndex, type: optionType, content: optionContent });
+            options.push(option);
+        });
+        this.question.options = options;
+        this.question.arrangement = $('#arrangement').find("option:selected").text();
     }
 });

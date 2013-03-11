@@ -211,13 +211,23 @@
             <div id="option-creators">
                 <div class="option-creator">
                     <span>${optionTag}</span>
-                    <select>
+                    <select class="type-select">
                         <option value="0">选项</option>
                         <option value="1">开放</option>
                     </select>
-                    <input value="${optionValue}" />
+                    {{if type == "0"}}
+                        <input value="${optionValue}" />
+                    {{else}}
+                        <span>选项</span>
+                        <input />
+                        <span>单位</span>
+                        <input />
+                    {{/if}}
                     <img src="images/u501_normal.png">
                     <img class="remove-option-tag" src="images/u156_normal.gif">
+                    {{if type == "1"}}
+                        <input type="checkbox">验证</input>
+                    {{/if}}
                 </div>
             </div>
             <img id="add-option-tag" src="images/u158_normal.gif">
@@ -279,16 +289,14 @@
             </p>
         </div>
     </script>
-    <!-- This is for the radio option template -->
+    <!-- This is for the radio and checkbox option template -->
     <script type="text/x-jquery-tmpl" id="radio-option-template">
-        <input type="radio" name=${name}/> ${index}.${content}
+        {{if type == "textarea"}}
+            ${index}.<textarea></textarea>
+        {{else}}
+            <input type=${type} name=${name}/> ${index}.${content}
+        {{/if}}
     </script>
-    <!-- This is for the multi option template -->
-    <script type="text/x-jquery-tmpl" id="multi-option-template">
-        <input type="checkbox" name=${name}/> ${index}.${content}
-    </script>
-    <script type="text/x-jquery-tmpl" id="open-option-template">
-         ${index}.<textarea></textarea>
-    </script>
+
 </body>
 </html>

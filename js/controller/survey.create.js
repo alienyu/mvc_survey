@@ -12,6 +12,7 @@ var SurveyCreate = Spine.Controller.sub({
         "click #add-option-tag": "addOption",
         "click .remove-option-tag": "removeOption",
         "click #question-save": "saveQuestion",
+        "change .type-select": "changeSelectionView",
         "change #areaType input[type='checkbox']": "areaLinkage"
     },
 
@@ -51,16 +52,16 @@ var SurveyCreate = Spine.Controller.sub({
         if (this.question.options != null) {
             $(this.question.options).each(function (index, element) {
                 if (index === 0) {
-                    optionCreatorTemp = $("#radio-option-creator-template").tmpl({ "optionTag": "A", "optionValue": element.content });
+                    optionCreatorTemp = $("#radio-option-creator-template").tmpl({ "optionTag": "A", "type": "0", "optionValue": element.content });
                 }
                 else {
                     $(optionCreatorTemp).find("#option-creators")
-                    .append($("#radio-option-creator-template").tmpl({ "optionTag": element.index, "optionValue": element.content }).find("#option-creators .option-creator"));
+                    .append($("#radio-option-creator-template").tmpl({ "optionTag": element.index, "type": "0", "optionValue": element.content }).find("#option-creators .option-creator"));
                 }
             });
         }
         else {
-            optionCreatorTemp = $("#radio-option-creator-template").tmpl({ "optionTag": "A" });
+            optionCreatorTemp = $("#radio-option-creator-template").tmpl({ "optionTag": "A", "type": "0"});
         }
         return optionCreatorTemp;
     },
@@ -124,8 +125,12 @@ var SurveyCreate = Spine.Controller.sub({
 
     addOption: function () {
         var indexTag = String.fromCharCode(65 + $("#option-creators .option-creator").size());
-        var optionCreatorTemp = $("#radio-option-creator-template").tmpl({ "optionTag": indexTag }).find("#option-creators .option-creator");
-        $("#option-creators").append(optionCreatorTemp);
+        $("#option-creators").append(this.optionCreatorTemplate(indexTag));
+    },
+
+    optionCreatorTemplate: function (indexTag, type) {
+        type = typeof type !== 'undefined' ? type : "0";
+        return $("#radio-option-creator-template").tmpl({ "optionTag": indexTag, "type": type}).find("#option-creators .option-creator");
     },
 
     removeOption: function (e) {
@@ -166,7 +171,7 @@ var SurveyCreate = Spine.Controller.sub({
             surveyInstance.updateQuestion(this.question);
             $(this.creatorArea).empty().height(200);
             this.question = null;
-            surveyInstance.questionIndex = null;
+            surveyInstance.activeQustIndex = null;
             $('#tabs').tabs('option', 'active', 4);
         } else {
             alert("No question has been created!");
@@ -176,16 +181,14 @@ var SurveyCreate = Spine.Controller.sub({
     getOptions: function (options) {
         $('.option-creator').each(function () {
             optionIndex = $(this).find('span').html();
-            optionType = $(this).find("option:selected").text();
+            optionType = $(this).find("option:selected").val();
             optionContent = $(this).find("input").val();
             option = new Option({ index: optionIndex, type: optionType, content: optionContent });
             options.push(option);
         });
         this.question.options = options;
         this.question.arrangement = $('#arrangement').find("option:selected").text();
-
-    },
-
+      },
     getArea: function () {
         var area;
         var array = $('#areaType').children().filter('input');
@@ -196,5 +199,14 @@ var SurveyCreate = Spine.Controller.sub({
             }
         }
         return area;
+    },
+
+    changeSelectionView: function (e) {
+        var changeTempalete = $(e.target).parent();
+        var indexTag = changeTempalete.find("span").first().text();
+        var optionType = $(e.target).val();
+        var template = this.optionCreatorTemplate(indexTag, optionType);
+        changeTempalete.html(template.html());
+        changeTempalete.find(".type-select").val(optionType);
     }
-})
+});

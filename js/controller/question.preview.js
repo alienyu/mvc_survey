@@ -17,6 +17,7 @@ var QuestionPreview = Spine.Controller.sub({
         //show template
         this.show();
         this.sortableList();
+        this.addPCDDelegate();
         //init widgets
         surveyInstance.bind("questionChange", this.proxy(this.renderQuestions));
     },
@@ -86,6 +87,31 @@ var QuestionPreview = Spine.Controller.sub({
         var editArea = '<textarea></textarea>';
         $(".option-list:last").append(editArea);
     },
+
+    initAreaPreview: function (areaType) {
+     var selectors = "";
+     var prov = "<select class='area_prov'><option>请选择</option><option>北京</option><option>上海</option><option>广州</option></select>";
+     var city = "<select class='area_city'><option>请选择</option><option>北京</option><option>上海</option><option>广州</option></select>";
+     var district = "<select class='area_district'><option>请选择</option><option>朝阳</option><option>海淀</option><option>玄武</option></select>";
+        switch (areaType){
+                case "province" :
+                      selectors = prov;
+                      break;
+                  case "city" :
+                      selectors = prov;
+                      selectors += city;
+                      break;
+                  case "district" :
+                      selectors = prov;
+                      selectors += city;
+                      selectors += district;
+                      break;
+                  default :
+                      break;
+              }
+        $(".option-list:last").append(selectors);
+     },
+
     renderQuestions: function (e) {
         $(this.surveyPreviewList).empty();
         var that = this;
@@ -105,6 +131,9 @@ var QuestionPreview = Spine.Controller.sub({
                 case "open":
                     that.initOpenPreview(index + 1);
                     break;
+                case  "area":
+                    that.initAreaPreview(element.area);
+                    break;
             }
         });
     },
@@ -119,6 +148,13 @@ var QuestionPreview = Spine.Controller.sub({
         $('#tabs').tabs('option', 'active', 1);
         Spine.trigger("clickEdit", index);
     },
+
+    addPCDDelegate: function (){
+        $("div").delegate("select", "change", function(e) {
+                alert(e.target.value);
+            });
+    },
+
     submitSurvey: function () {
         surveyInstance.submitSurvey();
     }

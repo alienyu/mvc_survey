@@ -149,7 +149,7 @@ var SurveyCreate = Spine.Controller.sub({
                     this.question.input_type = $('#input-type').find("option:selected").text();
                     break;
                 case "area":
-                    //TODO:for horse field
+                    this.question.area = this.getArea();
             }
             surveyInstance.updateQuestion(this.question);
             $(this.creatorArea).empty().height(200);
@@ -171,5 +171,17 @@ var SurveyCreate = Spine.Controller.sub({
         });
         this.question.options = options;
         this.question.arrangement = $('#arrangement').find("option:selected").text();
-    }
-});
+
+      },
+       getArea: function () {
+          var area;
+          var array = $('#areaType').children().filter('input');
+          for(var i = array.length - 1; i >= 0; i--){
+             if(array[i].checked){
+                     area = array[i].id;
+                     break;
+             }
+          }
+          return area;
+       }
+})

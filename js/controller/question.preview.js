@@ -70,6 +70,7 @@ var QuestionPreview = Spine.Controller.sub({
     },
 
     initOpenPreview: function () {
+
         var editArea = '<textarea></textarea>';
         $(".option-list:last").append(editArea);
     },

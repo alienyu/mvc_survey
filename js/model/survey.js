@@ -1,4 +1,4 @@
-// this is used to defined the survey model
+ï»¿// this is used to defined the survey model
 var Survey = Spine.Model.sub();
 Survey.configure('Survey', 'questions', 'activeQustIndex');
 Survey.include({
@@ -30,31 +30,31 @@ Survey.include({
     submitSurvey: function () {
         if (this.questions && this.questions.length > 0) {
             var surveyModel = {
-                ID: "", //±àºÅ
-                question_no: $("#question-no").val(), //ÎÊ¾í±àºÅ
-                question_name: $("#question-name").val(), //ÎÊ¾íÃû
-                client_id: $("#client-id").val(), //¿Í»§±àºÅ
-                public_pic: $("#upload-public-pic").val(), //ÎÊ¾íĞû´«Í¼
-                end_date: $("#end-time").val(), //½áÊøÊ±¼ä
-                face_page: $("#upload-face-page").val(), //·âÃæ
+                ID: "", //ç¼–å·
+                question_no: $("#question-no").val(), //é—®å·ç¼–å·
+                question_name: $("#question-name").val(), //é—®å·å
+                client_id: $("#client-id").val(), //å®¢æˆ·ç¼–å·
+                public_pic: $("#upload-public-pic").val(), //é—®å·å®£ä¼ å›¾
+                end_date: $("#end-time").val(), //ç»“æŸæ—¶é—´
+                face_page: $("#upload-face-page").val(), //å°é¢
                 logo: $("#upload-logo").val(), //logo
-                bottom_page: $("#upload-bottom-age").val(), //·âµ×
-                template_id: $("#template-id").val(), //ÎÊ¾íÄ£°å
-                join_point: parseInt($("#join-point").val()), //²ÎÓëÎÊ¾í¸øÓë»ı·Ö
-                complate_point: parseInt($("#complate-point").val()), //Íê³ÉÎÊ¾í¸øÓè»ı·Ö
-                examination_type: $("#examination-type").val(), //"ÎÊ¾íÀàĞÍ",[0È¤Î¶1ÊÔÓÃ2ÉÌÎñ]
-                examination_detail: $("#examination-detail").val(), //ÎÊ¾íËµÃ÷
-                quota: 0, //Åä¶î
-                ques_count: this.questions.length, //×ÜÊÔÌâÁ¿
-                company: "", //ËùÊô¹«Ë¾
-                remark: $("#remark").val(), //±¸×¢
-                status: "", //×´Ì¬
-                question_html: this._getQuestionHtml(), //ÎÊÌâHTML
-                logic_control_js: "", //Âß¼­js
-                quota_control_js: "", //Åä¶îjs
+                bottom_page: $("#upload-bottom-age").val(), //å°åº•
+                template_id: $("#template-id").val(), //é—®å·æ¨¡æ¿
+                join_point: parseInt($("#join-point").val()), //å‚ä¸é—®å·ç»™ä¸ç§¯åˆ†
+                complate_point: parseInt($("#complate-point").val()), //å®Œæˆé—®å·ç»™äºˆç§¯åˆ†
+                examination_type: $("#examination-type").val(), //"é—®å·ç±»å‹",[0è¶£å‘³1è¯•ç”¨2å•†åŠ¡]
+                examination_detail: $("#examination-detail").val(), //é—®å·è¯´æ˜
+                quota: 0, //é…é¢
+                ques_count: this.questions.length, //æ€»è¯•é¢˜é‡
+                company: "", //æ‰€å±å…¬å¸
+                remark: $("#remark").val(), //å¤‡æ³¨
+                status: "", //çŠ¶æ€
+                question_html: this._getQuestionHtml(), //é—®é¢˜HTML
+                logic_control_js: "", //é€»è¾‘js
+                quota_control_js: "", //é…é¢js
                 topic_list: this._getTopicList(),
-                result_id: "", //´ğÌâID
-                email: "" //´ğÌâÈËemail
+                result_id: "", //ç­”é¢˜ID
+                email: "" //ç­”é¢˜äººemail
             };
 
 //            $.ajax({
@@ -78,7 +78,7 @@ Survey.include({
 
         $("#survey-preview-list").find("input[class='add-break']").each(function (index, element) {
             //            if ($(element).val() === "checked") {
-            //                $(element).parent(".question_set").replaceWith("<div class='page'>·ÖÒ³</div>");
+            //                $(element).parent(".question_set").replaceWith("<div class='page'>åˆ†é¡µ</div>");
             //            }
             //            else {
             //                $(element).parent(".question_set").remove();
@@ -96,13 +96,13 @@ Survey.include({
         var topic_list = [];
         $(this.questions).each(function (index, element) {
             var topic = {
-                question_no: index + 1, //ÊÔÌâ±àºÅ
-                question_context: element.description, //ÊÔÌâÄÚÈİ
-                question_type: "", //"ÊÔÌâÀàĞÍ",[0µ¥Ñ¡1¶àÑ¡2¾ØÕó3¿ª·Å4µØÇø]
-                allow_bland: "N", //"ÊÇ·ñ±ØĞë»Ø´ğ±êÊ¶",[Y/N]
-                max_num: 0, //×î¶à¿ÉÑ¡ÊıÁ¿
-                min_num: 0, //×îÉÙ¿ÉÑ¡ÊıÁ¿
-                area_type: "", //"ÇøÓòÀàĞÍ",[0Ê¡1ÊĞ2Çø]
+                question_no: index + 1, //è¯•é¢˜ç¼–å·
+                question_context: element.description, //è¯•é¢˜å†…å®¹
+                question_type: "", //"è¯•é¢˜ç±»å‹",[0å•é€‰1å¤šé€‰2çŸ©é˜µ3å¼€æ”¾4åœ°åŒº]
+                allow_bland: "N", //"æ˜¯å¦å¿…é¡»å›ç­”æ ‡è¯†",[Y/N]
+                max_num: 0, //æœ€å¤šå¯é€‰æ•°é‡
+                min_num: 0, //æœ€å°‘å¯é€‰æ•°é‡
+                area_type: "", //"åŒºåŸŸç±»å‹",[0çœ1å¸‚2åŒº]
                 options: null
             };
 
@@ -131,13 +131,13 @@ Survey.include({
             var ops = [];
             $(element.options).each(function (i, e) {
                 var op = {
-                    item_num: e.index, //Ñ¡Ïî±àºÅ
-                    item_type: e.type, //"Ñ¡ÏîÀàĞÍ",[0Ñ¡Ïî1¿ª·Å]
-                    item_value: e.content, //Ñ¡ÏîÖµ
-                    item_pic: "", //Ñ¡ÏîÍ¼Æ¬
-                    unit: "", //µ¥Î»
-                    validate_flag: "", //ÊÇ·ñÑéÖ¤
-                    validate_type: "" //ÑéÖ¤ÀàĞÍ
+                    item_num: e.index, //é€‰é¡¹ç¼–å·
+                    item_type: e.type, //"é€‰é¡¹ç±»å‹",[0é€‰é¡¹1å¼€æ”¾]
+                    item_value: e.content, //é€‰é¡¹å€¼
+                    item_pic: "", //é€‰é¡¹å›¾ç‰‡
+                    unit: "", //å•ä½
+                    validate_flag: "", //æ˜¯å¦éªŒè¯
+                    validate_type: "" //éªŒè¯ç±»å‹
                 };
                 ops.push(op);
             });

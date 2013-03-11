@@ -8,7 +8,8 @@ var QuestionPreview = Spine.Controller.sub({
     },
     events: {
         "click .remove-question": "removeQuestion",
-        "click .edit-question": "editQuestion"
+        "click .edit-question": "editQuestion",
+        "click #submit-survey": "submitSurvey"
     },
     show: function () {
         this.el.html(this.template());
@@ -105,5 +106,9 @@ var QuestionPreview = Spine.Controller.sub({
     editQuestion: function (e) {
         var index = $(e.target).parents("li").index();
         surveyInstance.editQuestion(index);
+    },
+
+    submitSurvey: function () {
+        surveyInstance.submitSurvey();
     }
 });

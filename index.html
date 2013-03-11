@@ -43,23 +43,22 @@
             <input type="button" value="下一步" onclick="$('#tabs').tabs('enable', 4);$('#tabs').tabs('option', 'active', 4 );" />
         </div>
         <div id="survey-preview">
-
         </div>
     </div>
     <!-- These are templates for controller -->
     <script type="text/x-jquery-tmpl" id="base-info-template">
       <div style="float: left">
-                <div id="serveyt-num">
+                <div>
                     <span>项目编号:</span> <span>
-                        <input type="text" class="pj-num" name="pj-num"></span>
+                        <input type="text" id="question-no" class="survey-model" /></span>
                 </div>
-                <div id="servey-name">
+                <div>
                     <span>问卷名:</span> <span>
-                        <input type="text" class="qu-name" name="qu-name"></span>
+                        <input type="text" id="question-name" class="survey-model" /></span>
                 </div>
-                <div id="customer">
+                <div>
                     <span>客户:</span> <span>
-                        <select class="customer">
+                        <select id ="client-id" class="survey-model">
                             <option value="请选择" selected="">请选择</option>
                             <option value="宝洁">宝洁</option>
                             <option value="宝马">宝马</option>
@@ -67,75 +66,76 @@
                         </select>
                     </span>
                 </div>
-                <div id="propaganda-pic">
+                <div>
                     <span>问卷宣传图:</span> <span>
-                        <input type="file" name="propaganda-pic" id="upload-propaganda-pic" /></span>
+                        <input type="file" id="upload-public-pic" class="survey-model" /></span>
                 </div>
-                <div id="end-time">
+                <div>
                     <span>结束时间:</span> <span>
-                        <input type="text" class="end-time"></span> <span>
+                        <input type="text"id="end-date" class="survey-model"></span> <span>
                             <input type="button" class="unlock-time" name="unlock-time" value="不限时间"></span>
                 </div>
-                <div id="cover">
+                <div>
                     <span>封面:</span> <span>
-                        <input type="file" name="propaganda-pic" id="upload-cover-pic" /></span>
+                        <input type="file" class="survey-model" id="upload-face-page" /></span>
                 </div>
-                <div id="logo">
+                <div>
                     <span>logo:</span> <span>
-                        <input type="file" name="propaganda-pic" id="upload-logo" /></span>
+                        <input type="file" class="survey-model" id="upload-logo" /></span>
                 </div>
-                <div id="back-cover">
+                <div>
                     <span>封底:</span> <span>
-                        <input type="file" name="propaganda-pic" id="upload-back-cover" /></span>
+                        <input type="file" class="survey-model" id="upload-bottom-page" /></span>
                 </div>
-                <div id="servey-template">
+                <div>
                     <span>问卷模版:</span> <span>
-                        <select class="servey-template">
-                            <option value="请选择" selected="">请选择</option>
-                            <option value="模版1">模版1</option>
-                            <option value="模版2">模版2</option>
+                        <select id="template-id" class="survey-model">
+                            <option value="0" selected="">请选择</option>
+                            <option value="1">模版1</option>
+                            <option value="2">模版2</option>
                         </select>
                     </span><span>
-                        <input type="button" class="template-manage" value="模版管理"></span>
+                        <input type="button" value="模版管理"></span>
                 </div>
-                <div id="order-way">
+                <div>
                     <span>选择排列方式：</span> <span>
-                        <input type="checkbox" class="order-way" name="order-way">
+                        <input type="checkbox" />
                     </span><span>随机排列</span>
                 </div>
-                <div id="credit-start">
+                <div>
                     <span>参与问卷给与积分:</span> <span>
-                        <input type="text" class="credit" name="credit"></span>
+                        <input type="text" id="join-point" class="survey-model" /></span>
                 </div>
-                <div id="credit-complete">
+                <div>
                     <span>完成问卷给与积分:</span> <span>
-                        <input type="text" class="credit-complete" name="credit-complete"></span>
+                        <input type="text" id="complate-point" class="survey-model" /></span>
                 </div>
-                <div id="serveyt-type">
+                <div>
                     <span>问卷类型:</span> <span>
-                        <select class="servey-type">
-                            <option value="趣味问卷" selected="">趣味问卷</option>
-                            <option value="试用问卷">试用问卷</option>
+                        <select id="examination-type" class="survey-model">
+                            <option value="0" selected="">趣味问卷</option>
+                            <option value="1">试用问卷</option>
+                            <option value="2">商务问卷</option>
                         </select>
                     </span>
                 </div>
-                <div id="servey-description">
+                <div>
                     <span>问卷说明：</span> <span>
-                        <textarea class="servey-description"></textarea>
+                        <textarea id="examination-detail" class="survey-model"></textarea>
                     </span>
                 </div>
-                <div id="remark">
+                <div>
                     <span>备注：</span> <span>
-                        <textarea class="remark"></textarea>
+                        <textarea id="remark" class="survey-model"></textarea>
                     </span>
                 </div>
             </div>
             <div style="float: right">
                 预览效果：</div>
-            <img id="imgPre-propaganda-pic" style="display: block; width: 200px; height: 200px" />
-            <img id="imgPre-cover-pic" style="display: block; width: 200px; height: 200px" />
+            <img id="imgPre-public-pic" style="display: block; width: 200px; height: 200px" />
+            <img id="imgPre-face-page" style="display: block; width: 200px; height: 200px" />
             <img id="imgPre-logo" style="display: block; width: 200px; height: 200px" />
-            <img id="imgPre-back-cover" style="display: block; width: 200px; height: 200px" />
+            <img id="imgPre-bottom-page" style="display: block; width: 200px; height: 200px" />
             <div class="servey-edit-next" style="clear: both;">
                     <input type="button" value="下一步" onclick="$('#tabs').tabs('enable', 1);$('#tabs').tabs('option', 'active', 1 );" />
                     <input type="button" class="reset" value="reset">
@@ -184,7 +184,7 @@
         <ul id="survey-preview-list">
 
         </ul>
-        <input type="button" value="保存" />
+        <input type="button" value="保存" id="submit-survey" />
     </script>
     <!-- This is for radio question options template -->
     <script type="text/x-jquery-tmpl" id="question-priview-template">

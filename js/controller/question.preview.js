@@ -51,9 +51,8 @@ var QuestionPreview = Spine.Controller.sub({
                 radioValue.content = element.content;
                 $("#radio-option-template").tmpl(radioValue).appendTo(".option-list:last");
             }
-            else
-            {
-                $("#open-option-template").tmpl({"index": element.index}).appendTo(".option-list:last");
+            else {
+                $("#open-option-template").tmpl({ "index": element.index}).appendTo(".option-list:last");
             }
         });
 
@@ -70,9 +69,8 @@ var QuestionPreview = Spine.Controller.sub({
                 multiValue.content = element.content;
                 $("#multi-option-template").tmpl(multiValue).appendTo(".option-list:last");
             }
-            else
-            {
-                $("#open-option-template").tmpl({"index": element.index}).appendTo(".option-list:last");
+            else {
+                $("#open-option-template").tmpl({ "index": element.index}).appendTo(".option-list:last");
             }
         });
 
@@ -83,9 +81,8 @@ var QuestionPreview = Spine.Controller.sub({
         //TODO:for matrix
     },
 
-    initOpenPreview: function () {
-
-        var editArea = '<textarea></textarea>';
+    initOpenPreview: function (element) {
+        var editArea = element.input_type === "文本域" ? '<textarea></textarea>' : '<input type="text" />';
         $(".option-list:last").append(editArea);
     },
 

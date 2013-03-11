@@ -8,8 +8,8 @@ var QuestionPreview = Spine.Controller.sub({
     },
     events: {
         "click .remove-question": "removeQuestion",
-        "click #submit-survey": "submitSurvey",
-        "click .edit-question": "editQuestion"
+        "click .edit-question": "editQuestion",
+        "click #submit-survey": "submitSurvey"
     },
     show: function () {
         this.el.html(this.template());
@@ -52,7 +52,7 @@ var QuestionPreview = Spine.Controller.sub({
                 $("#radio-option-template").tmpl(radioValue).appendTo(".option-list:last");
             }
             else {
-                $("#open-option-template").tmpl({ "index": element.index}).appendTo(".option-list:last");
+                $("#open-option-template").tmpl({ "index": element.index }).appendTo(".option-list:last");
             }
         });
 
@@ -70,7 +70,7 @@ var QuestionPreview = Spine.Controller.sub({
                 $("#multi-option-template").tmpl(multiValue).appendTo(".option-list:last");
             }
             else {
-                $("#open-option-template").tmpl({ "index": element.index}).appendTo(".option-list:last");
+                $("#open-option-template").tmpl({ "index": element.index }).appendTo(".option-list:last");
             }
         });
 

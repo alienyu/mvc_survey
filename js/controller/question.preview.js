@@ -89,7 +89,7 @@ var QuestionPreview = Spine.Controller.sub({
         var that = this;
         var previewContent = this.surveyPreviewList;
         $(e.questions).each(function (index, element) {
-            $("#question-priview-template").tmpl({ "questionIndex": index + 1, "questionDescription": element.description }).appendTo($(previewContent));
+            $("#question-preview-template").tmpl({ "questionIndex": index + 1, "questionDescription": element.description }).appendTo($(previewContent));
             switch (element.type) {
                 case "single-select":
                     that.initRadioPreview(element.options, index + 1);

@@ -42,26 +42,38 @@ var QuestionPreview = Spine.Controller.sub({
         var optionsValue = [];
         var questionOptions = "";
         $(options).each(function (index, element) {
-            var radioValue = {};
-            radioValue.name = questionTag;
-            radioValue.index = element.index;
-            radioValue.content = element.content;
-            optionsValue.push(radioValue);
+            if (element.type === "选项") {
+                var radioValue = {};
+                radioValue.name = questionTag;
+                radioValue.index = element.index;
+                radioValue.content = element.content;
+                $("#radio-option-template").tmpl(radioValue).appendTo(".option-list:last");
+            }
+            else
+            {
+                $("#open-option-template").tmpl({"index": element.index}).appendTo(".option-list:last");
+            }
         });
-        $("#radio-option-template").tmpl(optionsValue).appendTo(".option-list:last");
+
     },
 
     initMultiPreview: function (options, questionTag) {
         var optionsValue = [];
         var questionOptions = '';
         $(options).each(function (index, element) {
-            var multiValue = {};
-            multiValue.name = questionTag;
-            multiValue.index = element.index;
-            multiValue.content = element.content;
-            optionsValue.push(multiValue);
+            if (element.type ==="选项") {
+                var multiValue = {};
+                multiValue.name = questionTag;
+                multiValue.index = element.index;
+                multiValue.content = element.content;
+                $("#multi-option-template").tmpl(multiValue).appendTo(".option-list:last");
+            }
+            else
+            {
+                $("#open-option-template").tmpl({"index": element.index}).appendTo(".option-list:last");
+            }
         });
-        $("#multi-option-template").tmpl(optionsValue).appendTo(".option-list:last");
+
         //TODO:max and min restrict
     },
 

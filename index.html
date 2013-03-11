@@ -250,8 +250,8 @@
     <!-- This is for open question options template -->
     <script type="text/x-jquery-tmpl" id="open-option-creator-template">
         <div>
-            <div>
-                <input type="checkbox" />验证
+            <div id="validation">
+                <input type="checkbox" id="valid" />验证
                 <select>
                     <option>邮箱</option>
                     <option>手机</option>
@@ -259,7 +259,7 @@
                     <option>日期</option>
                 </select>
             </div>
-            <div>
+            <div id="input-type">
                 输入类型：
                 <select>
                     <option>输入框</option>
@@ -286,6 +286,9 @@
     <!-- This is for the multi option template -->
     <script type="text/x-jquery-tmpl" id="multi-option-template">
         <input type="checkbox" name=${name}/> ${index}.${content}
+    </script>
+    <script type="text/x-jquery-tmpl" id="open-option-template">
+         ${index}.<textarea></textarea>
     </script>
 </body>
 </html>

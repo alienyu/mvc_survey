@@ -4,12 +4,25 @@ $(function () {
         init: function () {
             //tab initial
             $("#tabs").tabs({ disabled: [1, 2, 3] });
+            this.initAreaDelegate();
 
             window.surveyInstance = new Survey({ questions: [] });
 
             this.baseinfo = new BaseInfo({ el: $("#add-base-info") });
             this.surveycreate = new SurveyCreate({ el: $("#build-survey-questions") });
             this.questionPreview = new QuestionPreview({ el: $("#survey-preview") });
+        },
+        initAreaDelegate: function(){
+            $("div").delegate("input[type=checkbox]", "click", function(e){
+                if(e.target.checked) {
+                    $("#" + e.target.id).next().attr("disabled", false);
+                } else {
+                    $("#" + e.target.id).next().attr("checked", false);
+                    $("#" + e.target.id).next().attr("disabled", true);
+                    $("#" + e.target.id).next().next().attr("checked", false);
+                    $("#" + e.target.id).next().next().attr("disabled", true);
+                }
+            });
         }
     });
 

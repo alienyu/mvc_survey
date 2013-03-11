@@ -8,6 +8,7 @@ var QuestionPreview = Spine.Controller.sub({
     },
     events: {
         "click .remove-question": "removeQuestion",
+        "click #submit-survey": "submitSurvey",
         "click .edit-question": "editQuestion"
     },
     show: function () {
@@ -62,7 +63,7 @@ var QuestionPreview = Spine.Controller.sub({
         var optionsValue = [];
         var questionOptions = '';
         $(options).each(function (index, element) {
-            if (element.type ==="选项") {
+            if (element.type === "选项") {
                 var multiValue = {};
                 multiValue.name = questionTag;
                 multiValue.index = element.index;
@@ -117,7 +118,7 @@ var QuestionPreview = Spine.Controller.sub({
         var that = this;
         var previewContent = this.surveyPreviewList;
         $(e.questions).each(function (index, element) {
-            $("#question-priview-template").tmpl({ "questionIndex": index + 1, "questionDescription": element.description }).appendTo($(previewContent));
+            $("#question-preview-template").tmpl({ "questionIndex": index + 1, "questionDescription": element.description }).appendTo($(previewContent));
             switch (element.type) {
                 case "single-select":
                     that.initRadioPreview(element.options, index + 1);
@@ -129,7 +130,7 @@ var QuestionPreview = Spine.Controller.sub({
                     that.initMatrixPreview();
                     break;
                 case "open":
-                    that.initOpenPreview(index + 1);
+                    that.initOpenPreview(element);
                     break;
                 case  "area":
                     that.initAreaPreview(element.area);

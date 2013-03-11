@@ -113,8 +113,12 @@ var SurveyCreate = Spine.Controller.sub({
 
     addOption: function () {
         var indexTag = String.fromCharCode(65 + $("#option-creators .option-creator").size());
-        var optionCreatorTemp = $("#radio-option-creator-template").tmpl({ "optionTag": indexTag, "type": "0" }).find("#option-creators .option-creator");
-        $("#option-creators").append(optionCreatorTemp);
+        $("#option-creators").append(this.optionCreatorTemplate(indexTag));
+    },
+
+    optionCreatorTemplate: function (indexTag, type) {
+        type = typeof type !== 'undefined' ? type : "0";
+        return $("#radio-option-creator-template").tmpl({ "optionTag": indexTag, "type": type}).find("#option-creators .option-creator");
     },
 
     removeOption: function (e) {
@@ -155,7 +159,7 @@ var SurveyCreate = Spine.Controller.sub({
             surveyInstance.updateQuestion(this.question);
             $(this.creatorArea).empty().height(200);
             this.question = null;
-            surveyInstance.questionIndex = null;
+            surveyInstance.activeQustIndex = null;
             $('#tabs').tabs('option', 'active', 4);
         } else {
             alert("No question has been created!");
@@ -174,19 +178,24 @@ var SurveyCreate = Spine.Controller.sub({
         this.question.arrangement = $('#arrangement').find("option:selected").text();
 
       },
-       getArea: function () {
-          var area;
-          var array = $('#areaType').children().filter('input');
-          for(var i = array.length - 1; i >= 0; i--){
-             if(array[i].checked){
-                     area = array[i].id;
-                     break;
-             }
-          }
-          return area;
-       },
+    getArea: function () {
+        var area;
+        var array = $('#areaType').children().filter('input');
+        for(var i = array.length - 1; i >= 0; i--){
+           if(array[i].checked){
+                   area = array[i].id;
+                   break;
+           }
+        }
+        return area;
+    },
 
-    changeSelectionView: function () {
-
+    changeSelectionView: function (e) {
+        var changeTempalete = $(e.target).parent();
+        var indexTag = changeTempalete.find("span").first().text();
+        var optionType = $(e.target).val();
+        var template = this.optionCreatorTemplate(indexTag, optionType);
+        changeTempalete.html(template.html());
+        changeTempalete.find(".type-select").val(optionType);
     }
 });

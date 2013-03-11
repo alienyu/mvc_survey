@@ -40,41 +40,19 @@ var QuestionPreview = Spine.Controller.sub({
         $(this.surveyPreviewList).disableSelection();
     },
 
-    initRadioPreview: function (options, questionTag) {
+    initRadioCheckPreview: function (question, questionTag) {
         var optionsValue = [];
         var questionOptions = "";
-        $(options).each(function (index, element) {
-            if (element.type === "选项") {
-                var radioValue = {};
-                radioValue.name = questionTag;
-                radioValue.index = element.index;
-                radioValue.content = element.content;
-                $("#radio-option-template").tmpl(radioValue).appendTo(".option-list:last");
-            }
-            else {
-                $("#open-option-template").tmpl({ "index": element.index }).appendTo(".option-list:last");
-            }
+        $(question.options).each(function (index, element) {
+            var radioValue = {};
+            radioValue.name = questionTag + 1;
+            radioValue.index = element.index;
+            radioValue.content = element.content;
+            var typeValue = parseInt(element.type);
+            radioValue.type = [question.type == "single-select" ? "radio" : "checkbox", "textarea"][typeValue];
+            $("#radio-option-template").tmpl(radioValue).appendTo(".option-list:last");
         });
 
-    },
-
-    initMultiPreview: function (options, questionTag) {
-        var optionsValue = [];
-        var questionOptions = '';
-        $(options).each(function (index, element) {
-            if (element.type === "选项") {
-                var multiValue = {};
-                multiValue.name = questionTag;
-                multiValue.index = element.index;
-                multiValue.content = element.content;
-                $("#multi-option-template").tmpl(multiValue).appendTo(".option-list:last");
-            }
-            else {
-                $("#open-option-template").tmpl({ "index": element.index }).appendTo(".option-list:last");
-            }
-        });
-
-        //TODO:max and min restrict
     },
 
     initMatrixPreview: function () {
@@ -117,11 +95,8 @@ var QuestionPreview = Spine.Controller.sub({
         $(e.questions).each(function (index, element) {
             $("#question-preview-template").tmpl({ "questionIndex": index + 1, "questionDescription": element.description }).appendTo($(previewContent));
             switch (element.type) {
-                case "single-select":
-                    that.initRadioPreview(element.options, index + 1);
-                    break;
-                case "multi-select":
-                    that.initMultiPreview(element.options, index + 1);
+                case "single-select": case "multi-select":
+                    that.initRadioCheckPreview(element, index);
                     break;
                 case "matrix":
                     that.initMatrixPreview();

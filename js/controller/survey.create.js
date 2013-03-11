@@ -11,7 +11,8 @@ var SurveyCreate = Spine.Controller.sub({
     events: {
         "click #add-option-tag": "addOption",
         "click .remove-option-tag": "removeOption",
-        "click #question-save": "saveQuestion"
+        "click #question-save": "saveQuestion",
+        "change .type-select": "changeSelectionView"
     },
 
     show: function () {
@@ -50,16 +51,16 @@ var SurveyCreate = Spine.Controller.sub({
         if (this.question.options != null) {
             $(this.question.options).each(function (index, element) {
                 if (index === 0) {
-                    optionCreatorTemp = $("#radio-option-creator-template").tmpl({ "optionTag": "A", "optionValue": element.content });
+                    optionCreatorTemp = $("#radio-option-creator-template").tmpl({ "optionTag": "A", "type": "0", "optionValue": element.content });
                 }
                 else {
                     $(optionCreatorTemp).find("#option-creators")
-                    .append($("#radio-option-creator-template").tmpl({ "optionTag": element.index, "optionValue": element.content }).find("#option-creators .option-creator"));
+                    .append($("#radio-option-creator-template").tmpl({ "optionTag": element.index, "type": "0", "optionValue": element.content }).find("#option-creators .option-creator"));
                 }
             });
         }
         else {
-            optionCreatorTemp = $("#radio-option-creator-template").tmpl({ "optionTag": "A" });
+            optionCreatorTemp = $("#radio-option-creator-template").tmpl({ "optionTag": "A", "type": "0"});
         }
         return optionCreatorTemp;
     },
@@ -112,7 +113,7 @@ var SurveyCreate = Spine.Controller.sub({
 
     addOption: function () {
         var indexTag = String.fromCharCode(65 + $("#option-creators .option-creator").size());
-        var optionCreatorTemp = $("#radio-option-creator-template").tmpl({ "optionTag": indexTag }).find("#option-creators .option-creator");
+        var optionCreatorTemp = $("#radio-option-creator-template").tmpl({ "optionTag": indexTag, "type": "0" }).find("#option-creators .option-creator");
         $("#option-creators").append(optionCreatorTemp);
     },
 
@@ -164,7 +165,7 @@ var SurveyCreate = Spine.Controller.sub({
     getOptions: function(options) {
         $('.option-creator').each(function () {
             optionIndex = $(this).find('span').html();
-            optionType = $(this).find("option:selected").text();
+            optionType = $(this).find("option:selected").val();
             optionContent = $(this).find("input").val();
             option = new Option({ index: optionIndex, type: optionType, content: optionContent });
             options.push(option);
@@ -183,5 +184,9 @@ var SurveyCreate = Spine.Controller.sub({
              }
           }
           return area;
-       }
-})
+       },
+
+    changeSelectionView: function () {
+
+    }
+});

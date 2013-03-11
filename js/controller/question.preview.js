@@ -9,7 +9,8 @@ var QuestionPreview = Spine.Controller.sub({
     events: {
         "click .remove-question": "removeQuestion",
         "click .edit-question": "editQuestion",
-        "click #submit-survey": "submitSurvey"
+        "click #submit-survey": "submitSurvey",
+        "change select": "selectAreaChange"
     },
     show: function () {
         this.el.html(this.template());
@@ -18,7 +19,6 @@ var QuestionPreview = Spine.Controller.sub({
         //show template
         this.show();
         this.sortableList();
-        this.addPCDDelegate();
         //init widgets
         surveyInstance.bind("questionChange", this.proxy(this.renderQuestions));
     },
@@ -115,7 +115,7 @@ var QuestionPreview = Spine.Controller.sub({
         var that = this;
         var previewContent = this.surveyPreviewList;
         $(e.questions).each(function (index, element) {
-            $("#question-preview-template").tmpl({ "questionIndex": index + 1, "questionDescription": element.description }).appendTo($(previewContent));
+            $("#question-priview-template").tmpl({ "questionIndex": index + 1, "questionDescription": element.description }).appendTo($(previewContent));
             switch (element.type) {
                 case "single-select":
                     that.initRadioPreview(element.options, index + 1);
@@ -147,10 +147,8 @@ var QuestionPreview = Spine.Controller.sub({
         Spine.trigger("clickEdit", index);
     },
 
-    addPCDDelegate: function (){
-        $("div").delegate("select", "change", function(e) {
-                alert(e.target.value);
-            });
+    selectAreaChange: function (e) {
+        alert(e.target.value);
     },
 
     submitSurvey: function () {

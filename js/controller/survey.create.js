@@ -80,19 +80,6 @@ var SurveyCreate = Spine.Controller.sub({
         return optionCreatorTemp;
     },
 
-    initAreaDelegate: function(){
-        $("div").delegate("input[type=checkbox]", "click", function(e){
-             if(e.target.checked) {
-                $("#" + e.target.id).next().attr("disabled", false);
-             } else {
-                $("#" + e.target.id).next().attr("checked", false);
-                $("#" + e.target.id).next().attr("disabled", true);
-                $("#" + e.target.id).next().next().attr("checked", false);
-                $("#" + e.target.id).next().next().attr("disabled", true);
-              }
-        });
-    },
-
     areaLinkage: function (e) {
         if (e.target.checked) {
             $("#" + e.target.id).next().attr("disabled", false);
@@ -131,7 +118,6 @@ var SurveyCreate = Spine.Controller.sub({
         this.show();
         //inital the question creator draggable
         this.bindDraggable();
-        this.initAreaDelegate();
 
         Spine.bind("clickEdit", this.proxy(this.editQuestion));
     },

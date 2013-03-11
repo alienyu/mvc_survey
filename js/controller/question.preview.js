@@ -8,7 +8,8 @@ var QuestionPreview = Spine.Controller.sub({
     },
     events: {
         "click .remove-question": "removeQuestion",
-        "click .edit-question": "editQuestion"
+        "click .edit-question": "editQuestion",
+        "click #submit-survey": "submitSurvey"
     },
     show: function () {
         this.el.html(this.template());
@@ -49,9 +50,8 @@ var QuestionPreview = Spine.Controller.sub({
                 radioValue.content = element.content;
                 $("#radio-option-template").tmpl(radioValue).appendTo(".option-list:last");
             }
-            else
-            {
-                $("#open-option-template").tmpl({"index": element.index}).appendTo(".option-list:last");
+            else {
+                $("#open-option-template").tmpl({ "index": element.index }).appendTo(".option-list:last");
             }
         });
 
@@ -61,16 +61,15 @@ var QuestionPreview = Spine.Controller.sub({
         var optionsValue = [];
         var questionOptions = '';
         $(options).each(function (index, element) {
-            if (element.type ==="选项") {
+            if (element.type === "选项") {
                 var multiValue = {};
                 multiValue.name = questionTag;
                 multiValue.index = element.index;
                 multiValue.content = element.content;
                 $("#multi-option-template").tmpl(multiValue).appendTo(".option-list:last");
             }
-            else
-            {
-                $("#open-option-template").tmpl({"index": element.index}).appendTo(".option-list:last");
+            else {
+                $("#open-option-template").tmpl({ "index": element.index }).appendTo(".option-list:last");
             }
         });
 
@@ -117,5 +116,9 @@ var QuestionPreview = Spine.Controller.sub({
         var index = $(e.target).parents("li").index();
         $('#tabs').tabs('option', 'active', 1);
         Spine.trigger("clickEdit", index);
+    },
+
+    submitSurvey: function () {
+        surveyInstance.submitSurvey();
     }
 });

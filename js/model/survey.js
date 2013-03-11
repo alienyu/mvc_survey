@@ -35,7 +35,7 @@ Survey.include({
                 question_name: $("#question-name").val(), //问卷名
                 client_id: $("#client-id").val(), //客户编号
                 public_pic: $("#upload-public-pic").val(), //问卷宣传图
-                end_date: $("#end-date").val(), //结束时间
+                end_date: $("#end-time").val(), //结束时间
                 face_page: $("#upload-face-page").val(), //封面
                 logo: $("#upload-logo").val(), //logo
                 bottom_page: $("#upload-bottom-age").val(), //封底

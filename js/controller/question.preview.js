@@ -80,9 +80,8 @@ var QuestionPreview = Spine.Controller.sub({
         //TODO:for matrix
     },
 
-    initOpenPreview: function () {
-
-        var editArea = '<textarea></textarea>';
+    initOpenPreview: function (element) {
+        var editArea = element.input_type === "文本域" ? '<textarea></textarea>' : '<input type="text" />';
         $(".option-list:last").append(editArea);
     },
     renderQuestions: function (e) {
@@ -102,7 +101,7 @@ var QuestionPreview = Spine.Controller.sub({
                     that.initMatrixPreview();
                     break;
                 case "open":
-                    that.initOpenPreview(index + 1);
+                    that.initOpenPreview(element);
                     break;
             }
         });

@@ -65,6 +65,7 @@ var QuestionPreview = Spine.Controller.sub({
     },
 
     initAreaPreview: function (areaType) {
+    //TODO: maybe we can use the jquery.tmpl to move the html code out of js file
      var selectors = "";
      var prov = "<select class='area_prov'><option>请选择</option><option>北京</option><option>上海</option><option>广州</option></select>";
      var city = "<select class='area_city'><option>请选择</option><option>北京</option><option>上海</option><option>广州</option></select>";

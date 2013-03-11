@@ -104,6 +104,7 @@ var QuestionPreview = Spine.Controller.sub({
 
     editQuestion: function (e) {
         var index = $(e.target).parents("li").index();
-        surveyInstance.editQuestion(index);
+        $('#tabs').tabs('option', 'active', 1);
+        Spine.trigger("clickEdit", index);
     }
 });

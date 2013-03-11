@@ -107,7 +107,7 @@ var SurveyCreate = Spine.Controller.sub({
         //inital the question creator draggable
         this.bindDraggable();
 
-        surveyInstance.bind("editQuestion", this.proxy(this.editQuestion));
+        Spine.bind("clickEdit", this.proxy(this.editQuestion));
     },
 
     addOption: function () {
@@ -125,7 +125,8 @@ var SurveyCreate = Spine.Controller.sub({
     },
 
     editQuestion: function (e) {
-        this.question = e.questions[surveyInstance.questionIndex];
+        surveyInstance.activeQustIndex = e;
+        this.question = surveyInstance.questions[surveyInstance.activeQustIndex];
         this.initQuestionCreator();
     },
 
@@ -151,6 +152,7 @@ var SurveyCreate = Spine.Controller.sub({
             $(this.creatorArea).empty().height(200);
             this.question = null;
             surveyInstance.questionIndex = null;
+            $('#tabs').tabs('option', 'active', 4);
         } else {
             alert("No question has been created!");
         }

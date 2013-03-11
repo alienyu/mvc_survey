@@ -60,6 +60,8 @@ Survey.include({
 //            $.ajax({
 //                url: "http://172.16.134.57:30403/surveyPlatform/examination/saveExam",
 //                type: "POST",
+//                contentType: "application/json",
+//                headers: { accept: "application/json" },
 //                data: JSON.stringify(surveyModel),
 //                success: function (response, option) {
 //                    //alert(response);

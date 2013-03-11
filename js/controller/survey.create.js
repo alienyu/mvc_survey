@@ -11,7 +11,8 @@ var SurveyCreate = Spine.Controller.sub({
     events: {
         "click #add-option-tag": "addOption",
         "click .remove-option-tag": "removeOption",
-        "click #question-save": "saveQuestion"
+        "click #question-save": "saveQuestion",
+        "change #areaType input[type='checkbox']": "areaLinkage"
     },
 
     show: function () {
@@ -79,17 +80,15 @@ var SurveyCreate = Spine.Controller.sub({
         return optionCreatorTemp;
     },
 
-    initAreaDelegate: function(){
-        $("div").delegate("input[type=checkbox]", "click", function(e){
-            if(e.target.checked) {
-                $("#" + e.target.id).next().attr("disabled", false);
-            } else {
-                $("#" + e.target.id).next().attr("checked", false);
-                $("#" + e.target.id).next().attr("disabled", true);
-                $("#" + e.target.id).next().next().attr("checked", false);
-                $("#" + e.target.id).next().next().attr("disabled", true);
-            }
-        });
+    areaLinkage: function (e) {
+        if (e.target.checked) {
+            $("#" + e.target.id).next().attr("disabled", false);
+        } else {
+            $("#" + e.target.id).next().attr("checked", false);
+            $("#" + e.target.id).next().attr("disabled", true);
+            $("#" + e.target.id).next().next().attr("checked", false);
+            $("#" + e.target.id).next().next().attr("disabled", true);
+        }
     },
 
     questionTextCreator: function () {
@@ -119,7 +118,6 @@ var SurveyCreate = Spine.Controller.sub({
         this.show();
         //inital the question creator draggable
         this.bindDraggable();
-        this.initAreaDelegate();
 
         Spine.bind("clickEdit", this.proxy(this.editQuestion));
     },
@@ -149,7 +147,7 @@ var SurveyCreate = Spine.Controller.sub({
             this.question.description = $('#question-textIFrame').contents().find('body').html();
             this.question.necessary = $('input[type=checkbox]').filter('#necessary')[0].checked;
             var options = [];
-            switch(this.question.type) {
+            switch (this.question.type) {
                 case "single-select":
                     this.getOptions(options);
                     break;
@@ -175,7 +173,7 @@ var SurveyCreate = Spine.Controller.sub({
         }
     },
 
-    getOptions: function(options) {
+    getOptions: function (options) {
         $('.option-creator').each(function () {
             optionIndex = $(this).find('span').html();
             optionType = $(this).find("option:selected").text();
@@ -186,16 +184,17 @@ var SurveyCreate = Spine.Controller.sub({
         this.question.options = options;
         this.question.arrangement = $('#arrangement').find("option:selected").text();
 
-      },
-       getArea: function () {
-          var area;
-          var array = $('#areaType').children().filter('input');
-          for(var i = array.length - 1; i >= 0; i--){
-             if(array[i].checked){
-                     area = array[i].id;
-                     break;
-             }
-          }
-          return area;
-       }
+    },
+
+    getArea: function () {
+        var area;
+        var array = $('#areaType').children().filter('input');
+        for (var i = array.length - 1; i >= 0; i--) {
+            if (array[i].checked) {
+                area = array[i].id;
+                break;
+            }
+        }
+        return area;
+    }
 })

@@ -118,6 +118,7 @@ var QuestionPreview = Spine.Controller.sub({
         $('#tabs').tabs('option', 'active', 1);
         Spine.trigger("clickEdit", index);
     },
+
     submitSurvey: function () {
         surveyInstance.submitSurvey();
     }

@@ -29,41 +29,54 @@ Survey.include({
 
     submitSurvey: function () {
         if (this.questions && this.questions.length > 0) {
-            var surveyModel = {};
-            surveyModel.ID = ""; //编号
-            surveyModel.question_no = $("#question-no").val(); //问卷编号
-            surveyModel.question_name = $("#question-name").val(); //问卷名
-            surveyModel.client_id = $("#client-id").val(); //客户编号
-            surveyModel.public_pic = $("#upload-public-pic").val(); //问卷宣传图
-            surveyModel.end_date = $("#end-time").val(); //结束时间
-            surveyModel.face_page = $("#upload-face-page").val(); //封面
-            surveyModel.logo = $("#upload-logo").val(); //logo
-            surveyModel.bottom_page = $("#upload-bottom-age").val(); //封底
-            surveyModel.template_id = $("#template-id").val(); //问卷模板
-            surveyModel.join_point = parseInt($("#join-point").val()); //参与问卷给与积分
-            surveyModel.complate_point = parseInt($("#complate-point").val()); //完成问卷给予积分
-            surveyModel.examination_type = $("#examination-type").val(); //"问卷类型",[0趣味1试用2商务]
-            surveyModel.examination_detail = $("#examination-detail").val(); //问卷说明
-            surveyModel.quota = 0; //配额
-            surveyModel.ques_count = this.questions.length; //总试题量
-            surveyModel.company = ""; //所属公司
-            surveyModel.remark = $("#remark").val(); //备注
-            surveyModel.status = ""; //状态
-            surveyModel.question_html = this._getQuestionHtml(); //问题HTML
-            surveyModel.logic_control_js = ""; //逻辑js
-            surveyModel.quota_control_js = ""; //配额js
-            surveyModel.topic_list = null;
-            surveyModel.result_id = ""; //答题ID
-            surveyModel.email = ""; //答题人email
+            var surveyModel = {
+                ID: "", //编号
+                question_no: $("#question-no").val(), //问卷编号
+                question_name: $("#question-name").val(), //问卷名
+                client_id: $("#client-id").val(), //客户编号
+                public_pic: $("#upload-public-pic").val(), //问卷宣传图
+                end_date: $("#end-time").val(), //结束时间
+                face_page: $("#upload-face-page").val(), //封面
+                logo: $("#upload-logo").val(), //logo
+                bottom_page: $("#upload-bottom-age").val(), //封底
+                template_id: $("#template-id").val(), //问卷模板
+                join_point: parseInt($("#join-point").val()), //参与问卷给与积分
+                complate_point: parseInt($("#complate-point").val()), //完成问卷给予积分
+                examination_type: $("#examination-type").val(), //"问卷类型",[0趣味1试用2商务]
+                examination_detail: $("#examination-detail").val(), //问卷说明
+                quota: 0, //配额
+                ques_count: this.questions.length, //总试题量
+                company: "", //所属公司
+                remark: $("#remark").val(), //备注
+                status: "", //状态
+                question_html: this._getQuestionHtml(), //问题HTML
+                logic_control_js: "", //逻辑js
+                quota_control_js: "", //配额js
+                topic_list: this._getTopicList(),
+                result_id: "", //答题ID
+                email: "" //答题人email
+            };
+
+//            $.ajax({
+//                url: "http://172.16.134.57:30403/surveyPlatform/examination/saveExam",
+//                type: "POST",
+//                contentType: "application/json",
+//                headers: { accept: "application/json" },
+//                data: JSON.stringify(surveyModel),
+//                success: function (response, option) {
+//                    //alert(response);
+//                },
+//                complete: function (response, option) {
+//                    //alert(response.responseText);
+//                }
+//            });
         }
     },
 
     _getQuestionHtml: function () {
         var question_html = "";
-        var tmpl = $("#survey-preview-list").tmpl();
 
-        $(tmpl).find("input[class='add-break']").each(function (index, element) {
-            alert(element);
+        $("#survey-preview-list").find("input[class='add-break']").each(function (index, element) {
             //            if ($(element).val() === "checked") {
             //                $(element).parent(".question_set").replaceWith("<div class='page'>分页</div>");
             //            }
@@ -73,9 +86,64 @@ Survey.include({
         });
 
         question_html += "<ul style='list-style-type: none'>";
-        question_html += $(tmpl).html();
+        question_html += $("#survey-preview-list").html();
         question_html += "</ul>";
 
         return question_html;
+    },
+
+    _getTopicList: function () {
+        var topic_list = [];
+        $(this.questions).each(function (index, element) {
+            var topic = {
+                question_no: index + 1, //试题编号
+                question_context: element.description, //试题内容
+                question_type: "", //"试题类型",[0单选1多选2矩阵3开放4地区]
+                allow_bland: "N", //"是否必须回答标识",[Y/N]
+                max_num: 0, //最多可选数量
+                min_num: 0, //最少可选数量
+                area_type: "", //"区域类型",[0省1市2区]
+                options: null
+            };
+
+            var question_type = "";
+            switch (element.type) {
+                case "single-select":
+                    question_type = "0";
+                    break;
+                case "multi-select":
+                    question_type = "1";
+                    break;
+                case "matrix":
+                    //TODO:create matrix question
+                    break;
+                case "open":
+                    question_type = "3";
+                    break;
+                case "area":
+                    question_type = "4";
+                default:
+                    //TODO:others
+                    break;
+            }
+            topic.question_type = question_type;
+
+            var ops = [];
+            $(element.options).each(function (i, e) {
+                var op = {
+                    item_num: e.index, //选项编号
+                    item_type: e.type, //"选项类型",[0选项1开放]
+                    item_value: e.content, //选项值
+                    item_pic: "", //选项图片
+                    unit: "", //单位
+                    validate_flag: "", //是否验证
+                    validate_type: "" //验证类型
+                };
+                ops.push(op);
+            });
+            topic.options = ops;
+            topic_list.push(topic);
+        });
+        return topic_list;
     }
 });

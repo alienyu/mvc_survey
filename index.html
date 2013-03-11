@@ -190,14 +190,14 @@
     <script type="text/x-jquery-tmpl" id="question-priview-template">
         <li>
             <div>
-                ${questionIndex}.${questionDescription}
+                <span>${questionIndex}</span>.${questionDescription}
             </div>
             <div class="option-list">
             </div>
             <div style="text-align: right; border-bottom: 1px solid #ccc;">
                 <input type="checkbox" class="add-break" />分页&nbsp;&nbsp;
                 <a class="remove-question" href="#">删除</a>&nbsp;&nbsp;
-                <a class="edit-quesiton" href="#">修改</a>
+                <a class="edit-question" href="#">修改</a>
             </div>
         </li>
     </script>
@@ -215,7 +215,7 @@
                         <option value="0">选项</option>
                         <option value="1">开放</option>
                     </select>
-                    <input/>
+                    <input value="${optionValue}" />
                     <img src="images/u501_normal.png">
                     <img class="remove-option-tag" src="images/u156_normal.gif">
                 </div>

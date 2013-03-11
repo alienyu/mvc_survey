@@ -7,7 +7,8 @@ var QuestionPreview = Spine.Controller.sub({
         "#survey-preview-list": "surveyPreviewList"
     },
     events: {
-        "click .remove-question": "removeQuestion"
+        "click .remove-question": "removeQuestion",
+        "click .edit-question": "editQuestion"
     },
     show: function () {
         this.el.html(this.template());
@@ -17,17 +18,21 @@ var QuestionPreview = Spine.Controller.sub({
         this.show();
         this.sortableList();
         //init widgets
-        //this.proxyAll("renderQuestions");
         surveyInstance.bind("questionChange", this.proxy(this.renderQuestions));
     },
     sortableList: function () {
         $(this.surveyPreviewList).sortable({
-            containment: "parent",
             items: "li",
+            activate: function (event, ui) {
+                this.oldindex = ui.item.index();
+            },
             deactivate: function (event, ui) {
-                ui.item.parent().find("li").each(function (index, element) {
-                    //$(element).find(".view-question-content").children("span").html(index + 1);
-                });
+                if (this.oldindex != ui.item.index()) {
+                    ui.item.parent().find("li").each(function (index, element) {
+                        $(element).find("span").html(index + 1);
+                    });
+                    surveyInstance.sortQuestion(this.oldindex, ui.item.index());
+                }
             }
         });
         $(this.surveyPreviewList).disableSelection();
@@ -60,11 +65,12 @@ var QuestionPreview = Spine.Controller.sub({
         //TODO:max and min restrict
     },
 
-    initMatrixPreview: function() {
+    initMatrixPreview: function () {
         //TODO:for matrix
     },
 
-    initOpenPreview: function() {
+    initOpenPreview: function () {
+
         var editArea = '<textarea></textarea>';
         $(".option-list:last").append(editArea);
     },
@@ -94,5 +100,10 @@ var QuestionPreview = Spine.Controller.sub({
     removeQuestion: function (e) {
         var index = $(e.target).parents("li").index();
         surveyInstance.deleteQuestion(index);
+    },
+
+    editQuestion: function (e) {
+        var index = $(e.target).parents("li").index();
+        surveyInstance.editQuestion(index);
     }
 });

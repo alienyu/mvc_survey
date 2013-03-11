@@ -1,7 +1,7 @@
 // this is for the survey create page
 var SurveyCreate = Spine.Controller.sub({
     template: function () {
-        return $("#survey-create-template").html();
+        return $("#survey-create-template").tmpl();
     },
 
     elements: {
@@ -18,9 +18,7 @@ var SurveyCreate = Spine.Controller.sub({
         this.el.html(this.template());
     },
 
-    initQuestionCreator: function (type) {
-        this.question = new Question({"type":type});
-
+    initQuestionCreator: function () {
         $(this.creatorArea).empty().height("auto");
         this.questionTextCreator();
         var creatorTemplate;
@@ -48,29 +46,44 @@ var SurveyCreate = Spine.Controller.sub({
     },
 
     initRadioCreator: function () {
-        var optionCreatorTemp = $($("#radio-option-creator-template").html()).tmpl({ "optionTag": "A" });
+        var optionCreatorTemp;
+        if (this.question.options != null) {
+            $(this.question.options).each(function (index, element) {
+                if (index === 0) {
+                    optionCreatorTemp = $("#radio-option-creator-template").tmpl({ "optionTag": "A", "optionValue": element.content });
+                }
+                else {
+                    $(optionCreatorTemp).find("#option-creators")
+                    .append($("#radio-option-creator-template").tmpl({ "optionTag": element.index, "optionValue": element.content }).find("#option-creators .option-creator"));
+                }
+            });
+        }
+        else {
+            optionCreatorTemp = $("#radio-option-creator-template").tmpl({ "optionTag": "A" });
+        }
         return optionCreatorTemp;
     },
 
     initCheckCreator: function () {
-        var optionCreatorTemp = $($("#check-option-creator-template").html()).before($($("#radio-option-creator-template").html()).tmpl({ "optionTag": "A" }));
+        var optionCreatorTemp = $("#check-option-creator-template").tmpl().before(this.initRadioCreator());
         return optionCreatorTemp;
     },
 
     initOpenCreator: function () {
-        var optionCreatorTemp = $("#open-option-creator-template").html();
+        var optionCreatorTemp = $("#open-option-creator-template").tmpl();
         return optionCreatorTemp;
     },
 
     initAreaCreator: function () {
-        var optionCreatorTemp = $("#area-option-creator-template").html();
+        var optionCreatorTemp = $("#area-option-creator-template").tmpl();
         return optionCreatorTemp;
     },
 
     questionTextCreator: function () {
-        var questionTextCreator = $("#question-text-creator-template").html();
+        var questionTextCreator = $("#question-text-creator-template").tmpl();
         $(this.creatorArea).append(questionTextCreator);
         $("#question-text").wysiwyg();
+        $('#question-textIFrame').contents().find('body').html(this.question.description);
     },
 
     bindDraggable: function () {
@@ -82,7 +95,8 @@ var SurveyCreate = Spine.Controller.sub({
         //add question
         $(this.creatorArea).droppable({
             drop: function (e, ui) {
-                that.initQuestionCreator(ui.draggable.attr("id"));
+                that.question = new Question({ "type": ui.draggable.attr("id") });
+                that.initQuestionCreator();
             }
         });
     },
@@ -92,12 +106,13 @@ var SurveyCreate = Spine.Controller.sub({
         this.show();
         //inital the question creator draggable
         this.bindDraggable();
+
+        surveyInstance.bind("editQuestion", this.proxy(this.editQuestion));
     },
 
     addOption: function () {
         var indexTag = String.fromCharCode(65 + $("#option-creators .option-creator").size());
-        var optionCreatorTemp = $($("#radio-option-creator-template").html())
-                                .find("#option-creators").tmpl({ "optionTag": indexTag });
+        var optionCreatorTemp = $("#radio-option-creator-template").tmpl({ "optionTag": indexTag }).find("#option-creators .option-creator");
         $("#option-creators").append(optionCreatorTemp);
     },
 
@@ -107,6 +122,11 @@ var SurveyCreate = Spine.Controller.sub({
         optionCreators.each(function (item, element) {
             $(element).find("span").html((String.fromCharCode(65 + item)));
         });
+    },
+
+    editQuestion: function (e) {
+        this.question = e.questions[surveyInstance.questionIndex];
+        this.initQuestionCreator();
     },
 
     saveQuestion: function () {
@@ -127,9 +147,10 @@ var SurveyCreate = Spine.Controller.sub({
             this.question.minSelection = $('#min-select-num').find("option:selected").text();
             //TODO:change logic
             //this.question.save();/
-            surveyInstance.insertQuestion(this.question);
+            surveyInstance.updateQuestion(this.question);
             $(this.creatorArea).empty().height(200);
             this.question = null;
+            surveyInstance.questionIndex = null;
         } else {
             alert("No question has been created!");
         }

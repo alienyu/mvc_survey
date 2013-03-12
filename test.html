@@ -8,10 +8,10 @@
         $(function () {
             $("#start-test-button").click(function () {
                 $.ajax({
-                    url: "/surveyPlatform/examination/getExam/513d8d045558fdd47892043a",
+                    url: "/surveyPlatform/examination/getExam/513ed2685558d0c41a6c27fb/aaa@163.com",
                     type: "GET",
                     success: function (response, option) {
-                        //$("div").append(response.question_html);
+                        $("div").append(response.question_html);
                     }
                 });
             });

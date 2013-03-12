@@ -1,0 +1,41 @@
+@charset "utf-8";
+@import url('base.css');
+
+/* layouts */
+.help_faq {font-size: 14px;}
+.help_title {background: #E3352F; color: #fff; font-size: 18px; font-weight: bold; padding: 3px 10px;}
+.help_title label {background:url(../img/question_bg.png) left bottom repeat-x; padding: 5px; display: block; width: 80px; text-align: center;}
+.help_container {background: #fff; padding: 10px;}
+
+/* aside menu */
+.help_aside {padding: 0 10px 10px; background: #F2F2F2; width: 200px; float: left;}
+.help_aside .help_menu li span {line-height: 30px; background:url(../img/help_aside_line.png) left bottom repeat-x; display: block; padding-left: 1em; color: #333;}
+.help_aside .help_menu li.active span {color: #E3352F;}
+.help_aside .help_submenu {margin: 10px 0px;}
+.help_aside .help_submenu li {line-height: 20px; padding-left: 2em;}
+
+/* faq content */
+.help_content {color: #333333; width: 740px; float: right;}
+.help_content .title {font-weight: bold; padding: 5px 0px;}
+.help_content>ol {margin: 5px 0 10px 20px;}
+.help_content>ol>li {list-style-type: decimal; margin-bottom: 20px;}
+.help_content>ol>li div ol {margin-left: 20px;}
+.help_content>ol>li div li {list-style-type: lower-alpha;}
+
+/* Feedback content */
+.question_feedback .left { width:770px; background:#fff; float:left;}
+.question_feedback .question_title{ text-align:center; background:#F00;}
+.question_feedback .question_title h3{ font: bold 16px; color:#fff; margin-left:27px; line-height:35px; background-image:url(../img/question_bg.png); width:100px; display:block; }
+.question_feedback .right{ width: 220px;}
+.question_feedback .right h3{ padding:0 10px; color:#666;}
+.question_feedback .left .taikbox{ margin-top:20px; margin-left:30px; color:#38a1e4; font-size:14px;  margin-bottom:55px;}
+.question_feedback .left .taikbox img{ margin-right:5px;}
+.question_feedback .left .taikbox input{ background-image:url(../img/fabiao_btn.png); width:81px; height:26px; border:0px;}
+.question_feedback .left .talk{color: #666; font-family: 'Arial'; font-size: 13px; height: 90px;  top: 178px; width: 710px;}
+.commentary{ margin-left:30px;}
+.kaola{ float:left; margin-right:10px;}
+.right_worlds{}
+
+/* ----------页面右部代码---------- */
+.question_feedback .right{ width:220px; background: #FFF url(../img/left-bg.png) repeat-x ; float:right;padding-top:15px; }
+.question_feedback .right ul{ width:200px; margin-left:15px;  padding-bottom:30px;; margin-top:10px; line-height:22px;}

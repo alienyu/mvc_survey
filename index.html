@@ -18,6 +18,7 @@
     <script type="text/javascript" src="js/model/question.js"></script>
     <script type="text/javascript" src="js/model/option.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript" src="js/lib/province_city_district/json-array-of-province.js"></script>
 </head>
 <body>
     <div id="tabs">
@@ -288,6 +289,16 @@
                 说明：选择可选的地区级别。只有选择了上一级地区后，方可选择下一级地区项。例如：选择省后，市可选，但不可选择区。
             </p>
         </div>
+    </script>
+
+    <script type="text/x-jquery-tmpl" id="area-province-preview-template">
+        <select class='province'><option>请选择</option></select>省
+    </script>
+    <script type="text/x-jquery-tmpl" id="area-city-preview-template">
+        <select class='city'><option>请选择</option></select>市
+    </script>
+    <script type="text/x-jquery-tmpl" id="area-district-preview-template">
+        <select class='district'><option>请选择</option></select>区
     </script>
     <!-- This is for the radio and checkbox option template -->
     <script type="text/x-jquery-tmpl" id="radio-option-template">

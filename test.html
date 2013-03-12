@@ -6,13 +6,14 @@
     <script type="text/javascript" src="js/lib/jquery-1.8.0.min.js"></script>
     <script>
         $(function () {
-            $("#start-test-button").click(function () { 
-            $.ajax({
-                url: "http://172.16.134.57:30403/surveyPlatform/examination/getExam/513d8d045558fdd47892043a",
-                type: "GET",
-                success: function (response, option) {
-                    //alert(response);
-                }
+            $("#start-test-button").click(function () {
+                $.ajax({
+                    url: "/surveyPlatform/examination/getExam/513d8d045558fdd47892043a",
+                    type: "GET",
+                    success: function (response, option) {
+                        //$("div").append(response.question_html);
+                    }
+                });
             });
         });
     </script>

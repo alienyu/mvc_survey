@@ -58,7 +58,7 @@ Survey.include({
             };
 
 //            $.ajax({
-//                url: "http://172.16.134.57:30403/surveyPlatform/examination/saveExam",
+//                url: "/surveyPlatform/examination/saveExam",
 //                type: "POST",
 //                contentType: "application/json",
 //                success: function (response, option) {

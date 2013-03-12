@@ -61,7 +61,7 @@ var SurveyCreate = Spine.Controller.sub({
             });
         }
         else {
-            optionCreatorTemp = $("#radio-option-creator-template").tmpl({ "optionTag": "A", "type": "0"});
+            optionCreatorTemp = $("#radio-option-creator-template").tmpl({ "optionTag": "A", "type": "0" });
         }
         return optionCreatorTemp;
     },
@@ -130,7 +130,7 @@ var SurveyCreate = Spine.Controller.sub({
 
     optionCreatorTemplate: function (indexTag, type) {
         type = typeof type !== 'undefined' ? type : "0";
-        return $("#radio-option-creator-template").tmpl({ "optionTag": indexTag, "type": type}).find("#option-creators .option-creator");
+        return $("#radio-option-creator-template").tmpl({ "optionTag": indexTag, "type": type }).find("#option-creators .option-creator");
     },
 
     removeOption: function (e) {

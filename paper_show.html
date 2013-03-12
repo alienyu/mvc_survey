@@ -7,9 +7,10 @@
     <meta name="keywords" content="我能试用，最高端、最新潮、最激动人心的试用基地" />
     <meta name="description" content="我能试用，最高端、最新潮、最激动人心的试用基地" />
     <link href="css/personal.css" type="text/css" rel="stylesheet" rev="stylesheet" />
-    <script src="js/login_down.js"></script>
+    <!--<script src="js/login_down.js"></script>-->
     <script type="text/javascript" src="js/lib/jquery-1.8.0.min.js"></script>
     <script type="text/javascript" src="js/json.js"></script>
+    <script type="text/javascript" src="js/lib/province_city_district/json-array-of-province.js"></script>
     <script>
         $(function () {
             // page step
@@ -22,6 +23,38 @@
 
 
             $("#page_cont").html(json.question_html);
+            $("#page_cont").find("div").remove();
+
+            $('ul dl dd').delegate("select", "change", function(e){
+                var options = "";
+                switch ($(e.target).next().attr('class')) {
+                    case "province" :
+                        for (var i = 0; i < data_province.length; i++){
+                            var option = "<option value='" + data_province[i].code + "'>" + data_province[i].name + "</option>";
+                            options += option;
+                        }
+                        break;
+                    case "city":
+                        for (var i = 0; i < data_city.length; i++){
+                            if(data_city[i].code.substring(0,2) === e.target.value.substring(0,2)) {
+                                var option = "<option value='" + data_city[i].code + "'>" + data_city[i].name + "</option>";
+                                options += option;
+                            }
+                        }
+                        break;
+                    case  "district":
+                        for (var i = 0; i < data_district.length; i++){
+                            if(data_district[i].code.substring(0,4) === e.target.value.substring(0,4)) {
+                                var option = "<option value='" + data_district[i].code + "'>" + data_district[i].name + "</option>";
+                                options += option;
+                            }
+                        }
+                        break;
+                    default :
+                        break;
+                }
+                $(e.target.nextElementSibling).empty().append("<option>请选择</option>" + options );
+            });
         });
     </script>
 </head>

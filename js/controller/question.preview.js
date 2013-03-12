@@ -49,6 +49,7 @@ var QuestionPreview = Spine.Controller.sub({
             radioValue.index = element.index;
             radioValue.content = element.content;
             var typeValue = parseInt(element.type);
+            if (typeValue ==1) {radioValue.unit = element.unit}
             radioValue.type = [question.type == "single-select" ? "radio" : "checkbox", "textarea"][typeValue];
             $("#radio-option-template").tmpl(radioValue).appendTo(".option-list:last");
         });

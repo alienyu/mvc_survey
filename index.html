@@ -219,7 +219,7 @@
                         <span>选项</span>
                         <input />
                         <span>单位</span>
-                        <input />
+                        <input id="unit"/>
                     {{/if}}
                     <img src="images/u501_normal.png">
                     <img class="remove-option-tag" src="images/u156_normal.gif">
@@ -290,7 +290,7 @@
     <!-- This is for the radio and checkbox option template -->
     <script type="text/x-jquery-tmpl" id="radio-option-template">
         {{if type == "textarea"}}
-            ${index}.<textarea></textarea>
+            ${index}.${content}<textarea></textarea>${unit}
         {{else}}
             <input type=${type} name=${name}/> ${index}.${content}
         {{/if}}

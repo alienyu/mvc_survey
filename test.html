@@ -8,10 +8,18 @@
         $(function () {
             $("#start-test-button").click(function () {
                 $.ajax({
-                    url: "/surveyPlatform/examination/getExam/513d8d045558fdd47892043a",
+                    url: "/surveyPlatform/examination/getExam/513efa775558883fbc56ce3c/aaa@163.com",
                     type: "GET",
                     success: function (response, option) {
-                        //$("div").append(response.question_html);
+                        $("div").append(response.question_html);
+                    }
+                });
+                $.ajax({
+                    url: "/surveyPlatform/examination/saveAnswer",
+                    type: "POST",
+                    data: JSON.stringify(""),
+                    success: function (response, option) {
+                        
                     }
                 });
             });
@@ -19,6 +27,8 @@
     </script>
 </head>
 <body>
-
+    <input id="start-test-button" type="button" value="开始" />
+    <div>
+    </div>
 </body>
 </html>

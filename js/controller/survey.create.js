@@ -172,7 +172,6 @@ var SurveyCreate = Spine.Controller.sub({
             $(this.creatorArea).empty().height(200);
             this.question = null;
             surveyInstance.activeQustIndex = null;
-            $('#tabs').tabs('option', 'active', 4);
         } else {
             alert("No question has been created!");
         }
@@ -190,7 +189,7 @@ var SurveyCreate = Spine.Controller.sub({
         });
         this.question.options = options;
         this.question.arrangement = $('#arrangement').find("option:selected").text();
-      },
+    },
 
     getArea: function () {
         //return the last checked checkbox id

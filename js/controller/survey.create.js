@@ -13,8 +13,7 @@ var SurveyCreate = Spine.Controller.sub({
         "click .remove-option-tag": "removeOption",
         "click #question-save": "saveQuestion",
         "change .type-select": "changeSelectionView",
-        "change #areaType input[type='checkbox']": "areaLinkage",
-        "click #question-cancel": "cancelEdit"
+        "change #areaType input[type='checkbox']": "areaLinkage"
     },
 
     show: function () {
@@ -170,7 +169,10 @@ var SurveyCreate = Spine.Controller.sub({
                     this.question.area = this.getArea();
             }
             surveyInstance.updateQuestion(this.question);
-            this.cancelEdit();
+            $(this.creatorArea).empty().height(200);
+            this.question = null;
+            surveyInstance.activeQustIndex = null;
+            $('#tabs').tabs('option', 'active', 4);
         } else {
             alert("No question has been created!");
         }
@@ -200,11 +202,5 @@ var SurveyCreate = Spine.Controller.sub({
         var template = this.optionCreatorTemplate(indexTag, optionType);
         changeTempalete.html(template.html());
         changeTempalete.find(".type-select").val(optionType);
-    },
-
-    cancelEdit: function () {
-        $(this.creatorArea).empty().height(200);
-        this.question = null;
-        surveyInstance.activeQustIndex = null;
     }
 });

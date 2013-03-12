@@ -132,6 +132,21 @@ Survey.include({
                     break;
             }
 
+            switch (element.area) {
+                case "province":
+                    topic.area_type = "0";
+                    break;
+                case "city":
+                    topic.area_type = "1";
+                    break;
+                case "district":
+                    topic.area_type = "2";
+                    break;
+                default:
+                    //TODO:others
+                    break;
+            }
+
             var ops = [];
             $(element.options).each(function (i, e) {
                 var op = {

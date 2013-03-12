@@ -180,10 +180,10 @@ var SurveyCreate = Spine.Controller.sub({
 
     getOptions: function (options) {
         $('.option-creator').each(function () {
-            optionIndex = $(this).find('span').html();
+            optionIndex = $(this).find('.option-tag').text();
             optionType = $(this).find("option:selected").val();
-            optionContent = $(this).find("input").val();
-            optionUnit = $('#unit').val() || '';
+            optionContent = $(this).find('.option-content').val();
+            optionUnit = $(this).find('.option-unit').val() || '';
             option = new Option({ index: optionIndex, type: optionType, content: optionContent, unit: optionUnit });
             options.push(option);
         });

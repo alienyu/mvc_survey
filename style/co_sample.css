@@ -1,0 +1,24 @@
+@charset "utf-8";
+
+.page_subhead_cont {padding: 0 10px 20px 10px;}
+.co_sample_magment_unit {color: #333;}
+.co_sample_magment_unit label { height: 22px; line-height: 22px;}
+.co_sample_magment_unit.value_select {margin-bottom: 15px;}
+.co_sample_magment_unit.value_select input[type=text] {display: inline-block; width: 92%; margin-bottom: 15px;}
+
+.co_sample_magment_unit.value_select .value_select_cont {overflow: auto; height: 150px;}
+.co_sample_magment_unit.value_select ul li {height: 25px; line-height: 25px; border-bottom: 1px solid #E4E4E4; cursor: pointer;}
+.co_sample_magment_unit.value_select ul li.last {border-bottom: none;}
+
+
+.co_sample_magment_unit.value_cont span{display: inline-block; margin: 0 10px 0 2px; height: 22px; line-height: 22px;}
+.co_sample_magment_unit.value_cont .notice {color: #666; margin-top: 20px; padding-left: 2px;}
+
+.co_sample_magment textarea {width: 98%; height: 100px; margin-bottom: 20px;}
+.co_sample_magment_cont>.split_3,
+.co_sample_magment_cont>.split_7 { margin-bottom: 30px;}
+.co_sample_magment_cont .aside>div {display: inline-block;}
+.co_sample_magment_cont .aside>div.tree {display: block; padding: 15px 0;}
+.co_sample_magment_cont .aside img {vertical-align: middle; margin-right: 7px;}
+
+.abbled_account span {margin: 0 15px 0 3px;}

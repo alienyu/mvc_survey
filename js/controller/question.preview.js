@@ -66,30 +66,23 @@ var QuestionPreview = Spine.Controller.sub({
     },
 
     initAreaPreview: function (areaType) {
-     var selectors = "", options;
-     var prov = $("#area-province-preview-template").html();
-     var city = $("#area-city-preview-template").html();
-     var district = $("#area-district-preview-template").html();
+     var provSelectTmpl = $("#area-province-preview-template").tmpl();
+     var citySelectTmpl = $("#area-city-preview-template").html();
+     var districtSelectTmpl = $("#area-district-preview-template").html();
+     var allTempl = provSelectTmpl.append(this.initSelectList("province"));
         switch (areaType){
                 case "province":
-                      options = this.initSelectList("province");
-                      selectors = "<select class='province'><option>请选择</option>" + options + "</select>省";
                       break;
                   case "city":
-                      options = this.initSelectList("province");
-                      selectors = "<select class='province'><option>请选择</option>" + options + "</select>省";
-                      selectors += city;
+                    allTempl = allTempl.after(citySelectTmpl);
                       break;
                   case "district":
-                      options = this.initSelectList("province");
-                      selectors = "<select class='province'><option>请选择</option>" + options + "</select>省";
-                      selectors += city;
-                      selectors += district;
+                    allTempl = allTempl.after(citySelectTmpl).after(districtSelectTmpl);
                       break;
                   default:
                       break;
               }
-        $(".option-list:last").append(selectors);
+        $(".option-list:last").append(allTempl);
     },
 
     renderQuestions: function (e) {
@@ -126,8 +119,10 @@ var QuestionPreview = Spine.Controller.sub({
     },
 
     selectAreaChange: function (e) {
-        var options = this.initSelectList($(e.target).next().attr('class'), e.target.value);
-        $(e.target.nextElementSibling).empty().append("<option>请选择</option>" + options );
+        if (e.target.nextElementSibling !== null) {
+            var options = this.initSelectList($(e.target).next().attr('class'), e.target.value);
+            $(e.target.nextElementSibling).append(options);
+        }
     },
 
     submitSurvey: function () {
@@ -135,33 +130,9 @@ var QuestionPreview = Spine.Controller.sub({
     },
 
     initSelectList: function (areaType, parentCode){
-        var options = "";
-        switch (areaType) {
-            case "province" :
-                for (var i = 0; i < data_province.length; i++){
-                    var option = "<option value='" + data_province[i].code + "'>" + data_province[i].name + "</option>";
-                    options += option;
-                }
-                break;
-            case "city":
-                for (var i = 0; i < data_city.length; i++){
-                    if(data_city[i].code.substring(0,2) === parentCode.substring(0,2)) {
-                        var option = "<option value='" + data_city[i].code + "'>" + data_city[i].name + "</option>";
-                        options += option;
-                    }
-                }
-                break;
-            case  "district":
-                for (var i = 0; i < data_district.length; i++){
-                    if(data_district[i].code.substring(0,4) === parentCode.substring(0,4)) {
-                        var option = "<option value='" + data_district[i].code + "'>" + data_district[i].name + "</option>";
-                        options += option;
-                    }
-                }
-                break;
-            default :
-                break;
-        }
-        return options;
+        optionsValues = areaData[areaType].map(function(item, index){
+            return {code: item.code, name: item.name};
+        });
+        return $("#area-options-template").tmpl(optionsValues);
     }
 });

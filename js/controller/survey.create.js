@@ -61,7 +61,7 @@ var SurveyCreate = Spine.Controller.sub({
             });
         }
         else {
-            optionCreatorTemp = $("#radio-option-creator-template").tmpl({ "optionTag": "A", "type": "0"});
+            optionCreatorTemp = $("#radio-option-creator-template").tmpl({ "optionTag": "A", "type": "0" });
         }
         return optionCreatorTemp;
     },
@@ -130,7 +130,7 @@ var SurveyCreate = Spine.Controller.sub({
 
     optionCreatorTemplate: function (indexTag, type) {
         type = typeof type !== 'undefined' ? type : "0";
-        return $("#radio-option-creator-template").tmpl({ "optionTag": indexTag, "type": type}).find("#option-creators .option-creator");
+        return $("#radio-option-creator-template").tmpl({ "optionTag": indexTag, "type": type }).find("#option-creators .option-creator");
     },
 
     removeOption: function (e) {
@@ -189,16 +189,10 @@ var SurveyCreate = Spine.Controller.sub({
         this.question.options = options;
         this.question.arrangement = $('#arrangement').find("option:selected").text();
       },
+
     getArea: function () {
-        var area;
-        var array = $('#areaType').children().filter('input');
-        for (var i = array.length - 1; i >= 0; i--) {
-            if (array[i].checked) {
-                area = array[i].id;
-                break;
-            }
-        }
-        return area;
+        //return the last checked checkbox id
+        return $("#areaType").find("input:checked").toArray().pop().id;
     },
 
     changeSelectionView: function (e) {

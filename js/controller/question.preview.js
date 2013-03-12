@@ -89,7 +89,7 @@ var QuestionPreview = Spine.Controller.sub({
                       break;
               }
         $(".option-list:last").append(selectors);
-     },
+    },
 
     renderQuestions: function (e) {
         $(this.surveyPreviewList).empty();
@@ -107,7 +107,7 @@ var QuestionPreview = Spine.Controller.sub({
                 case "open":
                     that.initOpenPreview(element);
                     break;
-                case  "area":
+                case "area":
                     that.initAreaPreview(element.area);
                     break;
             }

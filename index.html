@@ -27,7 +27,6 @@
             <li><a href="#build-survey-questions">2.问卷制作</a></li>
             <li><a href="#logic_setting">3.逻辑设置</a></li>
             <li><a href="#quota_setting">4.配额设置</a></li>
-            <li><a href="#survey-preview">问卷预览</a></li>
         </ul>
         <div id="add-base-info">
         </div>
@@ -41,9 +40,6 @@
         <div id="quota_setting">
             配额设置
             <input type="button" value="上一步" onclick="$('#tabs').tabs('option', 'active', 2 );" />
-            <input type="button" value="下一步" onclick="$('#tabs').tabs('enable', 4);$('#tabs').tabs('option', 'active', 4 );" />
-        </div>
-        <div id="survey-preview">
         </div>
     </div>
     <!-- These are templates for controller -->
@@ -173,10 +169,12 @@
             </div>
             <div>
                 <input type="button" id="question-save" value="保存" />
-                <input type="button" value="取消" />
+                <input type="button" id="question-cancel" value="取消" />
             </div>
         </div>
-        <div class="servey-edit-next" style="clear: both;">
+        <div id="survey-preview" style="clear: both;">
+        </div>
+        <div class="servey-edit-next">
             <input type="button" value="上一步" onclick="$('#tabs').tabs('option', 'active', 0 );" />
             <input type="button" value="下一步" onclick="$('#tabs').tabs('enable', 2);$('#tabs').tabs('option', 'active', 2 );" />
         </div>

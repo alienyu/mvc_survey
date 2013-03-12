@@ -24,13 +24,13 @@ var QuestionPreview = Spine.Controller.sub({
     },
     sortableList: function () {
         $(this.surveyPreviewList).sortable({
-            items: "li",
+            items: "dl",
             activate: function (event, ui) {
                 this.oldindex = ui.item.index();
             },
             deactivate: function (event, ui) {
                 if (this.oldindex != ui.item.index()) {
-                    ui.item.parent().find("li").each(function (index, element) {
+                    ui.item.parent().find("dl").each(function (index, element) {
                         $(element).find("span").html(index + 1);
                     });
                     surveyInstance.sortQuestion(this.oldindex, ui.item.index());
@@ -116,12 +116,12 @@ var QuestionPreview = Spine.Controller.sub({
     },
 
     removeQuestion: function (e) {
-        var index = $(e.target).parents("li").index();
+        var index = $(e.target).parents("dl").index();
         surveyInstance.deleteQuestion(index);
     },
 
     editQuestion: function (e) {
-        var index = $(e.target).parents("li").index();
+        var index = $(e.target).parents("dl").index();
         Spine.trigger("clickEdit", index);
     },
 

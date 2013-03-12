@@ -180,25 +180,25 @@
         </div>
     </script>
     <script type="text/x-jquery-tmpl" id="survey-preview-template">
-        <ul id="survey-preview-list">
+        <div id="survey-preview-list">
 
-        </ul>
+        </div>
         <input type="button" value="保存" id="submit-survey" />
     </script>
     <!-- This is for radio question options template -->
     <script type="text/x-jquery-tmpl" id="question-preview-template">
-        <li>
-            <div>
+        <dl>
+            <dt>
                 <span>${questionIndex}</span>.${questionDescription}
-            </div>
-            <div class="option-list">
-            </div>
+            </dt>
+            <dd class="option-list">
+            </dd>
             <div style="text-align: right; border-bottom: 1px solid #ccc;">
                 <input type="checkbox" class="add-break" />分页&nbsp;&nbsp;
                 <a class="remove-question" href="#">删除</a>&nbsp;&nbsp;
                 <a class="edit-question" href="#">修改</a>
             </div>
-        </li>
+        </dl>
     </script>
     <!-- This is for question crearor text -->
     <script type="text/x-jquery-tmpl" id="question-text-creator-template">

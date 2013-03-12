@@ -57,17 +57,17 @@ Survey.include({
                 email: "" //答题人email
             };
 
-//            $.ajax({
-//                url: "/surveyPlatform/examination/saveExam",
-//                type: "POST",
-//                contentType: "application/json",
-//                success: function (response, option) {
-//                    //alert(response);
-//                },
-//                complete: function (response, option) {
-//                    //alert(response.responseText);
-//                }
-//            });
+            //            $.ajax({
+            //                url: "/surveyPlatform/examination/saveExam",
+            //                type: "POST",
+            //                contentType: "application/json",
+            //                success: function (response, option) {
+            //                    //alert(response);
+            //                },
+            //                complete: function (response, option) {
+            //                    //alert(response.responseText);
+            //                }
+            //            });
         }
     },
 
@@ -104,27 +104,33 @@ Survey.include({
                 options: null
             };
 
-            var question_type = "";
+            if (element.maxSelection) {
+                topic.max_num = element.maxSelection;
+            }
+
+            if (element.minSelection) {
+                topic.min_num = element.minSelection;
+            }
+
             switch (element.type) {
                 case "single-select":
-                    question_type = "0";
+                    topic.question_type = "0";
                     break;
                 case "multi-select":
-                    question_type = "1";
+                    topic.question_type = "1";
                     break;
                 case "matrix":
                     //TODO:create matrix question
                     break;
                 case "open":
-                    question_type = "3";
+                    topic.question_type = "3";
                     break;
                 case "area":
-                    question_type = "4";
+                    topic.question_type = "4";
                 default:
                     //TODO:others
                     break;
             }
-            topic.question_type = question_type;
 
             var ops = [];
             $(element.options).each(function (i, e) {
@@ -133,7 +139,7 @@ Survey.include({
                     item_type: e.type, //"选项类型",[0选项1开放]
                     item_value: e.content, //选项值
                     item_pic: "", //选项图片
-                    unit: "", //单位
+                    unit: e.unit, //单位
                     validate_flag: "", //是否验证
                     validate_type: "" //验证类型
                 };

@@ -77,7 +77,7 @@ var SurveyCreate = Spine.Controller.sub({
     },
 
     initAreaCreator: function () {
-        var optionCreatorTemp = $("#area-option-creator-template").tmpl();
+        var optionCreatorTemp = $("#area-option-creator-template").tmpl({"areaType": this.question.area});
         return optionCreatorTemp;
     },
 

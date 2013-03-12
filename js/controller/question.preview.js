@@ -65,25 +65,27 @@ var QuestionPreview = Spine.Controller.sub({
     },
 
     initAreaPreview: function (areaType) {
-    //TODO: maybe we can use the jquery.tmpl to move the html code out of js file
-     var selectors = "";
-     var prov = "<select class='area_prov'><option>请选择</option><option>北京</option><option>上海</option><option>广州</option></select>";
-     var city = "<select class='area_city'><option>请选择</option><option>北京</option><option>上海</option><option>广州</option></select>";
-     var district = "<select class='area_district'><option>请选择</option><option>朝阳</option><option>海淀</option><option>玄武</option></select>";
+     var selectors = "", options;
+     var prov = $("#area-province-preview-template").html();
+     var city = $("#area-city-preview-template").html();
+     var district = $("#area-district-preview-template").html();
         switch (areaType){
-                case "province" :
-                      selectors = prov;
+                case "province":
+                      options = this.initSelectList("province");
+                      selectors = "<select class='province'><option>请选择</option>" + options + "</select>省";
                       break;
-                  case "city" :
-                      selectors = prov;
+                  case "city":
+                      options = this.initSelectList("province");
+                      selectors = "<select class='province'><option>请选择</option>" + options + "</select>省";
                       selectors += city;
                       break;
-                  case "district" :
-                      selectors = prov;
+                  case "district":
+                      options = this.initSelectList("province");
+                      selectors = "<select class='province'><option>请选择</option>" + options + "</select>省";
                       selectors += city;
                       selectors += district;
                       break;
-                  default :
+                  default:
                       break;
               }
         $(".option-list:last").append(selectors);
@@ -123,10 +125,42 @@ var QuestionPreview = Spine.Controller.sub({
     },
 
     selectAreaChange: function (e) {
-        alert(e.target.value);
+        var options = this.initSelectList($(e.target).next().attr('class'), e.target.value);
+        $(e.target.nextElementSibling).empty().append("<option>请选择</option>" + options );
     },
 
     submitSurvey: function () {
         surveyInstance.submitSurvey();
+    },
+
+    initSelectList: function (areaType, parentCode){
+        var options = "";
+        switch (areaType) {
+            case "province" :
+                for (var i = 0; i < data_province.length; i++){
+                    var option = "<option value='" + data_province[i].code + "'>" + data_province[i].name + "</option>";
+                    options += option;
+                }
+                break;
+            case "city":
+                for (var i = 0; i < data_city.length; i++){
+                    if(data_city[i].code.substring(0,2) === parentCode.substring(0,2)) {
+                        var option = "<option value='" + data_city[i].code + "'>" + data_city[i].name + "</option>";
+                        options += option;
+                    }
+                }
+                break;
+            case  "district":
+                for (var i = 0; i < data_district.length; i++){
+                    if(data_district[i].code.substring(0,4) === parentCode.substring(0,4)) {
+                        var option = "<option value='" + data_district[i].code + "'>" + data_district[i].name + "</option>";
+                        options += option;
+                    }
+                }
+                break;
+            default :
+                break;
+        }
+        return options;
     }
 });

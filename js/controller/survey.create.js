@@ -189,15 +189,8 @@ var SurveyCreate = Spine.Controller.sub({
     },
 
     getArea: function () {
-        var area;
-        var array = $('#areaType').children().filter('input');
-        for (var i = array.length - 1; i >= 0; i--) {
-            if (array[i].checked) {
-                area = array[i].id;
-                break;
-            }
-        }
-        return area;
+        //return the last checked checkbox id
+        return $("#areaType").find("input:checked").toArray().pop().id;
     },
 
     changeSelectionView: function (e) {

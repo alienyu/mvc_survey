@@ -307,13 +307,22 @@
     </script>
 
     <script type="text/x-jquery-tmpl" id="area-province-preview-template">
-        <select class='province'><option>请选择</option></select>省
+        <select class='province'>
+            <option>请选择</option>
+        </select>
+        省
     </script>
     <script type="text/x-jquery-tmpl" id="area-city-preview-template">
-        <select class='city'><option>请选择</option></select>市
+        <select class='city'>
+            <option>请选择</option>
+        </select>
+        市
     </script>
     <script type="text/x-jquery-tmpl" id="area-district-preview-template">
-        <select class='district'><option>请选择</option></select>区
+        <select class='district'>
+            <option>请选择</option>
+        </select>
+        区
     </script>
     <!-- This is for the radio and checkbox option template -->
     <script type="text/x-jquery-tmpl" id="radio-option-template">
@@ -322,6 +331,9 @@
         {{else}}
             <input type=${type} name=${name}/> ${index}.${content}
         {{/if}}
+    </script>
+    <script type="text/x-jquery-tmpl" id="area-options-template">
+        <option value=${code}>${name}</option>
     </script>
 
 </body>

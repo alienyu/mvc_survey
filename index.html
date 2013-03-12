@@ -210,22 +210,22 @@
             <div id="option-creators">
                 <div class="option-creator">
                     <span class="option-tag">${optionTag}</span>
-                    <select class="type-select">
+                    <select class="type-select" >
                         <option value="0">选项</option>
-                        <option value="1">开放</option>
+                        <option value="1" ${select}>开放</option>
                     </select>
                     {{if type == "0"}}
                         <input class="option-content" value="${optionValue}" />
                     {{else}}
                         <span>选项</span>
-                        <input class="option-content"/>
+                        <input class="option-content" value="${optionValue}" />
                         <span>单位</span>
-                        <input class="option-unit"/>
+                        <input class="option-unit" value="${optionUnit}"/>
                     {{/if}}
                     <img src="images/u501_normal.png">
                     <img class="remove-option-tag" src="images/u156_normal.gif">
                     {{if type == "1"}}
-                        <input type="checkbox">验证</input>
+                        <input class="option-valid" type="checkbox" ${optionValid}>验证</input>
                     {{/if}}
                 </div>
             </div>

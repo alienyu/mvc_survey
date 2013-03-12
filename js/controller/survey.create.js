@@ -52,11 +52,11 @@ var SurveyCreate = Spine.Controller.sub({
         if (this.question.options != null) {
             $(this.question.options).each(function (index, element) {
                 if (index === 0) {
-                    optionCreatorTemp = $("#radio-option-creator-template").tmpl({ "optionTag": "A", "type": "0", "optionValue": element.content });
+                    optionCreatorTemp = $("#radio-option-creator-template").tmpl(element.type === "0" ? { "optionTag": "A", "type": "0", "optionValue": element.content } : { "optionTag": "A", "type": "1", "optionValue": element.content, "optionUnit": element.unit, "optionValid": element.is_valid ? "checked":'', "select":"selected" });
                 }
                 else {
                     $(optionCreatorTemp).find("#option-creators")
-                    .append($("#radio-option-creator-template").tmpl({ "optionTag": element.index, "type": "0", "optionValue": element.content }).find("#option-creators .option-creator"));
+                    .append($("#radio-option-creator-template").tmpl(element.type === "0" ? { "optionTag": element.index, "type": "0", "optionValue": element.content } : { "optionTag": element.index, "type": "1", "optionValue": element.content, "optionUnit": element.unit, "optionValid": element.is_valid ? "checked":'', "select":"selected" }).find("#option-creators .option-creator"));
                 }
             });
         }
@@ -184,7 +184,8 @@ var SurveyCreate = Spine.Controller.sub({
             optionType = $(this).find("option:selected").val();
             optionContent = $(this).find('.option-content').val();
             optionUnit = $(this).find('.option-unit').val() || '';
-            option = new Option({ index: optionIndex, type: optionType, content: optionContent, unit: optionUnit });
+            optionValid = $(this).find('.option-valid')[0] ? $(this).find('.option-valid')[0].checked : '';
+            option = new Option({ index: optionIndex, type: optionType, content: optionContent, unit: optionUnit, is_valid: optionValid });
             options.push(option);
         });
         this.question.options = options;
@@ -202,6 +203,10 @@ var SurveyCreate = Spine.Controller.sub({
         var optionType = $(e.target).val();
         var template = this.optionCreatorTemplate(indexTag, optionType);
         changeTempalete.html(template.html());
+        changeTempalete.find('.option-unit').val('');
         changeTempalete.find(".type-select").val(optionType);
+        //TODO: need to be refactor
+
+
     }
 });

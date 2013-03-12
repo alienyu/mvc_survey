@@ -280,9 +280,26 @@
     <!-- This is for area question options template -->
     <script type="text/x-jquery-tmpl" id="area-option-creator-template">
         <div id = "areaType">
-            <input id="province" type="checkbox" />省
-            <input id="city" type="checkbox" disabled="true" />市
-            <input id="district" type="checkbox" disabled="true" />区
+            {{if areaType == "province" }}
+                <input id="province" type="checkbox" checked="true" />省
+                <input id="city" type="checkbox" />市
+                <input id="district" type="checkbox" disabled="true" />区
+            {{/if}}
+            {{if areaType == "city" }}
+                <input id="province" type="checkbox" checked="true" />省
+                <input id="city" type="checkbox" checked="true" />市
+                <input id="district" type="checkbox" />区
+            {{/if}}
+            {{if areaType == "district" }}
+                <input id="province" type="checkbox" checked="true" />省
+                <input id="city" type="checkbox" checked="true" />市
+                <input id="district" type="checkbox"checked="true" />区
+            {{/if}}
+            {{if areaType == null }}
+                <input id="province" type="checkbox" />省
+                <input id="city" type="checkbox" disabled="true" />市
+                <input id="district" type="checkbox" disabled="true" />区
+            {{/if}}
             <p>
                 说明：选择可选的地区级别。只有选择了上一级地区后，方可选择下一级地区项。例如：选择省后，市可选，但不可选择区。
             </p>

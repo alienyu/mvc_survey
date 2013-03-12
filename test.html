@@ -8,10 +8,18 @@
         $(function () {
             $("#start-test-button").click(function () {
                 $.ajax({
-                    url: "/surveyPlatform/examination/getExam/513ed2685558d0c41a6c27fb/aaa@163.com",
+                    url: "/surveyPlatform/examination/getExam/513efa775558883fbc56ce3c/aaa@163.com",
                     type: "GET",
                     success: function (response, option) {
                         $("div").append(response.question_html);
+                    }
+                });
+                $.ajax({
+                    url: "/surveyPlatform/examination/saveAnswer",
+                    type: "POST",
+                    data: JSON.stringify(""),
+                    success: function (response, option) {
+                        
                     }
                 });
             });

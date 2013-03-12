@@ -9,18 +9,9 @@
   <link href="css/personal.css" type="text/css" rel="stylesheet" rev="stylesheet" />
   <script src="js/login_down.js"></script>
   <script type="text/javascript" src="js/lib/jquery-1.8.0.min.js"></script>
+  <script type="text/javascript" src="js/json.js"></script>
   <script>
   $(function () {
-    $("#start-test-button").click(function () {
-      $.ajax({
-        url: "/surveyPlatform/examination/getExam/513d8d045558fdd47892043a",
-        type: "GET",
-        success: function (response, option) {
-                        //$("div").append(response.question_html);
-                      }
-                    });
-    });
-
     // page step
     $("#main>div").hide();
     $($("#main>div")[0]).show();
@@ -29,6 +20,8 @@
       $(this).parents(".paper_next_container").next().show();
     });
 
+
+    $("#page_cont").html(json.question_html);
   });
   </script>
 </head>
@@ -128,7 +121,7 @@
       <div class="container">
         <div class="title"><a href="#" class="second">完成调查大概需要<span class="yellow">60秒</span></a><img src="img/icon/question_icon.png" /><h1>测试你重色轻友的程度</h1></div>
         <div id="page_cont">
-          <dl>
+<!--           <dl>
             <dt>1.单选题</dt>
             <dd><input id="" type="checkbox" value="checkbox" >选项<input id="" type="checkbox" value="checkbox" >选项<input id="" type="checkbox" value="checkbox" >选项<input type="text" /></dd>
           </dl>
@@ -170,7 +163,7 @@
           <dl>
             <dt>4.开放题</dt>
             <dd><textarea></textarea></dd>
-          </dl>
+          </dl> -->
         </div>
 
         <div class="btn_group"><a href="#" class="btn_orange_2 page_next">提&nbsp;交</a><a href="#" class="btn_blue_3">下一页</a></div>     

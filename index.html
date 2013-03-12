@@ -209,18 +209,18 @@
         <div>
             <div id="option-creators">
                 <div class="option-creator">
-                    <span>${optionTag}</span>
+                    <span class="option-tag">${optionTag}</span>
                     <select class="type-select">
                         <option value="0">选项</option>
                         <option value="1">开放</option>
                     </select>
                     {{if type == "0"}}
-                        <input value="${optionValue}" />
+                        <input class="option-content" value="${optionValue}" />
                     {{else}}
                         <span>选项</span>
-                        <input />
+                        <input class="option-content"/>
                         <span>单位</span>
-                        <input />
+                        <input class="option-unit"/>
                     {{/if}}
                     <img src="images/u501_normal.png">
                     <img class="remove-option-tag" src="images/u156_normal.gif">
@@ -301,7 +301,7 @@
     <!-- This is for the radio and checkbox option template -->
     <script type="text/x-jquery-tmpl" id="radio-option-template">
         {{if type == "textarea"}}
-            ${index}.<textarea></textarea>
+            ${index}.${content}<textarea></textarea>${unit}
         {{else}}
             <input type=${type} name=${name}/> ${index}.${content}
         {{/if}}

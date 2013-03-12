@@ -188,7 +188,7 @@ var SurveyCreate = Spine.Controller.sub({
         });
         this.question.options = options;
         this.question.arrangement = $('#arrangement').find("option:selected").text();
-    },
+      },
 
     getArea: function () {
         //return the last checked checkbox id

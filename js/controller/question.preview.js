@@ -66,24 +66,23 @@ var QuestionPreview = Spine.Controller.sub({
     },
 
     initAreaPreview: function (areaType) {
-     var selectors = "", options = this.initSelectList("province");
-     var prov = $("#area-province-preview-template").tmpl();
-     var city = $("#area-city-preview-template").html();
-     var district = $("#area-district-preview-template").html();
+     var provSelectTmpl = $("#area-province-preview-template").tmpl();
+     var citySelectTmpl = $("#area-city-preview-template").html();
+     var districtSelectTmpl = $("#area-district-preview-template").html();
+     var allTempl = provSelectTmpl.append(this.initSelectList("province"));
         switch (areaType){
                 case "province":
-                      selectors = prov.html(options);
                       break;
                   case "city":
-                      selectors = prov.html(options).after(city);
+                    allTempl = allTempl.after(citySelectTmpl);
                       break;
                   case "district":
-                      selectors = prov.html(options).after(city).after(district);
+                    allTempl = allTempl.after(citySelectTmpl).after(districtSelectTmpl);
                       break;
                   default:
                       break;
               }
-        $(".option-list:last").append(selectors);
+        $(".option-list:last").append(allTempl);
     },
 
     renderQuestions: function (e) {
@@ -120,8 +119,10 @@ var QuestionPreview = Spine.Controller.sub({
     },
 
     selectAreaChange: function (e) {
-        var options = this.initSelectList($(e.target).next().attr('class'), e.target.value);
-        $(e.target.nextElementSibling).append(options);
+        if (e.target.nextElementSibling !== null) {
+            var options = this.initSelectList($(e.target).next().attr('class'), e.target.value);
+            $(e.target.nextElementSibling).append(options);
+        }
     },
 
     submitSurvey: function () {
@@ -129,30 +130,9 @@ var QuestionPreview = Spine.Controller.sub({
     },
 
     initSelectList: function (areaType, parentCode){
-        var createOptions = function (data) {
-            var optionsValues = [];
-                data.map(function(item, index){
-                    optionsValue = {};
-                    optionsValue.code = item.code;
-                    optionsValue.name = item.name;
-                    optionsValues.push(optionsValue);
-                });
-                return optionsValues;
-            };
-        var options = "";
-        switch (areaType) {
-            case "province":
-                options = $("#area-options-template").tmpl(createOptions(data_province));
-                break;
-            case "city":
-                options = $("#area-options-template").tmpl(createOptions(data_city));
-                break;
-            case  "district":
-                options = $("#area-options-template").tmpl(createOptions(data_district));
-                break;
-            default :
-                break;
-        }
-        return options;
+        optionsValues = areaData[areaType].map(function(item, index){
+            return {code: item.code, name: item.name};
+        });
+        return $("#area-options-template").tmpl(optionsValues);
     }
 });

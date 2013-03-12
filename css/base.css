@@ -1,0 +1,112 @@
+@charset "utf-8";
+
+/*****************
+
+PUBLIC STYLE
+LAYOUTS
+
+******************/
+
+/* default style
+-------------------------------------------- */	
+body { margin:0; padding:0; border:0; font-size:12px;font-family:tahoma, Arial, Simsun; color:#757575; background:url(../img/body_bg.jpg); font-family:"微软雅黑";} 
+* {margin:0; padding:0; }
+li {list-style:none;}
+a{text-decoration: none; color:#3b9fd3;}
+a:hover {text-decoration: none; color:#8acdeb;}
+a img {border:0;} 
+.fl{float:left;}
+.fr{float:right;}
+.clear{clear:both;}
+.none{ display:none;}
+.icon{ margin-left:5px;}
+.padding10{ padding:10px 0px 10px 0;}
+
+/* button style */	
+.button_blue_light {font-size: 16px; font-weight: bold; border: none; color: #fff; background: url(../img/button_blue_light.png) no-repeat; width: 205px; height: 44px;}
+.button_gray_dark {font-size: 16px; font-weight: bold;  border: none; color: #fff; background: url(../img/button_gray_dark.png) no-repeat; width: 205px; height: 44px;}
+
+/* page list */
+.page{text-align:center; margin:0 auto;margin-top:10px;font-weight:normal;}
+.page input{width:20px;margin:0px 5px;}
+.page a{font-weight:normal;height:20px; padding:4px 7px 0px 7px; display:inline-block; color:#333333;border:1px solid #D8D8D8; margin-right:7px;}
+.page a.active, .page a:hover,.page .btn_blue{border:1px solid #649BB6;color:#fff; background:url(../img/page_bg.png) left center repeat-x; font-weight:bold;}
+
+
+/* page layouts
+------------------------------------------------------  */
+.login_icon,.register_icon{padding-left:20px; height:14px;}
+.login_icon{background:url(../img/icon/login_icon.png) no-repeat;}
+.register_icon{ background:url(../img/icon/register_icon.png) no-repeat;}
+/* header */
+#head_main { background:url(../img/head_bg.jpg) repeat-x; height:132px; box-shadow:15px 0 15px #c1c1c1; filter:progid:DXImageTransform.Microsoft.Shadow(color='#c1c1c1',direction='120',strength='10'); z-index:888; position:relative;}
+	#head_main .head_top{ width:1002px; margin:0 auto; padding-top:5px;}
+		#head_main .head_top .head_left{ float:left; height:25px; *height:20px;}
+		#head_main .head_top .head_right{ float:right;}
+	#head_main .head_top span{ margin-left:20px;}
+	#head_main .head_top span a{ color:#888888;}
+	#head_main .head_top span a:hover{color:#79b1cf;}
+	#head_main .head_top .share{ float:right; background:url(../img/share_bg.png) no-repeat; width:152px; height:18px; padding-left:45px; margin-right:100px;}
+		#head_main .head_top .share > li{ float:left; margin-right:8px;}
+	#head_main .head_top .about{ float:right;}
+		#head_main .head_top .about li{ float:left; margin:0 5px;}
+	#head_main .head_top .logo{ background:url(../img/logo.png) no-repeat; width:191px; height:102px; float:left;}
+		#head_main .head_top .logo a,#head_main .head_top .logo a:hover{width:191px; height:102px; display:block;}
+	#head_main .head_top .logo_right{ float:right; width:785px; position:relative;}
+		#head_main .head_top .logo_right .slogan{ background:url(../img/slogan.png) no-repeat; width:173px; float:left; height:26px; margin-top:25px;}
+
+
+.search{background: url(../img/search_bg.png) no-repeat; position: relative; float:right; width:395px; height:37px; margin-top:15px;}
+.search ul li{ float:left;}
+.search ul li input{ border:none; height:35px; padding:0 15px; background:none; line-height:35px; color:#989898; font-size:14px; width:290px;}
+.search_bt{ height:33px; width:70px;}
+ 	.search_bt a{height:33px; width:70px; display:block;}
+ 	.search_bt a:hover {height:33px; width:73px; display:block; background:url(../img/search_bg.png) no-repeat; background-position:-320px -39px;}
+
+/* nav */
+.nav{width:785px; height:36px; line-height:36px; position:relative; bottom:-14px; background:url(../img/nav.png) no-repeat;}
+	.nav ul li{float:left; font-size:15px;}
+		.nav ul li a{ color:#FFF;}
+.home,.all,.revive,.repot,.task{display:block; text-align:center;}
+.home a:hover,.all a:hover,.revive a:hover,.repot a:hover,.task a:hover,.home_on,.all_on,.revive_on,.repot_on,.task_on{background:url(../img/nav.png) no-repeat; text-align:center; display:block;}
+.home{width:90px;}/*首页*/
+.home a:hover,.home_on{background-position:0 -38px; height:36px; width:90px;}
+.all {width:112px;}/*全部*/
+.all a:hover,.all_on{background-position:-90px -38px; height:36px; width:112px;}
+.revive {width:112px;}/*复活*/
+.revive a:hover,.revive_on{background-position:-203px -38px; height:36px; width:112px;}
+.repot {width:112px;}/*报告*/
+.repot a:hover,.repot_on{background-position:-203px -38px; height:36px; width:112px;}
+.task {width:92px;}/*任务*/
+.task a:hover,.task_on{background-position:-425px -38px; height:36px; width:92px;}
+.login_bt{  }/*会员登录*/
+.login_bt a,.login_bt a:hover{width:108px; height:34px; display: block;}
+
+/* login dropdown menu */
+#sddm{ z-index:30;}
+#sddm li{ position:absolute; top:0; right:0; width:108px; height:34px;}
+#sddm li a{	display: block;	width:108px; }
+#sddm li a:hover{}
+#sddm div{position: absolute; visibility: hidden; margin: 0; padding: 0;	background: #2484b5;border: 1px solid #2592bd; z-index:20; left:-2px; width:104px;}
+	#sddm div a	{position: relative;display: block;	margin: 0;	padding: 5px 10px;	width: auto;white-space: nowrap;text-align: left;text-decoration: none;	background: #2484b5;color: #2875DE; font-size:12px; line-height:24px; color: #FFF; border-top:1px solid #2592bd;}
+	#sddm div a:hover{background: #3399ff;color: #FFF}
+
+/* main container */
+#main{ width:1002px; margin:0 auto; *margin-top:-10px; border-top:10px solid #FFF;}
+
+/* page footer */
+.footer{ background:url(../img/footer_bg.png) repeat-x; height:188px;}
+.footer_center{ width:1002px; margin:0 auto;}
+.footer_center .partner{ padding-top:30px;}
+.footer_center .partner ul li{ width:80px; height:30px; margin-left:15px; float:left;}
+.footer_center .links{ border-top:1px dashed #CCC; border-bottom:1px dashed #c8c8c8; padding:10px 20px; margin:10px 0;}
+.footer_center .links ul li{ float:left; margin-left:10px;}
+.footer_center .links ul li a{ color:#666666;}
+.footer_center .links ul li a:hover{ color:#338fba;}
+.footer_center .company{ text-align:center; margin-top:20px;}
+.footer_center .company ul li{ margin-bottom:10px;}
+
+/*漂浮*/
+div #fsloating_label{ position:absolute; right:8%; top:30%;}
+	div #fsloating_label ul li{ margin-bottom:10px;}
+

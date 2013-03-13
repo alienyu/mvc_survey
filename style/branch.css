@@ -22,9 +22,9 @@
 .branch_question_manufacture .float_R {float: right;}
 .branch_question_manufacture .default {text-align: center; font-size: 30px; height: 150px; line-height: 150px;}
 
-.questionary_list {line-height: 30px;}
+/*.questionary_list {line-height: 30px;}
 .questionary_list>label {width: 80px;}
-.questionary_list>div {padding-left: 80px;}
+.questionary_list>div {padding-left: 80px;}*/
 .questionary_list_opera {border-top: 1px solid #E4E4E4; border-bottom: 1px solid #E4E4E4; height: 30px; line-height: 30px; text-align: right; margin: 15px 0 30px 0;}
 .questionary_list_opera a{ color: #333; display: inline-block; padding: 0 10px;}
 
@@ -32,4 +32,8 @@
 
 .textarea_widget {width: 90%}
 .form_28>div .textarea_widget textarea {width: 50%;}
+
+.question dl{margin-bottom:10px;}
+.question dt{font-size:14px;height:25px;font-weight:bold;margin-top:5px;}
+.question dd{padding-left:20px;clear:both;}
 

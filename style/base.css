@@ -132,10 +132,12 @@ select {height: 24px; line-height: 24px; padding: 0px; font-family: "微软雅�
 .progress_bar a {color: #333; font-size: 14px; font-weight: bold; display: inline-block;}
 .progress_bar label {margin: 0 13px 0 30px; color: #fff;}
 /* recovery jquery.ui.css */
-.progress_bar .ui-state-default {background:url(../img/progress_bar.png);}
+.progress_bar.ui-widget-header {border: none; background: transparent;}
+.progress_bar .ui-state-default {background:url(../img/progress_bar.png); border: none;}
 .progress_bar .ui-state-active {background:url(../img/progress_bar_active.png);}
 .progress_bar .ui-state-active a {color: #fff;}
 .progress_bar .start.ui-state-active {background:url(../img/progress_bar_active_start.png);}
+#tabs>div.ui-widget-content {border: none;}
 
 
 

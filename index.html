@@ -43,7 +43,7 @@
                 <div class="pag_content">
                     <div id="tabs">
                         <ul class="progress_bar">
-                            <li class="start"><a  href="#add-base-info"><label>1</label>编辑问卷信息</a></li>
+                            <li class="start"><a href="#add-base-info"><label>1</label>编辑问卷信息</a></li>
                             <li><a href="#build-survey-questions"><label>2</label>问卷制作</a></li>
                             <li><a href="#logic_setting"><label>3</label>逻辑设置</a></li>
                             <li><a href="#quota_setting"><label>4</label>配额设置</a></li>                       
@@ -165,11 +165,11 @@
                               <div class="page_subhead top">逻辑题名</div>
                               <div class="page_subhead_cont aside">
                                 <ul  id="question-tool-bar">
-                                  <li id="single-select"><img src="img/manufactor_aside_radio.png"/><span>单选题</span></li>
-                                  <li  id="multi-select"><img src="img/manufactor_aside_checkbox.png"/><span>多选题</span></li>
-                                  <li  id="matrix"><img src="img/manufactor_aside_determinant.png"/><span>矩阵题</span></li>
-                                  <li id="open"><img src="img/manufactor_aside_freedom.png"/><span>开放题</span></li>
-                                  <li id="area"><img src="img/manufactor_aside_region.png"/><span>地区题</span></li>
+                                  <li><img src="img/manufactor_aside_radio.png"  id="single-select"/><span>单选题</span></li>
+                                  <li><img src="img/manufactor_aside_checkbox.png"  id="multi-select"/><span>多选题</span></li>
+                                  <li><img src="img/manufactor_aside_determinant.png"  id="matrix"/><span>矩阵题</span></li>
+                                  <li><img src="img/manufactor_aside_freedom.png"  id="open"/><span>开放题</span></li>
+                                  <li><img src="img/manufactor_aside_region.png"  id="area"/><span>地区题</span></li>
                                 </ul>
                               </div>
                             </div>
@@ -179,9 +179,8 @@
                                   <label>问卷名称</label>
                                   汽车用户调研问卷
                                 </div>
-
                                 <!--     creator main  -->
-                                <div id="creator-area">
+                                <div id="creator-area" class="form_28">
                                   <span class="default">将左侧的题型拖到此处添加问卷题目。</span>
                                 </div>
                                 <!-- builded list main -->
@@ -189,8 +188,8 @@
                                   <input type="button" id="question-save" value="保存" class="btn_blue"/>
                                   <input type="button" id="question-cancel" value="取消"  class="btn_blue"/>
                                 </div>
-                                <div id="survey-preview" style="clear: both;"></div>
                               </div>
+                              <div id="survey-preview"></div>
                               <!-- / border_blue end -->
                               <div class="servey-edit-next">
                                 <input type="button" value="上一步" onclick="$('#tabs').tabs('option', 'active', 0 );" class="btn_blue"/>
@@ -200,9 +199,11 @@
                         </script>
 
                         <script type="text/x-jquery-tmpl" id="survey-preview-template">
-                            <div id="survey-preview-list">
+                            <div id="survey-preview-list" class="question">
                             </div>
-                            <input type="button" value="保存" id="submit-survey" />
+                            <div class="btn_opera">
+                                <input type="button" value="保存" id="submit-survey" class="btn_blue"/>
+                            </div>
                         </script>
                         <!-- This is for radio question options template -->
                         <script type="text/x-jquery-tmpl" id="question-preview-template">
@@ -213,31 +214,30 @@
                                 <dd class="option-list">
                                 </dd>
                             </dl>
-                            <div class="btn_opera">
-                                <input type="checkbox" class="add-break" />分页&nbsp;&nbsp;
-                                <a class="remove-question" href="#">删除</a>&nbsp;&nbsp;
+                            <div class="questionary_list_opera">
+                                <input type="checkbox" class="add-break" />
+                                分页
+                                <a class="remove-question" href="#">删除</a>
                                 <a class="edit-question" href="#">修改</a>
                             </div>
                         </script>
                         <!-- This is for question crearor text -->
                         <script type="text/x-jquery-tmpl" id="question-text-creator-template">
-                            <div class="form_28">
-                              <div>
-                                <label class="float">问题</label>
-                                <div class="textarea_widget">
-                                  <textarea id="question-text"></textarea>
-                                  <input type="checkbox" id="necessary" />
-                                  <span>必须回答</span>
-                                </div>
-                              </div>
-                              <div class="clear"></div>
+                          <div>
+                            <label class="float">问题</label>
+                            <div class="textarea_widget">
+                              <textarea id="question-text"></textarea>
+                              <input type="checkbox" id="necessary" />
+                              <span>必须回答</span>
                             </div>
+                          </div>
+                          <div class="clear"></div>
                         </script>
                         <!-- This is for radio question options template -->
                         <script type="text/x-jquery-tmpl" id="radio-option-creator-template">
-                           <div id="option-creators" class="form_28">
+                        <div id="option-creators">
+                            <label class="float">选项</label>
                             <div>
-                                <label class="float">选项</label>
                                 <div class="option-creator">
                                     <div>
                                         <span class="option-tag">${optionTag}</span>
@@ -256,87 +256,88 @@
                                         <a href="#" class="upload"></a>
                                         <a href="#" class="delete remove-option-tag"></a>
                                     </div>
-
-                                    <div class="btn_opera">
-                                        <a href="#" class="add" id="add-option-tag"></a>
-                                    </div>
                                     {{if type == "1"}}
                                     <input class="option-valid" type="checkbox" ${optionValid}>验证</input>
                                     {{/if}}
                                 </div>
+                                <div class="btn_opera">
+                                    <a href="#" class="add" id="add-option-tag"></a>
+                                </div>
                             </div>
-                            <div>                                
-                                <label>显示方式</label>
-                                <select id="arrangement">
-                                    <option value="横向显示">横向显示</option>
-                                    <option value="纵向显示">纵向显示</option>
-                                </select></div>
-                            </div>
+                        </div>
+                        <div>                                
+                            <label>显示方式</label>
+                            <select id="arrangement">
+                                <option value="横向显示">横向显示</option>
+                                <option value="纵向显示">纵向显示</option>
+                            </select>
+                        </div>
+                        <div class="clear"></div>
                         </script>
                         <!-- This is for check question options template -->
                         <script type="text/x-jquery-tmpl" id="check-option-creator-template">
                             <div>
-                                <span>最多可选：</span>
-                                <span>
-                                    <select id="max-select-num">
-                                        <option value="1">1</option>
-                                    </select>
-                                </span>
-                                <span>最少可选：</span>
-                                <span>
-                                    <select id="min-select-num">
-                                        <option value="1">1</option>
-                                    </select>
-                                </span>
+                                <label>最多可选：</label>
+                                <select id="max-select-num">
+                                    <option value="1">1</option>
+                                </select>
+                                <label>最少可选：</label>
+                                <select id="min-select-num">
+                                    <option value="1">1</option>
+                                </select>
                             </div>
                         </script>
                         <!-- This is for open question options template -->
                         <script type="text/x-jquery-tmpl" id="open-option-creator-template">
                             <div>
-                                <div id="validation">
-                                    <input type="checkbox" id="valid" />验证
-                                    <select>
-                                        <option>邮箱</option>
-                                        <option>手机</option>
-                                        <option>数字</option>
-                                        <option>日期</option>
-                                    </select>
-                                </div>
-                                <div id="input-type">
-                                    输入类型：
-                                    <select>
-                                        <option>输入框</option>
-                                        <option>文本域</option>
-                                    </select>
-                                </div>
+                                <label id="validation">
+                                    <input type="checkbox" id="valid" />
+                                    验证
+                                </label>
+                                <select>
+                                    <option>邮箱</option>
+                                    <option>手机</option>
+                                    <option>数字</option>
+                                    <option>日期</option>
+                                </select>
+                            </div>
+                            <div  id="input-type">
+                                <label>输入类型</label>
+                                <select>
+                                    <option>输入框</option>
+                                    <option>文本域</option>
+                                </select>
                             </div>
                         </script>
                         <!-- This is for area question options template -->
                         <script type="text/x-jquery-tmpl" id="area-option-creator-template">
-                            <div id = "areaType">
-                                {{if areaType == "province" }}
-                                    <input id="province" type="checkbox" checked="true" />省
-                                    <input id="city" type="checkbox" />市
-                                    <input id="district" type="checkbox" disabled="true" />区
-                                {{/if}}
-                                {{if areaType == "city" }}
-                                    <input id="province" type="checkbox" checked="true" />省
-                                    <input id="city" type="checkbox" checked="true" />市
-                                    <input id="district" type="checkbox" />区
-                                {{/if}}
-                                {{if areaType == "district" }}
-                                    <input id="province" type="checkbox" checked="true" />省
-                                    <input id="city" type="checkbox" checked="true" />市
-                                    <input id="district" type="checkbox"checked="true" />区
-                                {{/if}}
-                                {{if areaType == null }}
-                                    <input id="province" type="checkbox" />省
-                                    <input id="city" type="checkbox" disabled="true" />市
-                                    <input id="district" type="checkbox" disabled="true" />区
-                                {{/if}}
-                                <p>
-                                    说明：选择可选的地区级别。只有选择了上一级地区后，方可选择下一级地区项。例如：选择省后，市可选，但不可选择区。
-                                </p>
+                            <div>
+                                <label class="float">选项</label>
+                                <div id = "areaType">
+                                    {{if areaType == "province" }}
+                                        <input id="province" type="checkbox" checked="true" />省
+                                        <input id="city" type="checkbox" />市
+                                        <input id="district" type="checkbox" disabled="true" />区
+                                    {{/if}}
+                                    {{if areaType == "city" }}
+                                        <input id="province" type="checkbox" checked="true" />省
+                                        <input id="city" type="checkbox" checked="true" />市
+                                        <input id="district" type="checkbox" />区
+                                    {{/if}}
+                                    {{if areaType == "district" }}
+                                        <input id="province" type="checkbox" checked="true" />省
+                                        <input id="city" type="checkbox" checked="true" />市
+                                        <input id="district" type="checkbox"checked="true" />区
+                                    {{/if}}
+                                    {{if areaType == null }}
+                                        <input id="province" type="checkbox" />省
+                                        <input id="city" type="checkbox" disabled="true" />市
+                                        <input id="district" type="checkbox" disabled="true" />区
+                                    {{/if}}
+                                    <p>
+                                        说明：选择可选的地区级别。只有选择了上一级地区后，方可选择下一级地区项。例如：选择省后，市可选，但不可选择区。
+                                    </p>
+                                </div>
                             </div>
                         </script>
 

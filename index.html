@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title></title>
@@ -327,9 +327,9 @@
     <!-- This is for the radio and checkbox option template -->
     <script type="text/x-jquery-tmpl" id="radio-option-template">
         {{if type == "textarea"}}
-            ${index}.${content}<textarea></textarea>${unit}
+            <div class="text-area"><input type=${questionType} name=${name}/>${index}.${content}<textarea></textarea>${unit}</div>
         {{else}}
-            <input type=${type} name=${name}/> ${index}.${content}
+            <div class=${type}><input type=${type} name=${name}/> ${index}.${content}</div>
         {{/if}}
     </script>
     <script type="text/x-jquery-tmpl" id="area-options-template">

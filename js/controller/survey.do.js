@@ -17,7 +17,7 @@ var SurveyDo = Spine.Controller.sub({
     },
 
     show: function () {
-        $(page_cont).html(json.question_html);
+        $(this.page_cont).html(json.question_html);
     },
 
     init: function () {

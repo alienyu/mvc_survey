@@ -3,9 +3,9 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>问卷制作</title>
-   <link rel="stylesheet" type="text/css" href="js/lib/jquery-ui/jquery-ui.css" />
-   <!--   <link rel="stylesheet" type="text/css" href="css/createSurvey/builtSurvey.css" />
-     <link rel="stylesheet" href="js/lib/jwysiwyg/jquery.wysiwyg.css" type="text/css" /> -->
+   <!-- <link rel="stylesheet" type="text/css" href="js/lib/jquery-ui/jquery-ui.css" /> -->
+   <!--   <link rel="stylesheet" type="text/css" href="css/createSurvey/builtSurvey.css" />-->
+     <link rel="stylesheet" href="js/lib/jwysiwyg/jquery.wysiwyg.css" type="text/css" /> 
 
     <link rel="stylesheet" type="text/css" href="style/branch.css"/>
     <link rel="stylesheet" type="text/css" href="style/base.css"/>
@@ -43,7 +43,7 @@
                 <div class="pag_content">
                     <div id="tabs">
                         <ul class="progress_bar">
-                            <li><a  href="#add-base-info" class="start active"><label>1</label>编辑问卷信息</a></li>
+                            <li class="start"><a  href="#add-base-info"><label>1</label>编辑问卷信息</a></li>
                             <li><a href="#build-survey-questions"><label>2</label>问卷制作</a></li>
                             <li><a href="#logic_setting"><label>3</label>逻辑设置</a></li>
                             <li><a href="#quota_setting"><label>4</label>配额设置</a></li>                       
@@ -161,11 +161,11 @@
                         <div class="clear"></div>
                         </script>
                         <script type="text/x-jquery-tmpl" id="survey-create-template">
-                        <div class="split_2 border_blue">
+                        <div class="split_2 border_blue" id="questionType">
                           <div class="page_subhead top">逻辑题名</div>
                           <div class="page_subhead_cont aside">
-                            <ul>
-                              <li><img src="img/manufactor_aside_radio.png"/><span>单选题</span></li>
+                            <ul  id="question-tool-bar">
+                              <li id="single-select"><img src="img/manufactor_aside_radio.png"/><span>单选题</span></li>
                               <li><img src="img/manufactor_aside_checkbox.png"/><span>多选题</span></li>
                               <li><img src="img/manufactor_aside_determinant.png"/><span>矩阵题</span></li>
                               <li><img src="img/manufactor_aside_freedom.png"/><span>开放题</span></li>
@@ -174,7 +174,7 @@
                             <a href="#" class="add"></a>
                           </div>
                         </div>
-                        <div class="split_8">
+                        <div class="split_8"  id="question-editor">
                             <div class=" border_blue grap_15 form_28">
                                 <div>
                                     <label>问卷名称</label>
@@ -182,49 +182,27 @@
                                 </div>
 
                                 <!--      default view -->
-                                <div class="default">将左侧的题型拖到此处添加问卷题目。</div>
+                                <div id="creator-area">
+                                    <span class="default">将左侧的题型拖到此处添加问卷题目。
+                                </div>
                                 <div class="btn_opera">
                                     <input type="button" id="question-save" value="保存" class="btn_blue"/>
                                     <input type="button" id="question-cancel" value="取消"  class="btn_blue"/>
                                 </div>
                             </div>
                         </div>
+
+
+                        </div>
                         </script>
+
+<!--                        <div id="survey-preview" style="clear: both;">
+                        </div>
+                        <div class="servey-edit-next">
+                            <input type="button" value="上一步" onclick="$('#tabs').tabs('option', 'active', 0 );" class="btn_blue"/>
+                            <input type="button" value="下一步" onclick="$('#tabs').tabs('enable', 2);$('#tabs').tabs('option', 'active', 2 );" class="btn_blue"/>-->
                         <!-- not finished -->
                         <script type="text/x-jquery-tmpl" id="survey-create-template">
-                        <div id="questionType" style="float: left">
-                            <div>题型</div>
-                            <div>
-                                <ul id="question-tool-bar">
-                                    <li>
-                                        <div id="single-select">单选</div>
-                                    </li>
-                                    <li>
-                                        <div id="multi-select">多选</div>
-                                    </li>
-                                    <li>
-                                        <div id="matrix">矩阵</div>
-                                    </li>
-                                    <li>
-                                        <div id="open">开放</div>
-                                    </li>
-                                    <li>
-                                        <div id="area">地区</div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div id="question-editor" style="float: left">
-                            <span>问卷名：</span>
-                            <span>汽车用户调研问卷</span><br/>
-                            <div id="creator-area" style="height:200px">
-                                将左侧的问题拖拽至此添加问卷问题
-                            </div>
-                            <div>
-                                <input type="button" id="question-save" value="保存" />
-                                <input type="button" id="question-cancel" value="取消" />
-                            </div>
-                        </div>
                         <div id="survey-preview" style="clear: both;">
                         </div>
                         <div class="servey-edit-next">

@@ -101,7 +101,7 @@ var SurveyCreate = Spine.Controller.sub({
 
     bindDraggable: function () {
         var that = this;
-        $("#question-tool-bar div").each(function (index, element) {
+        $("#question-tool-bar li").each(function (index, element) {
             $(element).draggable({ opacity: 0.7, helper: "clone", cursor: "move" });
         });
 

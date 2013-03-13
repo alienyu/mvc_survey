@@ -124,15 +124,20 @@ select {height: 24px; line-height: 24px; padding: 0px; font-family: "微软雅�
 .page_tabs .active {background:url(../img/tab_hover_bg.png)  left top no-repeat;color:#FFF; font-weight: bold;}
 .page_tabs_cont {margin-bottom: 20px;}
 
-/* pregress bar */
+/* pregress bar base on jquery.ui.css*/
 .progress_bar {margin-bottom: 20px; height: 35px;}
-.progress_bar li {float: left;}
-.progress_bar a {color: #333; font-size: 14px; font-weight: bold; background:url(../img/progress_bar.png) no-repeat; width: 180px; display: inline-block; height: 35px; line-height: 35px; margin-left: -20px;}
-.progress_bar a.start {background:url(../img/progress_bar_start.png) no-repeat; width: 163px; margin: 0px;}
+.progress_bar li {float: left;  width: 180px;  height: 35px; line-height: 35px;  background:url(../img/progress_bar.png) no-repeat; margin-left: -20px;}
+.progress_bar li.start {background:url(../img/progress_bar_start.png) no-repeat; width: 163px; margin: 0px;}
+.progress_bar li.start label {margin: 0 13px 0 15px;}
+.progress_bar a {color: #333; font-size: 14px; font-weight: bold; display: inline-block;}
 .progress_bar label {margin: 0 13px 0 30px; color: #fff;}
-.progress_bar a.start label {margin: 0 13px 0 15px;}
-.progress_bar a.active {background:url(../img/progress_bar_active.png); color: #fff;}
-.progress_bar a.start.active {background:url(../img/progress_bar_active_start.png);}
+/* recovery jquery.ui.css */
+.progress_bar .ui-state-default {background:url(../img/progress_bar.png);}
+.progress_bar .ui-state-active {background:url(../img/progress_bar_active.png);}
+.progress_bar .ui-state-active a {color: #fff;}
+.progress_bar .start.ui-state-active {background:url(../img/progress_bar_active_start.png);}
+
+
 
 /* pagination */
 .pagination {text-align:center; margin-top: 20px;}

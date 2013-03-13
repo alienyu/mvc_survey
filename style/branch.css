@@ -1,0 +1,34 @@
+.branch_question_new .split_2 {float: right;}
+.branch_question_new .split_2 img {margin: 10px 0; display: block; width: 200px;}
+.branch_question_new .split_8 {float: left;}
+.branch_question_new .split_8>div {margin-bottom: 10px;}
+.branch_question_new .split_8>div label { width: 120px; text-align: right; margin-right: 10px;}
+
+.branch_question_logic .page_subhead_cont.aside ul li {height: 30px; line-height: 30px; text-align: center;}
+.branch_question_logic .page_subhead_cont.aside a {float:right; display: inline-block; margin: 10px 10px 0px; height:8px; width: 8px; background:url(../img/delete.gif) no-repeat;}
+.branch_question_logic .page_subhead_cont.aside a.add {background:url(../img/add.gif);}
+.branch_question_logic .cont label {width: 100px;}
+.branch_question_logic .cont>div { margin-bottom: 15px;}
+.branch_question_logic .cont>div select {width: 170px; margin-right: 15px;}
+.branch_question_logic .cont>div textarea {width: 65%;  height: 150px;}
+.branch_question_logic .cont>div a.add {display: inline-block; margin: 10px 10px 0px; height:8px; width: 8px; background:url(../img/add.gif) no-repeat;}
+.branch_question_logic .cont>div .unit {display: inline-block; width: 150px; border: 1px solid #E4E4E4; margin-right: 15px; padding: 10px;}
+.branch_question_logic .cont>div .unit>div {height: 30px; line-height: 30px;}
+
+.branch_question_manufacture .page_subhead_cont.aside ul li {font-size: 14px; text-align: center; margin: 15px 0; cursor: pointer;}
+.branch_question_manufacture .page_subhead_cont.aside ul li img {vertical-align: middle;}
+.branch_question_manufacture .page_subhead_cont.aside ul li span {display: inline-block; margin-left: 5px;}
+.branch_question_manufacture .short {width: 70px;}
+.branch_question_manufacture .float_R {float: right;}
+.branch_question_manufacture .default {text-align: center; font-size: 30px; height: 150px; line-height: 150px;}
+
+.questionary_list {line-height: 30px;}
+.questionary_list>label {width: 80px;}
+.questionary_list>div {padding-left: 80px;}
+.questionary_list_opera {border-top: 1px solid #E4E4E4; border-bottom: 1px solid #E4E4E4; height: 30px; line-height: 30px; text-align: right; margin: 15px 0 30px 0;}
+.questionary_list_opera a{ color: #333; display: inline-block; padding: 0 10px;}
+
+.questionary_tbl .tbl{ width: auto; margin: 10px auto 0px auto;}
+
+.textarea_widget {width: 90%}
+.form_28>div .textarea_widget textarea {width: 50%;}

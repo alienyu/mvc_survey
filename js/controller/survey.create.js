@@ -56,7 +56,7 @@ var SurveyCreate = Spine.Controller.sub({
                 }
                 else {
                     $(optionCreatorTemp).find("#option-creators")
-                    .append($("#radio-option-creator-template").tmpl(element.type === "0" ? { "optionTag": element.index, "type": "0", "optionValue": element.content } : { "optionTag": element.index, "type": "1", "optionValue": element.content, "optionUnit": element.unit, "optionValid": element.is_valid ? "checked":'', "select":"selected" }).find("#option-creators .option-creator"));
+                        .append($("#radio-option-creator-template").tmpl(element.type === "0" ? { "optionTag": element.index, "type": "0", "optionValue": element.content } : { "optionTag": element.index, "type": "1", "optionValue": element.content, "optionUnit": element.unit, "optionValid": element.is_valid ? "checked":'', "select":"selected" }).find("#option-creators .option-creator"));
                 }
             });
         }
@@ -101,7 +101,7 @@ var SurveyCreate = Spine.Controller.sub({
 
     bindDraggable: function () {
         var that = this;
-        $("#question-tool-bar div").each(function (index, element) {
+        $("#question-tool-bar li").each(function (index, element) {
             $(element).draggable({ opacity: 0.7, helper: "clone", cursor: "move" });
         });
 

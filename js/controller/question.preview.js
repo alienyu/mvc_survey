@@ -67,22 +67,22 @@ var QuestionPreview = Spine.Controller.sub({
     },
 
     initAreaPreview: function (areaType) {
-     var provSelectTmpl = $("#area-province-preview-template").tmpl();
-     var citySelectTmpl = $("#area-city-preview-template").html();
-     var districtSelectTmpl = $("#area-district-preview-template").html();
-     var allTempl = provSelectTmpl.append(this.initSelectList("province"));
+        var provSelectTmpl = $("#area-province-preview-template").tmpl();
+        var citySelectTmpl = $("#area-city-preview-template").html();
+        var districtSelectTmpl = $("#area-district-preview-template").html();
+        var allTempl = provSelectTmpl.append(this.initSelectList("province"));
         switch (areaType){
-                case "province":
-                      break;
-                  case "city":
-                    allTempl = allTempl.after(citySelectTmpl);
-                      break;
-                  case "district":
-                    allTempl = allTempl.after(citySelectTmpl).after(districtSelectTmpl);
-                      break;
-                  default:
-                      break;
-              }
+            case "province":
+                break;
+            case "city":
+                allTempl = allTempl.after(citySelectTmpl);
+                break;
+            case "district":
+                allTempl = allTempl.after(citySelectTmpl).after(districtSelectTmpl);
+                break;
+            default:
+                break;
+        }
         $(".option-list:last").append(allTempl);
     },
 
@@ -94,8 +94,8 @@ var QuestionPreview = Spine.Controller.sub({
             $("#question-preview-template").tmpl({ "questionIndex": index + 1, "questionDescription": element.description }).appendTo($(previewContent));
             switch (element.type) {
                 case "single-select": case "multi-select":
-                    that.initRadioCheckPreview(element, index);
-                    break;
+                that.initRadioCheckPreview(element, index);
+                break;
                 case "matrix":
                     that.initMatrixPreview();
                     break;

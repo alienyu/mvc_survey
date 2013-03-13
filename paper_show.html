@@ -69,13 +69,24 @@
                     case "1":
                         $(obj).find('dd>input').each(function (i, e) {
                             if (e.checked === true) {
-                                answer_detail_list.push({
-                                    question_value: element.options[i].item_num,
-                                    open_question_value: "",
-                                    province: "",
-                                    city: "",
-                                    area: ""
-                                });
+                                if ($(e).parent().find('textarea')) {
+                                    answer_detail_list.push({
+                                        question_value: element.options[i].item_num,
+                                        open_question_value: $(e).parent().find('textarea').val(),
+                                        province: "",
+                                        city: "",
+                                        area: ""
+                                    });
+                                }
+                                else {
+                                    answer_detail_list.push({
+                                        question_value: element.options[i].item_num,
+                                        open_question_value: "",
+                                        province: "",
+                                        city: "",
+                                        area: ""
+                                    });
+                                }
                             }
                         });
                         break;

@@ -30,3 +30,6 @@
 
 .questionary_tbl .tbl{ width: auto; margin: 10px auto 0px auto;}
 
+.textarea_widget {width: 90%}
+.form_28>div .textarea_widget textarea {width: 50%;}
+

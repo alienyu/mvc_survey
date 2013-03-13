@@ -161,60 +161,51 @@
                         <div class="clear"></div>
                         </script>
                         <script type="text/x-jquery-tmpl" id="survey-create-template">
-                        <div class="split_2 border_blue" id="questionType">
-                          <div class="page_subhead top">逻辑题名</div>
-                          <div class="page_subhead_cont aside">
-                            <ul  id="question-tool-bar">
-                              <li id="single-select"><img src="img/manufactor_aside_radio.png"/><span>单选题</span></li>
-                              <li><img src="img/manufactor_aside_checkbox.png"/><span>多选题</span></li>
-                              <li><img src="img/manufactor_aside_determinant.png"/><span>矩阵题</span></li>
-                              <li><img src="img/manufactor_aside_freedom.png"/><span>开放题</span></li>
-                              <li><img src="img/manufactor_aside_region.png"/><span>地区题</span></li>
-                            </ul>
-                            <a href="#" class="add"></a>
-                          </div>
-                        </div>
-                        <div class="split_8"  id="question-editor">
-                            <div class=" border_blue grap_15 form_28">
-                                <div>
-                                    <label>问卷名称</label>
-                                    汽车用户调研问卷
-                                </div>
-
-                                <!--      default view -->
-                                <div id="creator-area">
-                                    <span class="default">将左侧的题型拖到此处添加问卷题目。
-                                </div>
-                                <div class="btn_opera">
-                                    <input type="button" id="question-save" value="保存" class="btn_blue"/>
-                                    <input type="button" id="question-cancel" value="取消"  class="btn_blue"/>
-                                </div>
+                            <div class="split_2 border_blue" id="questionType">
+                              <div class="page_subhead top">逻辑题名</div>
+                              <div class="page_subhead_cont aside">
+                                <ul  id="question-tool-bar">
+                                  <li id="single-select"><img src="img/manufactor_aside_radio.png"/><span>单选题</span></li>
+                                  <li><img src="img/manufactor_aside_checkbox.png"/><span>多选题</span></li>
+                                  <li><img src="img/manufactor_aside_determinant.png"/><span>矩阵题</span></li>
+                                  <li><img src="img/manufactor_aside_freedom.png"/><span>开放题</span></li>
+                                  <li><img src="img/manufactor_aside_region.png"/><span>地区题</span></li>
+                                </ul>
+                              </div>
                             </div>
-                        </div>
+                            <div class="split_8"  id="question-editor">
+                              <div class=" border_blue grap_15">
+                                <div class="form_28">
+                                  <label>问卷名称</label>
+                                  汽车用户调研问卷
+                                </div>
 
-
-                        </div>
+                                <!--     creator main  -->
+                                <div id="creator-area">
+                                  <span class="default">将左侧的题型拖到此处添加问卷题目。</span>
+                                </div>
+                                <!-- builded list main -->
+                                <div class="btn_opera">
+                                  <input type="button" id="question-save" value="保存" class="btn_blue"/>
+                                  <input type="button" id="question-cancel" value="取消"  class="btn_blue"/>
+                                </div>
+                                <div id="survey-preview" style="clear: both;"></div>
+                              </div>
+                              <!-- / border_blue end -->
+                              <div class="servey-edit-next">
+                                <input type="button" value="上一步" onclick="$('#tabs').tabs('option', 'active', 0 );" class="btn_blue"/>
+                                <input type="button" value="下一步" onclick="$('#tabs').tabs('enable', 2);$('#tabs').tabs('option', 'active', 2 );" class="btn_blue"/>
+                              </div>
+                            </div>
                         </script>
 
-<!--                        <div id="survey-preview" style="clear: both;">
-                        </div>
-                        <div class="servey-edit-next">
-                            <input type="button" value="上一步" onclick="$('#tabs').tabs('option', 'active', 0 );" class="btn_blue"/>
-                            <input type="button" value="下一步" onclick="$('#tabs').tabs('enable', 2);$('#tabs').tabs('option', 'active', 2 );" class="btn_blue"/>-->
-                        <!-- not finished -->
-                        <script type="text/x-jquery-tmpl" id="survey-create-template">
-                        <div id="survey-preview" style="clear: both;">
-                        </div>
-                        <div class="servey-edit-next">
-                            <input type="button" value="上一步" onclick="$('#tabs').tabs('option', 'active', 0 );" />
-                            <input type="button" value="下一步" onclick="$('#tabs').tabs('enable', 2);$('#tabs').tabs('option', 'active', 2 );" />
-                        </div>
-                        </script>
                         <script type="text/x-jquery-tmpl" id="survey-preview-template">
                             <ul id="survey-preview-list">
 
                             </ul>
-                            <input type="button" value="保存" id="submit-survey" />
+                            <div class="btn_opera">
+                                <input type="button" value="保存" id="submit-survey" class="btn_blue"/>
+                            </div>
                         </script>
                         <!-- This is for radio question options template -->
                         <script type="text/x-jquery-tmpl" id="question-preview-template">
@@ -233,41 +224,56 @@
                         </script>
                         <!-- This is for question crearor text -->
                         <script type="text/x-jquery-tmpl" id="question-text-creator-template">
-                            <span>问题：<textarea id="question-text" rows="5" cols="65"></textarea></span><div><input type="checkbox" id="necessary" />必须回答</div>
+                            <div class="form_28">
+                              <div>
+                                <label class="float">问题</label>
+                                <div class="textarea_widget">
+                                  <textarea id="question-text"></textarea>
+                                  <input type="checkbox" id="necessary" />
+                                  <span>必须回答</span>
+                                </div>
+                              </div>
+                              <div class="clear"></div>
+                            </div>
                         </script>
                         <!-- This is for radio question options template -->
                         <script type="text/x-jquery-tmpl" id="radio-option-creator-template">
+                           <div id="option-creators" class="form_28">
                             <div>
-                                <div id="option-creators">
-                                    <div class="option-creator">
+                                <label class="float">选项</label>
+                                <div class="option-creator">
+                                    <div>
                                         <span class="option-tag">${optionTag}</span>
                                         <select class="type-select" >
                                             <option value="0">选项</option>
                                             <option value="1" ${select}>开放</option>
                                         </select>
                                         {{if type == "0"}}
-                                            <input class="option-content" value="${optionValue}" />
+                                        <input class="option-content" value="${optionValue}" />
                                         {{else}}
-                                            <span>选项</span>
-                                            <input class="option-content" value="${optionValue}" />
-                                            <span>单位</span>
-                                            <input class="option-unit" value="${optionUnit}"/>
+                                        <span>选项</span>
+                                        <input class="option-content" value="${optionValue}" />
+                                        <span>单位</span>
+                                        <input class="option-unit" value="${optionUnit}"/>
                                         {{/if}}
-                                        <img src="images/u501_normal.png">
-                                        <img class="remove-option-tag" src="images/u156_normal.gif">
-                                        {{if type == "1"}}
-                                            <input class="option-valid" type="checkbox" ${optionValid}>验证</input>
-                                        {{/if}}
+                                        <a href="#" class="upload"></a>
+                                        <a href="#" class="delete remove-option-tag"></a>
                                     </div>
+
+                                    <div class="btn_opera">
+                                        <a href="#" class="add" id="add-option-tag"></a>
+                                    </div>
+                                    {{if type == "1"}}
+                                    <input class="option-valid" type="checkbox" ${optionValid}>验证</input>
+                                    {{/if}}
                                 </div>
-                                <img id="add-option-tag" src="images/u158_normal.gif">
-                                <div>
-                                    <span>显示方式</span>
-                                    <select id="arrangement">
-                                        <option value="横向显示">横向显示</option>
-                                        <option value="纵向显示">纵向显示</option>
-                                    </select>
-                                </div>
+                            </div>
+                            <div>                                
+                                <label>显示方式</label>
+                                <select id="arrangement">
+                                    <option value="横向显示">横向显示</option>
+                                    <option value="纵向显示">纵向显示</option>
+                                </select></div>
                             </div>
                         </script>
                         <!-- This is for check question options template -->

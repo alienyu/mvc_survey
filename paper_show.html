@@ -69,7 +69,7 @@
                     case "1":
                         $(obj).find('dd>input').each(function (i, e) {
                             if (e.checked === true) {
-                                if (!!($(e).parent().find('textarea'))) {
+                                if ($(e).parent().find('textarea')) {
                                     answer_detail_list.push({
                                         question_value: element.options[i].item_num,
                                         open_question_value: $(e).parent().find('textarea').val(),

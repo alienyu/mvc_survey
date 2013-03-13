@@ -12,16 +12,16 @@ var SurveyDo = Spine.Controller.sub({
 
     events: {
         "click #save-answer": "saveAnswer",
-        "change ul dl dd select": "areaSelectChange"
-
+        "change ul dl dd select": "areaSelectChange",
+        "click .btn_blue_3": "pagingSurvey"
     },
 
     show: function () {
-        $(json.question_html).find(".pagingTag").index()
-        $(this.page_cont).html(json.question_html);
+       this.pagingSurvey();
     },
 
     init: function () {
+        this.currentIndex = 0;
         // page step
         $("#main>div").hide();
         $($("#main>div")[0]).show();
@@ -30,11 +30,8 @@ var SurveyDo = Spine.Controller.sub({
             $(this).parents(".paper_next_container").next().show();
         });
 
-        //$("#page_cont").find("div").remove();
-
         this.show();
-        //$(".pagingTag").css("display", "none")
-
+        //$(".btn_orange_2 page_next").hide();
     },
 
     areaSelectChange: function (e) {
@@ -66,6 +63,21 @@ var SurveyDo = Spine.Controller.sub({
                 break;
         }
         $(e.target.nextElementSibling).empty().append("<option>请选择</option>" + options );
+    },
+
+    pagingSurvey: function () {
+        var that = this;
+        $("#page_cont").html("");
+        $(json.question_html).each(function(index, element){
+            if( index >= that.currentIndex ) {
+                $("#page_cont").append($(element).html());
+                if($(element).find(".pagingTag").size() !== 0){
+                    that.currentIndex = index + 1;
+                    return false;
+                };
+            }
+        });
+        $("#page_cont").find(".pagingTag").remove();
     },
 
     saveAnswer: function() {

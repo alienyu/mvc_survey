@@ -15,6 +15,7 @@ var SurveyDo = Spine.Controller.sub({
     },
 
     show: function () {
+        $(json.question_html).find(".pagingTag").index()
         this.el.html(json.question_html);
     },
 
@@ -27,9 +28,10 @@ var SurveyDo = Spine.Controller.sub({
             $(this).parents(".paper_next_container").next().show();
         });
 
-        $("#page_cont").find("div").remove();
+        //$("#page_cont").find("div").remove();
 
         this.show();
+        //$(".pagingTag").css("display", "none")
 
     },
 

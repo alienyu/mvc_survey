@@ -31,7 +31,6 @@ var SurveyDo = Spine.Controller.sub({
         });
 
         this.show();
-        //$(".btn_orange_2 page_next").hide();
     },
 
     areaSelectChange: function (e) {
@@ -67,14 +66,21 @@ var SurveyDo = Spine.Controller.sub({
 
     pagingSurvey: function () {
         var that = this;
-        $("#page_cont").html("");
-        $(json.question_html).each(function(index, element){
+        $("#page_cont").empty();
+        $(json.question_html).each(function(index, element) {
             if( index >= that.currentIndex ) {
                 $("#page_cont").append($(element).html());
                 if($(element).find(".pagingTag").size() !== 0){
                     that.currentIndex = index + 1;
+                    that.currentPage += 1;
                     return false;
                 };
+            }
+            if(index + 1 === $(json.question_html).size()){
+                $("#save-answer").show();
+                $(".btn_blue_3").hide();
+            } else {
+                $("#save-answer").hide();
             }
         });
         $("#page_cont").find(".pagingTag").remove();

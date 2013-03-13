@@ -72,7 +72,6 @@ var SurveyDo = Spine.Controller.sub({
                 $("#page_cont").append($(element).html());
                 if($(element).find(".pagingTag").size() !== 0){
                     that.currentIndex = index + 1;
-                    that.currentPage += 1;
                     return false;
                 };
             }

@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>问卷制作</title>
-   <!-- <link rel="stylesheet" type="text/css" href="js/lib/jquery-ui/jquery-ui.css" /> -->
+    <link rel="stylesheet" type="text/css" href="js/lib/jquery-ui/jquery-ui.css" /> 
    <!--   <link rel="stylesheet" type="text/css" href="css/createSurvey/builtSurvey.css" />-->
      <link rel="stylesheet" href="js/lib/jwysiwyg/jquery.wysiwyg.css" type="text/css" /> 
 
@@ -166,10 +166,10 @@
                               <div class="page_subhead_cont aside">
                                 <ul  id="question-tool-bar">
                                   <li id="single-select"><img src="img/manufactor_aside_radio.png"/><span>单选题</span></li>
-                                  <li><img src="img/manufactor_aside_checkbox.png"/><span>多选题</span></li>
-                                  <li><img src="img/manufactor_aside_determinant.png"/><span>矩阵题</span></li>
-                                  <li><img src="img/manufactor_aside_freedom.png"/><span>开放题</span></li>
-                                  <li><img src="img/manufactor_aside_region.png"/><span>地区题</span></li>
+                                  <li  id="multi-select"><img src="img/manufactor_aside_checkbox.png"/><span>多选题</span></li>
+                                  <li  id="matrix"><img src="img/manufactor_aside_determinant.png"/><span>矩阵题</span></li>
+                                  <li id="open"><img src="img/manufactor_aside_freedom.png"/><span>开放题</span></li>
+                                  <li id="area"><img src="img/manufactor_aside_region.png"/><span>地区题</span></li>
                                 </ul>
                               </div>
                             </div>
@@ -200,27 +200,24 @@
                         </script>
 
                         <script type="text/x-jquery-tmpl" id="survey-preview-template">
-                            <ul id="survey-preview-list">
-
-                            </ul>
-                            <div class="btn_opera">
-                                <input type="button" value="保存" id="submit-survey" class="btn_blue"/>
+                            <div id="survey-preview-list">
                             </div>
+                            <input type="button" value="保存" id="submit-survey" />
                         </script>
                         <!-- This is for radio question options template -->
                         <script type="text/x-jquery-tmpl" id="question-preview-template">
-                            <li>
-                                <div>
+                            <dl>
+                                <dt>
                                     <span>${questionIndex}</span>.${questionDescription}
-                                </div>
-                                <div class="option-list">
-                                </div>
-                                <div style="text-align: right; border-bottom: 1px solid #ccc;">
-                                    <input type="checkbox" class="add-break" />分页&nbsp;&nbsp;
-                                    <a class="remove-question" href="#">删除</a>&nbsp;&nbsp;
-                                    <a class="edit-question" href="#">修改</a>
-                                </div>
-                            </li>
+                                </dt>
+                                <dd class="option-list">
+                                </dd>
+                            </dl>
+                            <div class="btn_opera">
+                                <input type="checkbox" class="add-break" />分页&nbsp;&nbsp;
+                                <a class="remove-question" href="#">删除</a>&nbsp;&nbsp;
+                                <a class="edit-question" href="#">修改</a>
+                            </div>
                         </script>
                         <!-- This is for question crearor text -->
                         <script type="text/x-jquery-tmpl" id="question-text-creator-template">
@@ -360,7 +357,6 @@
                                 <input type=${type} name=${name}/> ${index}.${content}
                             {{/if}}
                         </script>
-
                     </div>
                 </div>
                 <!-- InstanceEndEditable --> </div>
@@ -371,7 +367,6 @@
         </div>
 <!--                                 // <div>
                         //     <label></label>
-
                         //     <input type="button" class="btn_blue" value="下一步" />
                         //     <input type="button" class="btn_blue" value="重置" />
                         // </div> -->

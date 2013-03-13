@@ -11,7 +11,9 @@ var SurveyDo = Spine.Controller.sub({
     },
 
     events: {
+        "click #save-answer": "saveAnswer",
         "change ul dl dd select": "areaSelectChange"
+
     },
 
     show: function () {
@@ -64,5 +66,92 @@ var SurveyDo = Spine.Controller.sub({
                 break;
         }
         $(e.target.nextElementSibling).empty().append("<option>请选择</option>" + options );
+    },
+
+    saveAnswer: function() {
+        var answerlist = [];
+        var aa = [];
+        $(json.topic_list).each(function (index, element) {
+            var obj = $('#page_cont>ul').find('dl')[index];
+            var question_no = element.question_no;
+            var question_type = element.question_type;
+            var answer_detail_list = [];
+            switch (question_type) {
+                case "0":
+                case "1":
+                    $(obj).find('dd>input').each(function (i, e) {
+                        if (e.checked === true) {
+                            if ($(e).parent().find('textarea')) {
+                                answer_detail_list.push({
+                                    question_value: element.options[i].item_num,
+                                    open_question_value: $(e).parent().find('textarea').val(),
+                                    province: "",
+                                    city: "",
+                                    area: ""
+                                });
+                            }
+                            else {
+                                answer_detail_list.push({
+                                    question_value: element.options[i].item_num,
+                                    open_question_value: "",
+                                    province: "",
+                                    city: "",
+                                    area: ""
+                                });
+                            }
+                        }
+                    });
+                    break;
+                case "3":
+                    var bb = "";
+                    if ($(obj).find('textarea').val()) {
+                        bb = $(obj).find('textarea').val();
+                    }
+                    else {
+                        bb = $(obj).find('input').val();
+                    }
+                    answer_detail_list.push({
+                        question_value: "",
+                        open_question_value: bb,
+                        province: "",
+                        city: "",
+                        area: ""
+                    });
+                    break;
+                case "4":
+                    answer_detail_list.push({
+                        question_value: "",
+                        open_question_value: "",
+                        province: $(obj).find('.province').val(),
+                        city: $(obj).find('.city').val(),
+                        area: $(obj).find('.district').val()
+                    });
+                    break;
+            };
+            aa.push({
+                result_id: json.result_id, //--->result_id,
+                question_no: question_no,
+                question_type: question_type,
+                answer_detail_list: answer_detail_list
+            });
+        });
+
+        var answer = {
+            exam_id: "513efa775558883fbc56ce3c",
+            start_time:"11/3/2013",
+            end_time: "11/3/2013",
+            is_effective: "Y",//('Y':有效，'N':无效,(默认'Y'))
+            email: json.email,
+            answer_list:aa
+        };
+        console.log(JSON.stringify(answer));
+        $.ajax({
+            url: "/surveyPlatform/examination/saveAnswer",
+            type: "POST",
+            data: JSON.stringify(answer),
+            success: function (response, option) {
+
+            }
+        });
     }
 });

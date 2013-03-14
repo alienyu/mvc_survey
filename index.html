@@ -169,8 +169,10 @@
                             <div class="split_8"  id="question-editor">
                               <div class=" border_blue grap_15">
                                 <div class="form_28">
-                                  <label>问卷名称</label>
-                                  汽车用户调研问卷
+                                    <div>
+                                      <label>问卷名称</label>
+                                      <span>汽车用户调研问卷</span>
+                                    </div>
                                 </div>
                                 <!--     creator main  -->
                                 <div id="creator-area" class="form_28">
@@ -232,28 +234,27 @@
                             <label class="float">选项</label>
                             <div>
                                 <div class="option-creator">
-                                    <div>
-                                        <span class="option-tag">${optionTag}</span>
-                                        <select class="type-select" >
-                                            <option value="0">选项</option>
-                                            <option value="1" ${select}>开放</option>
-                                        </select>
-                                        {{if type == "0"}}
-                                        <input class="option-content" value="${optionValue}" />
-                                        {{else}}
-                                        <span>选项</span>
-                                        <input class="option-content" value="${optionValue}" />
-                                        <span>单位</span>
-                                        <input class="option-unit" value="${optionUnit}"/>
-                                        {{/if}}
-                                        <input type="file" id="img-upload-${optionTag}" class="upload">
-                                        <img  id="img-pre-${optionTag}" class="option-img-preview" width="21" height="19" />
-                                        {{if type == "1"}}
-                                        <input class="option-valid" type="checkbox" ${optionValid} />验证
-                                        {{/if}}
+                                    <span class="option-tag">${optionTag}</span>
+                                    <select class="type-select" >
+                                        <option value="0">选项</option>
+                                        <option value="1" ${select}>开放</option>
+                                    </select>
+                                   {{if type == "0"}}
+                                    <input class="option-content" type="text" value="${optionValue}" />
+                                    {{else}}
+                                    <span>选项</span>
+                                    <input class="option-content" type="text" value="${optionValue}" />
+                                    <span>单位</span>
+                                    <input class="option-unit" type="text" value="${optionUnit}"/>
+                                    {{/if}}
+                                    <input type="file" id="img-upload-${optionTag}" class="upload">
+                                    <img  id="img-pre-${optionTag}" class="option-img-preview" width="21" height="19" />
+                                    {{if type == "1"}}
+                                    <input class="option-valid" type="checkbox" ${optionValid} />验证
+                                    {{/if}}
+                                    <div class="btn_opera">
                                         <a href="#" class="delete remove-option-tag"></a>
                                     </div>
-
                                 </div>
                                 <div class="btn_opera">
                                     <a href="#" class="add" id="add-option-tag"></a>

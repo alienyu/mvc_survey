@@ -234,15 +234,6 @@ var SurveyCreate = Spine.Controller.sub({
     uploadImg: function(e) {
         var sourceId = $(e.target).attr("id");
         var targetId = sourceId.replace("upload", "pre");
-        if (typeof FileReader === 'undefined') {
-            alert('Your browser does not support FileReader...');
-            return;
-        }
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            var img = document.getElementById(targetId);
-            img.src = this.result;
-        };
-        reader.readAsDataURL(document.getElementById(sourceId).files[0]);
+        imagePreview(sourceId, targetId);
     }
 });

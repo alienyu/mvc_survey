@@ -17,6 +17,8 @@
     <script type="text/javascript" src="js/controller/baseinfo.js"></script>
     <script type="text/javascript" src="js/controller/question.preview.js"></script>
     <script type="text/javascript" src="js/controller/survey.create.js"></script>
+    <script type="text/javascript" src="js/controller/logic.settings.js"></script>
+    <script type="text/javascript" src="js/controller/quota.settings.js"></script>
     <script type="text/javascript" src="js/model/survey.js"></script>
     <script type="text/javascript" src="js/model/question.js"></script>
     <script type="text/javascript" src="js/model/option.js"></script>
@@ -45,22 +47,13 @@
                         <ul class="progress_bar">
                             <li class="start"><a href="#add-base-info"><label>1</label>编辑问卷信息</a></li>
                             <li><a href="#build-survey-questions"><label>2</label>问卷制作</a></li>
-                            <li><a href="#logic_setting"><label>3</label>逻辑设置</a></li>
-                            <li><a href="#quota_setting"><label>4</label>配额设置</a></li>                       
+                            <li><a href="#logic-settings"><label>3</label>逻辑设置</a></li>
+                            <li><a href="#quota-settings"><label>4</label>配额设置</a></li>                       
                         </ul>
-                        <div id="add-base-info" class="branch_question_new">
-                        </div>
-                        <div id="build-survey-questions" class="branch_question_manufacture">
-                        </div>
-                        <div id="logic_setting">
-                            逻辑设置
-                            <input type="button" value="上一步" onclick="$('#tabs').tabs('option', 'active', 1 );" />
-                            <input type="button" value="下一步" onclick="$('#tabs').tabs('enable', 3);$('#tabs').tabs('option', 'active', 3 );" />
-                        </div>
-                        <div id="quota_setting">
-                            配额设置
-                            <input type="button" value="上一步" onclick="$('#tabs').tabs('option', 'active', 2 );" />
-                        </div>
+                        <div id="add-base-info" class="branch_question_new"></div>
+                        <div id="build-survey-questions" class="branch_question_manufacture"></div>
+                        <div id="logic-settings" class="branch_question_logic"></div>
+                        <div id="quota-settings" class="branch_question_logic"></div>
                         <!-- These are templates for controller -->
                         <script type="text/x-jquery-tmpl" id="base-info-template">
                         <div class="split_8">
@@ -145,7 +138,7 @@
                             <div  class="servey-edit-next">
                                 <label> </label>
                                 <input type="button" value="下一步" onclick="$('#tabs').tabs('enable', 1);$('#tabs').tabs('option', 'active', 1 );" class="btn_blue"/>
-                                <input type="button" class="reset btn_blue" value="reset">
+                                <input type="button" class="reset btn_blue" value="重置">
                             </div>
                         </div>
                         <div class="split_2">
@@ -342,7 +335,6 @@
                                 </div>
                             </div>
                         </script>
-
                         <script type="text/x-jquery-tmpl" id="area-province-preview-template">
                             <select class='province'><option>请选择</option></select>省
                         </script>
@@ -362,6 +354,121 @@
                                 {{/if}}
                             </div>
                         </script>
+                        <!-- logic settings template start -->
+                         <script type="text/x-jquery-tmpl" id="logic-settings-template">
+                            <div class="split_3 border_blue">
+                              <div class="page_subhead top">逻辑题名</div>
+                              <div class="page_subhead_cont aside">
+                                <ul>
+                                  <li>01XXX<a href="#" class="delete"></a></li>
+                                  <li class="color">02XXX<a href="#" class="delete"></a></li>
+                                  <li>03XXX<a href="#" class="delete"></a></li>
+                                  <li class="color">04XX<a href="#" class="delete"></a></li>
+                                </ul>
+                                <a href="#" class="add"></a>
+                              </div>
+                            </div>
+                            <div class="split_7">
+                              <div class=" border_blue grap_15 cont">
+                                <div>
+                                  <label>逻辑名</label>
+                                  <input type="text">
+                                </div>
+                                <div>
+                                  <label>选择逻辑类型</label>
+                                  <select><option>请选择类型</option></select>
+                                </div>
+                                <div>
+                                  <label>逻辑条件</label>
+                                  <select><option>Q1AAA</option></select>
+                                  <select><option>Q1AAA</option></select>
+                                  <select><option>Q1AAA</option></select>
+                                  <a href="#" class="add"></a>
+                                </div>
+                                <div>
+                                  <label></label>
+                                  <textarea></textarea>
+                                </div>
+                                <div>
+                                  <label>逻辑行为</label>
+                                  <select><option>请选择</option></select>
+                                  <select><option>显示</option></select>
+                                </div>
+                                <!-- 选择映射 -->
+                                <div>
+                                  <label></label>
+                                  <select><option>请选择</option></select>
+                                  <select><option>显示</option></select>
+                                </div>
+                                <div>
+                                  <label></label>
+                                  <div class="unit">
+                                    <div>A: 111</div>
+                                    <div>B: 222</div>
+                                    <div>C: 333</div>
+                                  </div>
+                                  <div class="unit">
+                                    <div>A: 111</div>
+                                    <div>B: 222</div>
+                                    <div>C: 333</div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="btn_opera">
+                                <input type="button" value="上一步" onclick="$('#tabs').tabs('option', 'active', 1 );" class="btn_blue"/>
+                                <input type="button" value="下一步" onclick="$('#tabs').tabs('enable', 3);$('#tabs').tabs('option', 'active', 3 );" class="btn_blue"/>
+                              </div>
+                            </div>
+                         </script>
+                         <!-- / logic settings template end -->
+                        <!-- quota settings template start -->
+                        <script type="text/x-jquery-tmpl" id="quota-settings-template">
+                            <div class="split_3 border_blue">
+                              <div class="page_subhead top">配额名称</div>
+                              <div class="page_subhead_cont aside">
+                                <ul>
+                                  <li>01XXX<a href="#" class="delete"></a></li>
+                                  <li class="color">02XXX<a href="#" class="delete"></a></li>
+                                  <li>03XXX<a href="#" class="delete"></a></li>
+                                  <li class="color">04XX<a href="#" class="delete"></a></li>
+                                </ul>
+                                <a href="#" class="add"></a>
+                              </div>
+                            </div>
+                            <div class="split_7">
+                              <div class=" border_blue grap_15 cont">
+                                <div>
+                                  <label>配额名称</label>
+                                  <input type="text">
+                                </div>
+                                <div>
+                                  <label>配额条件</label>
+                                  <select><option>Q1AAA</option></select>
+                                  <select><option>全部</option></select>
+                                  <select><option>回答</option></select>
+                                  <a href="#" class="add"></a>
+                                </div>
+                                <div>
+                                  <label>配额数</label>
+                                  <input type="text">              
+                                </div>
+                                <div>
+                                  <label>达到配额后执行</label>
+                                  <select><option>终止答题</option></select>
+                                  <label>终止提示</label>
+                                  <input type="text">
+                                </div>
+                              </div>
+                              <div class="btn_opera">
+                                <input type="button" value="上一步" onclick="$('#tabs').tabs('option', 'active', 2 );" class="btn_blue"/>
+                                <input type="button" class="btn_blue" value="保存" />
+                                <input type="button" class="btn_blue" value="重置" />
+                              </div>
+
+                            </div>
+                            
+                        </script>
+                        <!-- / quota settings template end -->
                     </div>
                 </div>
                 <!-- InstanceEndEditable --> </div>

@@ -74,9 +74,9 @@ Survey.include({
     _getQuestionHtml: function () {
         $("#survey-preview-list").children().each(function(index, element) {
             if($(element).find(".add-break").attr("checked")){
-                $(element).find("div :last").html("分页");
+                $(element).find("dd :last").html("分页");
             } else {
-                $(element).find("div :last").remove();
+                $(element).find("dd :last").remove();
             }
         }).parent()
             .find(".province").html("<option>请选择</option>")

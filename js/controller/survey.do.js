@@ -70,7 +70,7 @@ var SurveyDo = Spine.Controller.sub({
         $(json.question_html).each(function(index, element) {
             if( index >= that.currentIndex ) {
                 $("#page_cont").append($(element).html());
-                if($(element).find(".pagingTag").size() !== 0){
+                if ($(element).find(".questionary_list_opera").size() !== 0) {
                     that.currentIndex = index + 1;
                     return false;
                 };
@@ -82,7 +82,7 @@ var SurveyDo = Spine.Controller.sub({
                 $("#save-answer").hide();
             }
         });
-        $("#page_cont").find(".pagingTag").remove();
+        $("#page_cont").find(".questionary_list_opera").remove();
     },
 
     saveAnswer: function() {

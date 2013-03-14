@@ -62,7 +62,7 @@ var QuestionPreview = Spine.Controller.sub({
     },
 
     initOpenPreview: function (element) {
-        var editArea = element.input_type === "文本域" ? '<textarea></textarea>' : '<input type="text" />';
+        var editArea = element.input_type === "1" ? '<textarea></textarea>' : '<input type="text" />';
         $(".option-list:last").append(editArea);
     },
 

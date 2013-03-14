@@ -110,3 +110,7 @@ a img {border:0;}
 div #fsloating_label{ position:absolute; right:8%; top:30%;}
 	div #fsloating_label ul li{ margin-bottom:10px;}
 
+.option_horizontal {
+    float: left;
+}
+

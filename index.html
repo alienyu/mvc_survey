@@ -4,8 +4,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>问卷制作</title>
     <link rel="stylesheet" type="text/css" href="js/lib/jquery-ui/jquery-ui.css" /> 
-   <!--   <link rel="stylesheet" type="text/css" href="css/createSurvey/builtSurvey.css" />-->
-     <link rel="stylesheet" href="js/lib/jwysiwyg/jquery.wysiwyg.css" type="text/css" /> 
+    <!--<link rel="stylesheet" type="text/css" href="css/createSurvey/builtSurvey.css" />-->
+    <link rel="stylesheet" href="js/lib/jwysiwyg/jquery.wysiwyg.css" type="text/css" />
 
     <link rel="stylesheet" type="text/css" href="style/branch.css"/>
     <link rel="stylesheet" type="text/css" href="style/base.css"/>
@@ -140,7 +140,7 @@
                             </div>
                             <div>
                                 <label>备注</label>
-                                <textarea id="remark" class="survey-model label_size"></textarea>
+                                <textarea id="remark" class="survey-model size_70per"></textarea>
                             </div>
                             <div  class="servey-edit-next">
                                 <label> </label>
@@ -357,7 +357,7 @@
                             {{if type == "textarea"}}
                                 ${index}.${content}<textarea></textarea>${unit}
                             {{else}}
-                                <input type=${type} name=${name}/> ${index}.${content}
+                                <div class=${arrangement}><input type=${type} name=${name}/> ${index}.${content}</div>
                             {{/if}}
                         </script>
                     </div>

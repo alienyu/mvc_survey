@@ -102,6 +102,7 @@ select {height: 24px; line-height: 24px; padding: 0px; font-family: "微软雅�
 .size_L {width: 120px;}
 .size_XL {width: 200px;}
 .size_XXL {width: 350px;}
+.size_70per {width: 70%;}
 .label_size{ width:500px; height:150px;}
 .label_size_L{width:800px; height:150px;}
 
@@ -166,3 +167,7 @@ select {height: 24px; line-height: 24px; padding: 0px; font-family: "微软雅�
 .pop_width_min{ width:300px;}
 .pop_width_s{ width:500px;}
 .pop_width_m{ width:800px;}
+
+.option_horizontal {
+    float: left;
+}

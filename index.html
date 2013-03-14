@@ -256,7 +256,7 @@
                                         <input type="file" id="img-upload-${optionTag}" class="upload">
                                         <img  id="img-pre-${optionTag}" class="option-img-preview" width="21" height="19" />
                                         {{if type == "1"}}
-                                        <input class="option-valid" type="checkbox" ${optionValid}>验证 />
+                                        <input class="option-valid" type="checkbox" ${optionValid} />验证
                                         {{/if}}
                                         <a href="#" class="delete remove-option-tag"></a>
                                     </div>
@@ -354,11 +354,13 @@
                         </script>
                         <!-- This is for the radio and checkbox option template -->
                         <script type="text/x-jquery-tmpl" id="radio-option-template">
-                            {{if type == "textarea"}}
-                                ${index}.${content}<textarea></textarea>${unit}
-                            {{else}}
-                                <div class=${arrangement}><input type=${type} name=${name}/> ${index}.${content}</div>
-                            {{/if}}
+                            <div class=${arrangement}>
+                                {{if type == "textarea"}}
+                                    <input type=${questionType} name=${name}/>${index}.${content}<textarea></textarea>${unit}
+                                {{else}}
+                                    <input type=${type} name=${name}/> ${index}.${content}
+                                {{/if}}
+                            </div>
                         </script>
                     </div>
                 </div>

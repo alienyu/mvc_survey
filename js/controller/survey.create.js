@@ -101,7 +101,7 @@ var SurveyCreate = Spine.Controller.sub({
 
     bindDraggable: function () {
         var that = this;
-        $("#question-tool-bar div").each(function (index, element) {
+        $("#question-tool-bar img").each(function (index, element) {
             $(element).draggable({ opacity: 0.7, helper: "clone", cursor: "move" });
         });
 
@@ -125,19 +125,19 @@ var SurveyCreate = Spine.Controller.sub({
 
     addOption: function () {
         var indexTag = String.fromCharCode(65 + $("#option-creators .option-creator").size());
-        $("#option-creators").append(this.optionCreatorTemplate(indexTag));
+        $("#add-option-tag").parent().before(this.optionCreatorTemplate(indexTag));
     },
 
     optionCreatorTemplate: function (indexTag, type) {
         type = typeof type !== 'undefined' ? type : "0";
-        return $("#radio-option-creator-template").tmpl({ "optionTag": indexTag, "type": type }).find("#option-creators .option-creator");
+        return $("#radio-option-creator-template").tmpl({ "optionTag": indexTag, "type": type }).find(".option-creator");
     },
 
     removeOption: function (e) {
-        e.target.parentElement.remove();
+        $(e.target).parents(".option-creator").remove();
         var optionCreators = $('#option-creators .option-creator');
         optionCreators.each(function (item, element) {
-            $(element).find("span").html((String.fromCharCode(65 + item)));
+            $(element).find(".option-tag").html((String.fromCharCode(65 + item)));
         });
     },
 

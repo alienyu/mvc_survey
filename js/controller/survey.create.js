@@ -51,13 +51,14 @@ var SurveyCreate = Spine.Controller.sub({
     initRadioCreator: function () {
         var optionCreatorTemp;
         if (this.question.options != null) {
+            var arrangement = this.question.arrangement;
             $(this.question.options).each(function (index, element) {
                 if (index === 0) {
-                    optionCreatorTemp = $("#radio-option-creator-template").tmpl(element.type === "0" ? { "optionTag": "A", "type": "0", "optionValue": element.content} : { "optionTag": "A", "type": "1", "optionValue": element.content, "optionUnit": element.unit, "optionValid": element.is_valid ? "checked" : '', "select": "selected" });
+                    optionCreatorTemp = $("#radio-option-creator-template").tmpl(element.type === "0" ? { "optionTag": "A", "type": "0", "optionValue": element.content, "show": arrangement === "1" ? "selected" : ''} : { "optionTag": "A", "type": "1", "optionValue": element.content, "optionUnit": element.unit, "optionValid": element.is_valid ? "checked" : '', "select": "selected", "show": arrangement === "1" ? "selected" : '' });
                 }
                 else {
                     $(optionCreatorTemp).find("#add-option-tag")
-                    .parent().before($("#radio-option-creator-template").tmpl(element.type === "0" ? { "optionTag": element.index, "type": "0", "optionValue": element.content} : { "optionTag": element.index, "type": "1", "optionValue": element.content, "optionUnit": element.unit, "optionValid": element.is_valid ? "checked" : '', "select": "selected" }).find(".option-creator"));
+                    .parent().before($("#radio-option-creator-template").tmpl(element.type === "0" ? { "optionTag": element.index, "type": "0", "optionValue": element.content, "show": arrangement === "1" ? "selected" : ''} : { "optionTag": element.index, "type": "1", "optionValue": element.content, "optionUnit": element.unit, "optionValid": element.is_valid ? "checked" : '', "select": "selected", "show": arrangement === "1" ? "selected" : '' }).find(".option-creator"));
                 }
             });
         }
@@ -148,6 +149,7 @@ var SurveyCreate = Spine.Controller.sub({
         surveyInstance.activeQustIndex = e;
         this.question = surveyInstance.questions[surveyInstance.activeQustIndex];
         this.initQuestionCreator();
+        this.changeOptionsNum(this.question);
     },
 
     saveQuestion: function () {
@@ -191,7 +193,7 @@ var SurveyCreate = Spine.Controller.sub({
             options.push(option);
         });
         this.question.options = options;
-        this.question.arrangement = $('#arrangement').find("option:selected").text();
+        this.question.arrangement = $('#arrangement').find("option:selected").val();
     },
 
     getArea: function () {
@@ -211,13 +213,22 @@ var SurveyCreate = Spine.Controller.sub({
         changeTempalete.find(".type-select").val(optionType);
         //TODO: need to be refactor
     },
-    changeOptionsNum :function () {
-        var option = "";
-        $('#option-creators').find('.option-creator').each(function(index) {
-            option += "<option value=" + (index+1) + ">" + (index+1) + "</option>";
-        })
-        $('#max-select-num').html(option);
-        $('#min-select-num').html(option);
+    changeOptionsNum :function (element) {
+        var minOption = "";
+        var maxOption = "";
+        if (typeof element === "undefined") {
+            $('#option-creators').find('.option-creator').each(function(index) {
+                maxOption = minOption += "<option value=" + (index+1) + ">" + (index+1) + "</option>";
+            })
+        }
+        else {
+            $('#option-creators').find('.option-creator').each(function(index) {
+                minOption += ((index+1) === parseInt(element.minSelection)) ? "<option value=" + (index+1) + " selected>" + (index+1) + "</option>" : "<option value=" + (index+1) + ">" + (index+1) + "</option>";
+                maxOption += ((index+1) === parseInt(element.maxSelection)) ? "<option value=" + (index+1) + " selected>" + (index+1) + "</option>" : "<option value=" + (index+1) + ">" + (index+1) + "</option>";
+            })
+        }
+        $('#max-select-num').html(maxOption);
+        $('#min-select-num').html(minOption);
     },
 
     uploadImg: function(e) {

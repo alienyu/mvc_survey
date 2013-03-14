@@ -253,10 +253,10 @@
                                         <span>单位</span>
                                         <input class="option-unit" value="${optionUnit}"/>
                                         {{/if}}
-                                        <input type="file" id="img-upload-${optionTag}" class="upload"></a>
+                                        <input type="file" id="img-upload-${optionTag}" class="upload">
                                         <img  id="img-pre-${optionTag}" class="option-img-preview" width="21" height="19" />
                                         {{if type == "1"}}
-                                        <input class="option-valid" type="checkbox" ${optionValid}>验证</input>
+                                        <input class="option-valid" type="checkbox" ${optionValid}>验证 />
                                         {{/if}}
                                         <a href="#" class="delete remove-option-tag"></a>
                                     </div>
@@ -270,8 +270,8 @@
                         <div>                                
                             <label>显示方式</label>
                             <select id="arrangement">
-                                <option value="横向显示">横向显示</option>
-                                <option value="纵向显示">纵向显示</option>
+                                <option value="0">横向显示</option>
+                                <option value="1" ${show}>纵向显示</option>
                             </select>
                         </div>
                         <div class="clear"></div>

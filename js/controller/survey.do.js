@@ -162,13 +162,13 @@ var SurveyDo = Spine.Controller.sub({
             answer_list:aa
         };
         console.log(JSON.stringify(answer));
-        $.ajax({
-            url: "/surveyPlatform/examination/saveAnswer",
-            type: "POST",
-            data: JSON.stringify(answer),
-            success: function (response, option) {
+//        $.ajax({
+//            url: "http://172.16.134.57:30403/surveyPlatform/examination/saveAnswer",
+//            type: "POST",
+//            data: JSON.stringify(answer),
+//            success: function (response, option) {
 
-            }
-        });
+//            }
+//        });
     }
 });

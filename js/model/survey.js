@@ -56,9 +56,9 @@ Survey.include({
                 result_id: "", //答题ID
                 email: "" //答题人email
             };
-            //console.log(JSON.stringify(surveyModel))
+            console.log(JSON.stringify(surveyModel))
             //            $.ajax({
-            //                url: "/surveyPlatform/examination/saveExam",
+            //                url: "http://172.16.134.57:30403/surveyPlatform/examination/saveExam",
             //                type: "POST",
             //                data: JSON.stringify(surveyModel),
             //                success: function (response, option) {

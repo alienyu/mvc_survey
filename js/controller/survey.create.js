@@ -13,7 +13,8 @@ var SurveyCreate = Spine.Controller.sub({
         "click .remove-option-tag": "removeOption",
         "click #question-save": "saveQuestion",
         "change .type-select": "changeSelectionView",
-        "change #areaType input[type='checkbox']": "areaLinkage"
+        "change #areaType input[type='checkbox']": "areaLinkage",
+        "change .upload": "uploadImg"
     },
 
     show: function () {
@@ -126,6 +127,7 @@ var SurveyCreate = Spine.Controller.sub({
     addOption: function () {
         var indexTag = String.fromCharCode(65 + $("#option-creators .option-creator").size());
         $("#add-option-tag").parent().before(this.optionCreatorTemplate(indexTag));
+        this.changeOptionsNum();
     },
 
     optionCreatorTemplate: function (indexTag, type) {
@@ -139,6 +141,7 @@ var SurveyCreate = Spine.Controller.sub({
         optionCreators.each(function (item, element) {
             $(element).find(".option-tag").html((String.fromCharCode(65 + item)));
         });
+        this.changeOptionsNum();
     },
 
     editQuestion: function (e) {
@@ -207,7 +210,28 @@ var SurveyCreate = Spine.Controller.sub({
         changeTempalete.find('.option-unit').val('');
         changeTempalete.find(".type-select").val(optionType);
         //TODO: need to be refactor
+    },
+    changeOptionsNum :function () {
+        var option = "";
+        $('#option-creators').find('.option-creator').each(function(index) {
+            option += "<option value=" + (index+1) + ">" + (index+1) + "</option>";
+        })
+        $('#max-select-num').html(option);
+        $('#min-select-num').html(option);
+    },
 
-
+    uploadImg: function(e) {
+        var sourceId = $(e.target).attr("id");
+        var targetId = sourceId.replace("upload", "pre");
+        if (typeof FileReader === 'undefined') {
+            alert('Your browser does not support FileReader...');
+            return;
+        }
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            var img = document.getElementById(targetId);
+            img.src = this.result;
+        };
+        reader.readAsDataURL(document.getElementById(sourceId).files[0]);
     }
 });

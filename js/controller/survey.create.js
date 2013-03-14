@@ -188,7 +188,7 @@ var SurveyCreate = Spine.Controller.sub({
             options.push(option);
         });
         this.question.options = options;
-        this.question.arrangement = $('#arrangement').find("option:selected").text();
+        this.question.arrangement = $('#arrangement').find("option:selected").val();
     },
 
     getArea: function () {

@@ -69,7 +69,7 @@ var SurveyDo = Spine.Controller.sub({
         $("#page_cont").empty();
         $(json.question_html).each(function(index, element) {
             if( index >= that.currentIndex ) {
-                $("#page_cont").append($(element).html());
+                $("#page_cont").append("<dl>" + $(element).html() +"</dl>" );
                 if ($(element).find(".questionary_list_opera").size() !== 0) {
                     that.currentIndex = index + 1;
                     return false;

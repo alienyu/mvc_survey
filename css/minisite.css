@@ -200,7 +200,7 @@ hr{height:1px;border:none;border-top:1px dashed #ccc;}
 .question{background:#cbdde9 url(../img/blue_gray_bg.png) left top repeat-x; color:#000;font-size:12px;padding-bottom:10px;}
 .question h1{color:#358EBD;font-size:16px;font-weight:bold;padding-left:50px;height:40px;padding-top:10px;}
 .question .container{background:#d7d8d3 url(../img/container_bg.png) left top repeat-x;padding:20px;padding-top:10px;margin:10px;margin-bottom:0px;margin-top:0px;}
-.question dl{margin-bottom:10px;}
+.question dl{margin-bottom:10px;clear: both;}
 .question dt{font-size:14px;height:25px;font-weight:bold;margin-top:5px;}
 .question dd{padding-left:20px;clear:both;}
 .question input[type="checkbox"],.question input[type="radio"],.question input[type="text"]{margin-left:20px;}

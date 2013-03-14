@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -255,10 +255,10 @@
                                         {{/if}}
                                         <a href="#" class="upload"></a>
                                         <a href="#" class="delete remove-option-tag"></a>
+                                        {{if type == "1"}}
+                                        <input class="option-valid" type="checkbox" ${optionValid}>验证</input>
+                                        {{/if}}
                                     </div>
-                                    {{if type == "1"}}
-                                    <input class="option-valid" type="checkbox" ${optionValid}>验证</input>
-                                    {{/if}}
                                 </div>
                                 <div class="btn_opera">
                                     <a href="#" class="add" id="add-option-tag"></a>

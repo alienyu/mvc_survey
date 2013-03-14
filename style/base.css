@@ -24,7 +24,7 @@ select {height: 24px; line-height: 24px; padding: 0px; font-family: "微软雅�
 
 .form_28 div {}
 .form_28>div {clear: both;}
-.form_28>div label {width: 80px;}
+.form_28>div label {width: 90px;}
 .form_28>div>label.float {float: left; line-height: 30px;}
 .form_28>div label, .form_28>div span {display: inline-block; vertical-align: middle; margin-bottom: 15px;}
 .form_28>div>label.label_right {text-align: right; padding-right: 10px; width: 70px;}
@@ -33,7 +33,7 @@ select {height: 24px; line-height: 24px; padding: 0px; font-family: "微软雅�
 .form_28>div select, .form_28>div input, .form_28>div textarea {margin-bottom: 15px;}
 .form_28>div select {margin-right: 15px;}
 .form_28>div textarea {width: 65%;  height: 150px;}
-.form_28>div a.add {display: inline-block; margin: 10px 10px 0px; height:8px; width: 8px; background:url(../img/add.gif) no-repeat;}
+.form_28>div a.add {display: inline-block; margin: 10px 10px 10px 0px; height:8px; width: 8px; background:url(../img/add.gif) no-repeat;}
 .form_28>div .box_unit {display: inline-block; width: 150px; border: 1px solid #E4E4E4; margin-right: 15px; padding: 10px;}
 .form_28>div .box_unit>div {height: 30px; line-height: 30px;}
 

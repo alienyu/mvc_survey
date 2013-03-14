@@ -7,13 +7,14 @@
 .branch_question_logic .page_subhead_cont.aside ul li {height: 30px; line-height: 30px; text-align: center;}
 .branch_question_logic .page_subhead_cont.aside a {float:right; display: inline-block; margin: 10px 10px 0px; height:8px; width: 8px; background:url(../img/delete.gif) no-repeat;}
 .branch_question_logic .page_subhead_cont.aside a.add {background:url(../img/add.gif);}
-.branch_question_logic .cont label {width: 100px;}
+/*.branch_question_logic .cont label {width: 100px;}
 .branch_question_logic .cont>div { margin-bottom: 15px;}
 .branch_question_logic .cont>div select {width: 170px; margin-right: 15px;}
 .branch_question_logic .cont>div textarea {width: 65%;  height: 150px;}
-.branch_question_logic .cont>div a.add {display: inline-block; margin: 10px 10px 0px; height:8px; width: 8px; background:url(../img/add.gif) no-repeat;}
+.branch_question_logic .cont>div a.add {display: inline-block; margin: 10px 10px 0px; height:8px; width: 8px; background:url(../img/add.gif) no-repeat;}*/
 .branch_question_logic .cont>div .unit {display: inline-block; width: 150px; border: 1px solid #E4E4E4; margin-right: 15px; padding: 10px;}
 .branch_question_logic .cont>div .unit>div {height: 30px; line-height: 30px;}
+.branch_question_logic .cont>div>div {width: 80%;}
 
 .branch_question_manufacture .page_subhead_cont.aside ul li {font-size: 14px; text-align: center; margin: 15px 0; cursor: pointer;}
 .branch_question_manufacture .page_subhead_cont.aside ul li img {vertical-align: middle;}

@@ -18,7 +18,7 @@
             var GloablApp = Spine.Controller.sub({
                 el: $("body"),
                 init: function () {
-                    this.surveyDo = new SurveyDo({ el: $(".container") });
+                    this.surveyDo = new SurveyDo({ el: $("#main") });
                 }
             });
             window.App = new GloablApp();
@@ -197,7 +197,7 @@
           </dl> -->
                 </div>
                 <div class="btn_group">
-                    <a href="#" id="save-answer" class="btn_orange_2 page_next">提&nbsp;交</a><a href="#" class="btn_blue_3">下一页</a></div>
+                    <a href="#" id="save-answer" class="btn_orange_2 page_next">提&nbsp;交</a><a href="#" id="next-page" class="btn_blue_3">下一页</a></div>
             </div>
         </div>
         <!-- / paper step & finished end -->

@@ -52,11 +52,11 @@ var SurveyCreate = Spine.Controller.sub({
         if (this.question.options != null) {
             $(this.question.options).each(function (index, element) {
                 if (index === 0) {
-                    optionCreatorTemp = $("#radio-option-creator-template").tmpl(element.type === "0" ? { "optionTag": "A", "type": "0", "optionValue": element.content } : { "optionTag": "A", "type": "1", "optionValue": element.content, "optionUnit": element.unit, "optionValid": element.is_valid ? "checked":'', "select":"selected" });
+                    optionCreatorTemp = $("#radio-option-creator-template").tmpl(element.type === "0" ? { "optionTag": "A", "type": "0", "optionValue": element.content} : { "optionTag": "A", "type": "1", "optionValue": element.content, "optionUnit": element.unit, "optionValid": element.is_valid ? "checked" : '', "select": "selected" });
                 }
                 else {
-                    $(optionCreatorTemp).find("#option-creators")
-                    .append($("#radio-option-creator-template").tmpl(element.type === "0" ? { "optionTag": element.index, "type": "0", "optionValue": element.content } : { "optionTag": element.index, "type": "1", "optionValue": element.content, "optionUnit": element.unit, "optionValid": element.is_valid ? "checked":'', "select":"selected" }).find("#option-creators .option-creator"));
+                    $(optionCreatorTemp).find("#add-option-tag")
+                    .parent().before($("#radio-option-creator-template").tmpl(element.type === "0" ? { "optionTag": element.index, "type": "0", "optionValue": element.content} : { "optionTag": element.index, "type": "1", "optionValue": element.content, "optionUnit": element.unit, "optionValid": element.is_valid ? "checked" : '', "select": "selected" }).find(".option-creator"));
                 }
             });
         }
@@ -72,12 +72,12 @@ var SurveyCreate = Spine.Controller.sub({
     },
 
     initOpenCreator: function () {
-        var optionCreatorTemp = $("#open-option-creator-template").tmpl();
+        var optionCreatorTemp = $("#open-option-creator-template").tmpl(this.question.input_type === "1" ? { "select": "selected"} : { "": "" });
         return optionCreatorTemp;
     },
 
     initAreaCreator: function () {
-        var optionCreatorTemp = $("#area-option-creator-template").tmpl({"areaType": this.question.area});
+        var optionCreatorTemp = $("#area-option-creator-template").tmpl({ "areaType": this.question.area });
         return optionCreatorTemp;
     },
 
@@ -163,7 +163,7 @@ var SurveyCreate = Spine.Controller.sub({
                     break;
                 case "open":
                     this.question.valid_type = $('input[type=checkbox]').filter('#valid')[0].checked ? $('#validation').find("option:selected").text() : '';
-                    this.question.input_type = $('#input-type').find("option:selected").text();
+                    this.question.input_type = $('#input-type').find("option:selected").val();
                     break;
                 case "area":
                     this.question.area = this.getArea();
@@ -193,7 +193,7 @@ var SurveyCreate = Spine.Controller.sub({
 
     getArea: function () {
         //return the last checked checkbox id
-        if($("#areaType").find("input:checked").toArray().pop()){
+        if ($("#areaType").find("input:checked").toArray().pop()) {
             return $("#areaType").find("input:checked").toArray().pop().id;
         }
     },

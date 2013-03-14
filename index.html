@@ -253,9 +253,10 @@
                                         <span>单位</span>
                                         <input class="option-unit" value="${optionUnit}"/>
                                         {{/if}}
-                                        <a href="#" class="upload"></a>
+                                        <input type="file" id="img-upload-${optionTag}" class="upload"></a>
+                                        <img  id="img-pre-${optionTag}" class="option-img-preview" width="21" height="19" />
                                         <a href="#" class="delete remove-option-tag"></a>
-                                        <img src="img/answer.png" width="21" height="19" />
+
                                         {{if type == "1"}}
                                         <input class="option-valid" type="checkbox" ${optionValid}>验证</input>
                                         {{/if}}

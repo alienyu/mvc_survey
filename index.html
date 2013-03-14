@@ -4,8 +4,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>问卷制作</title>
     <link rel="stylesheet" type="text/css" href="js/lib/jquery-ui/jquery-ui.css" /> 
-   <!--   <link rel="stylesheet" type="text/css" href="css/createSurvey/builtSurvey.css" />-->
-     <link rel="stylesheet" href="js/lib/jwysiwyg/jquery.wysiwyg.css" type="text/css" /> 
+    <!--<link rel="stylesheet" type="text/css" href="css/createSurvey/builtSurvey.css" />-->
+    <link rel="stylesheet" href="js/lib/jwysiwyg/jquery.wysiwyg.css" type="text/css" />
 
     <link rel="stylesheet" type="text/css" href="style/branch.css"/>
     <link rel="stylesheet" type="text/css" href="style/base.css"/>
@@ -268,8 +268,8 @@
                         <div>                                
                             <label>显示方式</label>
                             <select id="arrangement">
-                                <option value="横向显示">横向显示</option>
-                                <option value="纵向显示">纵向显示</option>
+                                <option value="option_horizontal">横向显示</option>
+                                <option value="option_vertical">纵向显示</option>
                             </select>
                         </div>
                         <div class="clear"></div>
@@ -355,7 +355,7 @@
                             {{if type == "textarea"}}
                                 ${index}.${content}<textarea></textarea>${unit}
                             {{else}}
-                                <input type=${type} name=${name}/> ${index}.${content}
+                                <div class=${arrangement}><input type=${type} name=${name}/> ${index}.${content}</div>
                             {{/if}}
                         </script>
                     </div>

@@ -11,6 +11,8 @@ $(function () {
             this.baseinfo = new BaseInfo({ el: $("#add-base-info") });
             this.surveycreate = new SurveyCreate({ el: $("#build-survey-questions") });
             this.questionPreview = new QuestionPreview({ el: $("#survey-preview") });
+            this.logicSettings = new LogicSettings({ el: $("#logic-settings") });
+            this.quotaSettings = new QuotaSettings({ el: $("#quota-settings") });
         }
     });
 

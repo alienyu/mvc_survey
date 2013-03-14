@@ -93,7 +93,7 @@ select {height: 24px; line-height: 24px; padding: 0px; font-family: "微软雅�
 	.button_import{ background:url(../img/button_import.png) no-repeat;}
 	.button_import a:hover{background:url(../img/button_import_on.png) no-repeat; display:block;}
 .delete {display: inline-block; margin: 0px 10px 0px; height:8px; width: 8px; background:url(../img/delete.gif) no-repeat;}
-.upload {display: inline-block; margin: 0px 10px 0px; height:14px; width: 15px; background:url(../img/upload.png) no-repeat;}
+.upload {display: inline-block; margin: 0px 10px 0px;}
 .add {display: inline-block; margin: 0px 10px 0px; height:8px; width: 8px; background:url(../img/add.gif) no-repeat;}
 
 /* size */

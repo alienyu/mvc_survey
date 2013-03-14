@@ -30,8 +30,8 @@
 
 .questionary_tbl .tbl{ width: auto; margin: 10px auto 0px auto;}
 
-.textarea_widget {width: 90%}
-.form_28>div .textarea_widget textarea {width: 50%;}
+.textarea_widget {width: 80%}
+.form_28>div .textarea_widget textarea {width: 75%;}
 
 .question dl{margin-bottom:10px;}
 .question dt{font-size:14px;height:25px;font-weight:bold;margin-top:5px;}

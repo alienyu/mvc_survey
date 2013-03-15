@@ -44,7 +44,7 @@ var SurveyDo = Spine.Controller.sub({
 
                 that._initAreaOptions(element);
 
-                $("#page_cont").append("<dl>" + $(element).html() +"</dl>" );
+                $("#page_cont").append(element);
                 if ($(element).find(".questionary_list_opera").size() !== 0) {
                     that.currentIndex = index + 1;
                     return false;

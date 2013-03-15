@@ -3,17 +3,17 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>问卷制作</title>
-    <link rel="stylesheet" type="text/css" href="js/lib/jquery-ui/jquery-ui.css" /> 
+    <link rel="stylesheet" type="text/css" href="js/lib/jquery-ui/jquery-ui.css" />
     <!--<link rel="stylesheet" type="text/css" href="css/createSurvey/builtSurvey.css" />-->
     <link rel="stylesheet" href="js/lib/jwysiwyg/jquery.wysiwyg.css" type="text/css" />
-
-    <link rel="stylesheet" type="text/css" href="style/branch.css"/>
-    <link rel="stylesheet" type="text/css" href="style/base.css"/>
+    <link rel="stylesheet" type="text/css" href="style/branch.css" />
+    <link rel="stylesheet" type="text/css" href="style/base.css" />
     <script type="text/javascript" src="js/lib/spine.js"></script>
     <script type="text/javascript" src="js/lib/jquery-1.8.0.min.js"></script>
     <script type="text/javascript" src="js/lib/jquery-ui/jquery-ui.js"></script>
     <script type="text/javascript" src="js/lib/jquery.tmpl.js"></script>
     <script type="text/javascript" src="js/lib/jwysiwyg/jquery.wysiwyg.js"></script>
+    <script type="text/javascript" src="js/base.js"></script>
     <script type="text/javascript" src="js/controller/baseinfo.js"></script>
     <script type="text/javascript" src="js/controller/question.preview.js"></script>
     <script type="text/javascript" src="js/controller/survey.create.js"></script>
@@ -28,10 +28,14 @@
 <body>
     <div class="wrapper">
         <div class="head">
-            <div class="logo"> <img src="img/logo_survey.png" /></div>
-            <div class="page_tab">页面标签</div>
+            <div class="logo">
+                <img src="img/logo_survey.png" /></div>
+            <div class="page_tab">
+                页面标签</div>
             <!-- page title -->
-            <div class="welcome"> 欢迎您，Evan | <a href="#">退出</a> </div>
+            <div class="welcome">
+                欢迎您，Evan | <a href="#">退出</a>
+            </div>
         </div>
         <div class="main">
             <div class="aside">
@@ -41,19 +45,32 @@
                     <li><a href="co_template.html">问卷模版管理</a></li>
                 </ul>
             </div>
-            <div class="container"> <!-- InstanceBeginEditable name="container" -->
+            <div class="container">
+                <!-- InstanceBeginEditable name="container" -->
                 <div class="pag_content">
                     <div id="tabs">
                         <ul class="progress_bar">
-                            <li class="start"><a href="#add-base-info"><label>1</label>编辑问卷信息</a></li>
-                            <li><a href="#build-survey-questions"><label>2</label>问卷制作</a></li>
-                            <li><a href="#logic-settings"><label>3</label>逻辑设置</a></li>
-                            <li><a href="#quota-settings"><label>4</label>配额设置</a></li>                       
+                            <li class="start"><a href="#add-base-info">
+                                <label>
+                                    1</label>编辑问卷信息</a></li>
+                            <li><a href="#build-survey-questions">
+                                <label>
+                                    2</label>问卷制作</a></li>
+                            <li><a href="#logic-settings">
+                                <label>
+                                    3</label>逻辑设置</a></li>
+                            <li><a href="#quota-settings">
+                                <label>
+                                    4</label>配额设置</a></li>
                         </ul>
-                        <div id="add-base-info" class="branch_question_new"></div>
-                        <div id="build-survey-questions" class="branch_question_manufacture"></div>
-                        <div id="logic-settings" class="branch_question_logic"></div>
-                        <div id="quota-settings" class="branch_question_logic"></div>
+                        <div id="add-base-info" class="branch_question_new">
+                        </div>
+                        <div id="build-survey-questions" class="branch_question_manufacture">
+                        </div>
+                        <div id="logic-settings" class="branch_question_logic">
+                        </div>
+                        <div id="quota-settings" class="branch_question_logic">
+                        </div>
                         <!-- These are templates for controller -->
                         <script type="text/x-jquery-tmpl" id="base-info-template">
                         <div class="split_8">
@@ -192,7 +209,6 @@
                               </div>
                             </div>
                         </script>
-
                         <script type="text/x-jquery-tmpl" id="survey-preview-template">
                             <div id="survey-preview-list" class="question">
                             </div>
@@ -356,7 +372,7 @@
                             </div>
                         </script>
                         <!-- logic settings template start -->
-                         <script type="text/x-jquery-tmpl" id="logic-settings-template">
+                        <script type="text/x-jquery-tmpl" id="logic-settings-template">
                             <div class="split_3 border_blue">
                               <div class="page_subhead top">逻辑题名</div>
                               <div class="page_subhead_cont aside">
@@ -425,8 +441,8 @@
                                 <input type="button" value="下一步" onclick="$('#tabs').tabs('enable', 3);$('#tabs').tabs('option', 'active', 3 );" class="btn_blue"/>
                               </div>
                             </div>
-                         </script>
-                         <!-- / logic settings template end -->
+                        </script>
+                        <!-- / logic settings template end -->
                         <!-- quota settings template start -->
                         <script type="text/x-jquery-tmpl" id="quota-settings-template">
                             <div class="split_3 border_blue">
@@ -479,16 +495,21 @@
                         <!-- / quota settings template end -->
                     </div>
                 </div>
-                <!-- InstanceEndEditable --> </div>
-                <div class="clear"></div>
+                <!-- InstanceEndEditable -->
             </div>
-            <!-- footer start-->
-            <div class="foot"> 我能调研 版权所有 沪ICP备10027199号 Copyright © 2010-2011 www.icansurvey.cc. All Riggnhts Reserved. </div>
+            <div class="clear">
+            </div>
         </div>
-<!--                                 // <div>
+        <!-- footer start-->
+        <div class="foot">
+            我能调研 版权所有 沪ICP备10027199号 Copyright © 2010-2011 www.icansurvey.cc. All Riggnhts Reserved.
+        </div>
+    </div>
+    <!--                                 // <div>
                         //     <label></label>
                         //     <input type="button" class="btn_blue" value="下一步" />
                         //     <input type="button" class="btn_blue" value="重置" />
                         // </div> -->
-    </body>
-    <!-- InstanceEnd --></html>
+</body>
+<!-- InstanceEnd -->
+</html>

@@ -1,3 +1,5 @@
+var answer_list = [];
+var questionIndex = 0;
 var SurveyDo = Spine.Controller.sub({
     elements: {
         "#page_cont": "page_cont"
@@ -6,8 +8,8 @@ var SurveyDo = Spine.Controller.sub({
     events: {
         "click #save-answer": "saveAnswer",
         "change ul dl dd select": "areaSelectChange",
-        "click #next-page": "pagingSurvey",
-        "click .page_next": "pageNext"
+        "click #next-page": "pagingSurvey", //next page
+        "click .page_next": "pageNext" //start survey
     },
 
     show: function () {
@@ -57,6 +59,7 @@ var SurveyDo = Spine.Controller.sub({
     },
 
     pagingSurvey: function () {
+        this.pushAnswer();
         var that = this;
         $("#page_cont").empty();
         $(json.question_html).each(function (index, element) {
@@ -77,13 +80,13 @@ var SurveyDo = Spine.Controller.sub({
         $("#page_cont").find(".questionary_list_opera").remove();
     },
 
-    saveAnswer: function () {
-        var answerlist = [];
-        var aa = [];
-        $(json.topic_list).each(function (index, element) {
-            var obj = $('#page_cont').find('dl')[index];
-            var question_no = element.question_no;
-            var question_type = element.question_type;
+    pushAnswer: function() {
+        var questionNum = $('#page_cont').find('dl').length;
+        var questionCurrentIndex = 0;
+        for(i=0;i<questionNum;i++) {
+            var obj = $('#page_cont').find('dl')[questionCurrentIndex];
+            var question_no = json.topic_list[questionIndex].question_no;
+            var question_type = json.topic_list[questionIndex].question_type;
             var answer_detail_list = [];
             switch (question_type) {
                 case "0":
@@ -92,7 +95,7 @@ var SurveyDo = Spine.Controller.sub({
                         if (e.checked === true) {
                             if ($(e).parent().find('textarea')) {
                                 answer_detail_list.push({
-                                    question_value: element.options[i].item_num,
+                                    question_value: json.topic_list[questionIndex].options[i].item_num,
                                     open_question_value: $(e).parent().find('textarea').val(),
                                     province: "",
                                     city: "",
@@ -101,7 +104,7 @@ var SurveyDo = Spine.Controller.sub({
                             }
                             else {
                                 answer_detail_list.push({
-                                    question_value: element.options[i].item_num,
+                                    question_value: json.topic_list[questionIndex].options[i].item_num,
                                     open_question_value: "",
                                     province: "",
                                     city: "",
@@ -112,16 +115,16 @@ var SurveyDo = Spine.Controller.sub({
                     });
                     break;
                 case "3":
-                    var bb = "";
+                    var text = "";
                     if ($(obj).find('textarea').val()) {
-                        bb = $(obj).find('textarea').val();
+                        text = $(obj).find('textarea').val();
                     }
                     else {
-                        bb = $(obj).find('input').val();
+                        text = $(obj).find('input').val();
                     }
                     answer_detail_list.push({
                         question_value: "",
-                        open_question_value: bb,
+                        open_question_value: text,
                         province: "",
                         city: "",
                         area: ""
@@ -137,14 +140,19 @@ var SurveyDo = Spine.Controller.sub({
                     });
                     break;
             };
-            aa.push({
+            answer_list.push({
                 result_id: json.result_id, //--->result_id,
                 question_no: question_no,
                 question_type: question_type,
                 answer_detail_list: answer_detail_list
             });
-        });
+            questionCurrentIndex++;
+            questionIndex++;
+        }
+    },
 
+    saveAnswer: function() {
+        this.pushAnswer();
         var answer = {
             ID: json.result_id,
             exam_id: "513efa775558883fbc56ce3c",
@@ -152,7 +160,7 @@ var SurveyDo = Spine.Controller.sub({
             end_time: "11/3/2013",
             is_effective: "Y", //('Y':有效，'N':无效,(默认'Y'))
             email: json.email,
-            answer_list: aa
+            answer_list: answer_list
         };
         console.log(JSON.stringify(answer));
         //        $.ajax({

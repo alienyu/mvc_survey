@@ -5,7 +5,7 @@ var SurveyDo = Spine.Controller.sub({
 
     events: {
         "click #save-answer": "saveAnswer",
-        "change ul dl dd select": "areaSelectChange",
+        "change div dl dd select": "areaSelectChange",
         "click #next-page": "pagingSurvey",
         "click .page_next": "pageNext"
     },
@@ -26,52 +26,31 @@ var SurveyDo = Spine.Controller.sub({
     },
 
     areaSelectChange: function (e) {
-        var options = "";
-        switch ($(e.target).next().attr('class')) {
-            case "province":
-                for (var i = 0; i < data_province.length; i++) {
-                    var option = "<option value='" + data_province[i].code + "'>" + data_province[i].name + "</option>";
-                    options += option;
-                }
-                break;
-            case "city":
-                for (var i = 0; i < data_city.length; i++) {
-                    if (data_city[i].code.substring(0, 2) === e.target.value.substring(0, 2)) {
-                        var option = "<option value='" + data_city[i].code + "'>" + data_city[i].name + "</option>";
-                        options += option;
-                    }
-                }
-                break;
-            case "district":
-                for (var i = 0; i < data_district.length; i++) {
-                    if (data_district[i].code.substring(0, 4) === e.target.value.substring(0, 4)) {
-                        var option = "<option value='" + data_district[i].code + "'>" + data_district[i].name + "</option>";
-                        options += option;
-                    }
-                }
-                break;
-            default:
-                break;
-        }
-        $(e.target.nextElementSibling).empty().append("<option>请选择</option>" + options);
+        var areaType = $(e.target).next().attr('class');
+        $(e.target.nextElementSibling).empty().append("<option>请选择</option>");
+        $(areaData[areaType]).each(function(index, element) {
+            var parentCode = e.target.value;
+            if((element.code.substring(0,2) === parentCode.substring(0,2) && areaType === "city") || (element.code.substring(0,4) === parentCode.substring(0,4) && areaType === "district")) {
+                $(e.target.nextElementSibling).append($("#area-option-template").tmpl([element]));
+            }
+        });
     },
 
     pagingSurvey: function () {
         var that = this;
         $("#page_cont").empty();
-        $(json.question_html).each(function (index, element) {
-            if (index >= that.currentIndex) {
-                $("#page_cont").append("<dl>" + $(element).html() + "</dl>");
+        $(json.question_html).each(function(index, element) {
+            if( index >= that.currentIndex ) {
+
+                that._initAreaOptions(element);
+
+                $("#page_cont").append("<dl>" + $(element).html() +"</dl>" );
                 if ($(element).find(".questionary_list_opera").size() !== 0) {
                     that.currentIndex = index + 1;
                     return false;
                 };
-            }
-            if (index + 1 === $(json.question_html).size()) {
-                $("#save-answer").show();
-                $(".btn_blue_3").hide();
-            } else {
-                $("#save-answer").hide();
+
+                that._submitButtonShow(index);
             }
         });
         $("#page_cont").find(".questionary_list_opera").remove();
@@ -163,5 +142,26 @@ var SurveyDo = Spine.Controller.sub({
 
         //            }
         //        });
+    },
+
+    _initAreaOptions: function(element) {
+
+        if($(element).find('.province').size() !== 0) {
+            $(areaData["province"]).each(function(index, element2) {
+                $(element).find('.province').append($("#area-option-template").tmpl([element2]));
+            });
+        }
+
+    },
+
+    _submitButtonShow: function(index) {
+
+        if (index + 1 === $(json.question_html).size()) {
+            $("#save-answer").show();
+            $(".btn_blue_3").hide();
+        } else {
+            $("#save-answer").hide();
+        }
+
     }
 });

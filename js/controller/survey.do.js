@@ -29,7 +29,7 @@ var SurveyDo = Spine.Controller.sub({
 
     areaSelectChange: function (e) {
         var areaType = $(e.target).next().attr('class');
-        $(e.target.nextElementSibling).empty().append("<option>请选择</option>");
+        $(e.target.nextElementSibling).empty().append("<option value='0'>请选择</option>");
         $(areaData[areaType]).each(function(index, element) {
             var parentCode = e.target.value;
             if((element.code.substring(0,2) === parentCode.substring(0,2) && areaType === "city") || (element.code.substring(0,4) === parentCode.substring(0,4) && areaType === "district")) {

@@ -203,6 +203,7 @@ hr{height:1px;border:none;border-top:1px dashed #ccc;}
 .question dl{margin-bottom:10px;clear: both;}
 .question dt{font-size:14px;height:25px;font-weight:bold;margin-top:5px;}
 .question dd{padding-left:20px;clear:both;}
+.question dl textarea{width: 93%;}
 .question input[type="checkbox"],.question input[type="radio"],.question input[type="text"]{margin-left:20px;}
 .question input[type="checkbox"],.question input[type="radio"],.question input[type="text"],.question textarea{margin-right:5px;vertical-align:middle;border:1px solid #cdcdcd; background:#fff;} 
 .question input[type="text"]{height:20px;line-height:20px;padding:0px 2px}

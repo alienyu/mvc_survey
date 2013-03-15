@@ -25,7 +25,8 @@ select {height: 24px; line-height: 24px; padding: 0px; font-family: "微软雅�
 .form_28 div {}
 .form_28>div {clear: both;}
 .form_28>div label {width: 90px;}
-.form_28>div>label.float {float: left; line-height: 30px;}
+.form_28>div>label.float {float: left;}
+.form_28>div>label input {margin-bottom: 0px;}
 .form_28>div label, .form_28>div span {display: inline-block; vertical-align: middle; margin-bottom: 15px;}
 .form_28>div>label.label_right {text-align: right; padding-right: 10px; width: 70px;}
 .form_28>div>div {float: left;width: 85%;}
@@ -171,6 +172,8 @@ select {height: 24px; line-height: 24px; padding: 0px; font-family: "微软雅�
 .pop_width_s{ width:500px;}
 .pop_width_m{ width:800px;}
 
-.option_horizontal {
-    float: left;
-}
+.question dl .option-list>div {margin-bottom: 15px;}
+.question dl .option-list>div>label {vertical-align: top; position: relative; top: 3px;}
+.question dl .option-list>div>label>input {margin-right: 5px; position: relative; top: -5px;}
+.question dl .option_horizontal {float: left; margin-right: 20px; vertical-align: text-top;}
+.question dl .option_horizontal textarea {width: auto;}

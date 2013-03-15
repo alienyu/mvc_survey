@@ -26,7 +26,7 @@
 /*.questionary_list {line-height: 30px;}
 .questionary_list>label {width: 80px;}
 .questionary_list>div {padding-left: 80px;}*/
-.questionary_list_opera {border-top: 1px solid #E4E4E4; border-bottom: 1px solid #E4E4E4; height: 30px; line-height: 30px; text-align: right; margin: 15px 0 30px 0;}
+.questionary_list_opera {border-top: 1px solid #E4E4E4; border-bottom: 1px solid #E4E4E4; height: 30px; line-height: 30px; text-align: right; margin: 10px 0 15px 0;}
 .questionary_list_opera a{ color: #333; display: inline-block; padding: 0 10px;}
 
 .questionary_tbl .tbl{ width: auto; margin: 10px auto 0px auto;}
@@ -37,7 +37,7 @@
 .question dl{margin-bottom:10px;}
 .question dt{font-size:14px;height:25px;font-weight:bold;margin-top:5px;}
 .question dd{padding-left:20px;clear:both;}
+.question dl textarea{width: 93%;}
 
-.option-img-preview {vertical-align: middle;}
 .option-creator .btn_opera{float: right; margin-top: 10px;}
 

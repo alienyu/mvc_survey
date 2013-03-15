@@ -55,12 +55,6 @@ var SurveyDo = Spine.Controller.sub({
 
                 that._submitButtonShow(index);
             }
-            if (index + 1 === $(json.question_html).size()) {
-                $("#save-answer").show();
-                $(".btn_blue_3").hide();
-            } else {
-                $("#save-answer").hide();
-            }
         });
         $("#page_cont").find(".questionary_list_opera").remove();
     },

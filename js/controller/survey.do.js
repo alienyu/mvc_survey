@@ -1,5 +1,6 @@
 var answer_list = [];
 var questionIndex = 0;
+var pushAnswerNum = 0;
 var isValid = 0;
 var SurveyDo = Spine.Controller.sub({
     elements: {
@@ -40,6 +41,7 @@ var SurveyDo = Spine.Controller.sub({
     },
 
     pagingSurvey: function () {
+        pushAnswerNum = questionIndex;
         isValid = 0;
         this.pushAnswer();
         if (isValid == 1) { return;}
@@ -95,6 +97,7 @@ var SurveyDo = Spine.Controller.sub({
                 this.validTextArea(selected, question, element);
                 break;
             case "1":
+                this.validTextArea(selected, question, element);
         };
 
     },
@@ -109,7 +112,7 @@ var SurveyDo = Spine.Controller.sub({
             var question_no = json.topic_list[questionIndex].question_no;
             var question_type = json.topic_list[questionIndex].question_type;
             that.validAnswer(question, obj);
-            if (isValid == 1){return};
+            if (isValid == 1){questionIndex = pushAnswerNum;return};
             var answer_detail_list = [];
             switch (question_type) {
                 case "0":
@@ -175,6 +178,7 @@ var SurveyDo = Spine.Controller.sub({
     },
 
     saveAnswer: function() {
+        pushAnswerNum = questionIndex;
         isValid = 0
         this.pushAnswer();
         if (isValid == 1) {return};

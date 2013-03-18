@@ -1,7 +1,7 @@
 // this is for the survey create page
 var SurveyCreate = Spine.Controller.sub({
     template: function () {
-        return $("#survey-create-template").tmpl();
+        return $("#survey-create-template").tmpl({"surveyName":$('#question-name').val()});
     },
 
     elements: {

@@ -3,8 +3,7 @@ $(function () {
         el: $("body"),
         init: function () {
             //tab initial
-            $("#tabs").tabs({active: 0, disabled: [1, 2, 3] });
-            $("#tabs").removeClass();
+            $("#tabs").tabs({active: 0, disabled: [1, 2, 3], customClass:"progress_bar"});
 
             window.surveyInstance = new Survey({ questions: [] });
 

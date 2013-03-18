@@ -1,5 +1,5 @@
 var answer_list = [];
-var answer_current_list = [];
+var answer_current_list = []; //当前页面答案缓存
 var questionIndex = 0; //当前页面题目在集合中的位置
 var pushAnswerNum = 0; //验证不通过时将questionIndex恢复当前页面初始值；
 var isValid = 0;
@@ -158,7 +158,7 @@ var SurveyDo = Spine.Controller.sub({
                 case "1":
                     $(obj).find('dd input').each(function (i, e) {
                         if (e.checked === true) {
-                            if ($(e).parent().find('textarea')) {
+                            if ($(e).parent().find('textarea').length !== 0) {
                                 answer_detail_list.push({
                                     question_value: json.topic_list[questionIndex].options[i].item_num,
                                     open_question_value: $(e).parent().find('textarea').val(),

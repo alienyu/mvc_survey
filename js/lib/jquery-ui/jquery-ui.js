@@ -13777,6 +13777,9 @@
 			    }
 			});
 
+            if(this.options.customClass){
+                this.element.removeClass();}
+
             this._processTabs();
             options.active = this._initialActive();
 
@@ -14082,6 +14085,10 @@
             this.tablist = this._getList()
 			.addClass("ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all")
 			.attr("role", "tablist");
+
+            if(this.options.customClass){
+                this._getList().addClass(this.options.customClass);
+            }
 
             this.tabs = this.tablist.find("> li:has(a[href])")
 			.addClass("ui-state-default ui-corner-top")

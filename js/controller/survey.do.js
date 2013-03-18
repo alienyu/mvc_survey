@@ -1,6 +1,7 @@
 var answer_list = [];
-var questionIndex = 0;
-var pushAnswerNum = 0;
+var answer_current_list = [];
+var questionIndex = 0; //当前页面题目在集合中的位置
+var pushAnswerNum = 0; //验证不通过时将questionIndex恢复当前页面初始值；
 var isValid = 0;
 var SurveyDo = Spine.Controller.sub({
     elements: {
@@ -25,6 +26,7 @@ var SurveyDo = Spine.Controller.sub({
     },
 
     pageNext: function (e) {
+        if(isValid == 1) {return}
         $(".paper_next_container").hide();
         $(e.target).parents(".paper_next_container").next().show();
     },
@@ -42,6 +44,12 @@ var SurveyDo = Spine.Controller.sub({
 
     pagingSurvey: function () {
         pushAnswerNum = questionIndex;
+        if (answer_current_list.length !== 0) {
+            $(answer_current_list).each(function(i,e) {
+                answer_list.push(e);
+            });
+            answer_current_list = [];
+        };
         isValid = 0;
         this.pushAnswer();
         if (isValid == 1) { return;}
@@ -119,10 +127,18 @@ var SurveyDo = Spine.Controller.sub({
                 if ($(element).find('input').val() === '' || $(element).find('textarea').val() === '') {
                     alert("第" + no + "题未填写内容")
                     isValid = 1;
-                }
-
+                };
+                break;
+            case "4":
+                $(element).find("option:selected").each(function(i,e){
+                    var regionType = (typeof [i==0 ? "省" : "市", "区县"][i] !== "undefined") ? i==0 ? "省" : "市" : "区县";
+                    if ($(e).val() === "0") {
+                        alert("第" + no + "题" + regionType + "未选");
+                        isValid = 1;
+                    };
+                });
+                break;
         };
-
     },
 
     pushAnswer: function() {
@@ -135,8 +151,8 @@ var SurveyDo = Spine.Controller.sub({
             var question_no = json.topic_list[questionIndex].question_no;
             var question_type = json.topic_list[questionIndex].question_type;
             that.validAnswer(question, obj);
-            if (isValid == 1){questionIndex = pushAnswerNum;return};
             var answer_detail_list = [];
+            if (isValid == 1){questionIndex = pushAnswerNum;answer_current_list = [];return};
             switch (question_type) {
                 case "0":
                 case "1":
@@ -189,7 +205,7 @@ var SurveyDo = Spine.Controller.sub({
                     });
                     break;
             };
-            answer_list.push({
+            answer_current_list.push({
                 result_id: json.result_id, //--->result_id,
                 question_no: question_no,
                 question_type: question_type,
@@ -201,10 +217,19 @@ var SurveyDo = Spine.Controller.sub({
     },
 
     saveAnswer: function() {
+        if (answer_current_list.length !== 0) {
+            $(answer_current_list).each(function(i,e) {
+                answer_list.push(e);
+            });
+            answer_current_list = [];
+        };
         pushAnswerNum = questionIndex;
-        isValid = 0
+        isValid = 0;
         this.pushAnswer();
         if (isValid == 1) {return};
+        $(answer_current_list).each(function(i,e) {
+            answer_list.push(e);
+        });
         var answer = {
             ID: json.result_id,
             exam_id: "513efa775558883fbc56ce3c",

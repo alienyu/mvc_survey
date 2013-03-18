@@ -86,6 +86,20 @@ var SurveyDo = Spine.Controller.sub({
             alert("第" + no + "题未选择");
             isValid = 1;
         }
+        return selected;
+    },
+    validMaxMinSelect: function(chosen, question) {
+        var no =question.question_no;
+        var max = parseInt(question.max_num);
+        var min = parseInt(question.min_num);
+        if ( chosen > max ) {
+            alert("第" + no +"题" + "最多可选" + max + "个");
+            isValid = 1;
+        };
+        if ( chosen < min ) {
+            alert("第" + no +"题" + "最少应选" + min + "个");
+            isValid = 1;
+        };
     },
 
     validAnswer: function(question, element) {
@@ -97,7 +111,12 @@ var SurveyDo = Spine.Controller.sub({
                 this.validTextArea(selected, question, element);
                 break;
             case "1":
-                this.validTextArea(selected, question, element);
+                var chosen = this.validTextArea(selected, question, element);
+                //max selection validation
+                this.validMaxMinSelect(chosen, question);
+                break;
+            case "3":
+
         };
 
     },

@@ -4,7 +4,6 @@ $(function () {
         init: function () {
             //tab initial
             $("#tabs").tabs({active: 0, disabled: [1, 2, 3], customClass:"progress_bar"});
-            $("#tabs").removeClass();
 
             window.surveyInstance = new Survey({ questions: [] });
 

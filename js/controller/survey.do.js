@@ -116,6 +116,10 @@ var SurveyDo = Spine.Controller.sub({
                 this.validMaxMinSelect(chosen, question);
                 break;
             case "3":
+                if ($(element).find('input').val() === '' || $(element).find('textarea').val() === '') {
+                    alert("第" + no + "题未填写内容")
+                    isValid = 1;
+                }
 
         };
 

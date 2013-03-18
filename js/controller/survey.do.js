@@ -79,7 +79,11 @@ var SurveyDo = Spine.Controller.sub({
             alert("第" + no + "题" + "未勾选补充选项");
             isValid = 1;
         };
-        return selected;
+        //nothing has been chosen
+        if (selected === 0) {
+            alert("第" + no + "题未选择");
+            isValid = 1;
+        }
     },
 
     validAnswer: function(question, element) {
@@ -88,12 +92,9 @@ var SurveyDo = Spine.Controller.sub({
         var type = question.question_type;
         switch(type) {
             case "0":
-                var chosen = this.validTextArea(selected, question, element);
-                //nothing has been chosen
-                if (chosen === 0) {
-                    alert("第" + no + "题未选择");
-                    isValid = 1;
-                };
+                this.validTextArea(selected, question, element);
+                break;
+            case "1":
         };
 
     },

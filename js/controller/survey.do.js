@@ -1,5 +1,6 @@
 var answer_list = [];
 var questionIndex = 0;
+var isValid = 0;
 var SurveyDo = Spine.Controller.sub({
     elements: {
         "#page_cont": "page_cont"
@@ -39,7 +40,9 @@ var SurveyDo = Spine.Controller.sub({
     },
 
     pagingSurvey: function () {
+        isValid = 0;
         this.pushAnswer();
+        if (isValid == 1) { return;}
         var that = this;
         $("#page_cont").empty();
         $(json.question_html).each(function(index, element) {
@@ -59,13 +62,53 @@ var SurveyDo = Spine.Controller.sub({
         $("#page_cont").find(".questionary_list_opera").remove();
     },
 
+    validTextArea: function(selected, question, element) {
+        var no = question.question_no;
+        //select a option included text area, then input text area
+        $(element).find('dd input').each(function(i,e){
+            if (e.checked === true) {
+                selected ++;
+                if (typeof $(e.parentNode).find('textarea')[0] !== "undefined" && $(e.parentNode).find('textarea').val() === ''){
+                    alert("第" + no + "题补充选项未填");
+                    isValid = 1;
+                }
+            }
+        });
+        //input a text area but not select option
+        if (typeof $(element).find('textarea')[0] !== "undefined" && $(element).find('textarea').val() !== '' && $(element).find('textarea').parent().find('input')[0].checked === false) {
+            alert("第" + no + "题" + "未勾选补充选项");
+            isValid = 1;
+        };
+        return selected;
+    },
+
+    validAnswer: function(question, element) {
+        var selected = 0;
+        var no = question.question_no;
+        var type = question.question_type;
+        switch(type) {
+            case "0":
+                var chosen = this.validTextArea(selected, question, element);
+                //nothing has been chosen
+                if (chosen === 0) {
+                    alert("第" + no + "题未选择");
+                    isValid = 1;
+                };
+        };
+
+    },
+
     pushAnswer: function() {
         var questionNum = $('#page_cont').find('dl').length;
         var questionCurrentIndex = 0;
+        var that = this;
         for(i=0;i<questionNum;i++) {
             var obj = $('#page_cont').find('dl')[questionCurrentIndex];
+            var question = json.topic_list[questionIndex];
             var question_no = json.topic_list[questionIndex].question_no;
             var question_type = json.topic_list[questionIndex].question_type;
+            that.validAnswer(question, obj);
+            if (isValid == 1){return};
             var answer_detail_list = [];
             switch (question_type) {
                 case "0":
@@ -131,7 +174,9 @@ var SurveyDo = Spine.Controller.sub({
     },
 
     saveAnswer: function() {
+        isValid = 0
         this.pushAnswer();
+        if (isValid == 1) {return};
         var answer = {
             ID: json.result_id,
             exam_id: "513efa775558883fbc56ce3c",

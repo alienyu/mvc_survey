@@ -30,11 +30,11 @@ var BaseInfo = Spine.Controller.sub({
                 isValid = 1;
             }
             else {
-                if ((element.id === "join-point" && !(/^[1-9]\d+$/.test($(element).val())))|| (element.id === "complete-point" && !(/^[1-9]\d+$/.test($(element).val())))){
+                if ((element.id === "join-point" && !(/^[1-9]\d*$/.test($(element).val())))|| (element.id === "complete-point" && !(/^[1-9]\d*$/.test($(element).val())))){
                     alert ($(element.parentNode).find('label').text() + "要填写正整数");
                     isValid = 1
                 }
-            };
+            }
         });
 
         //valid select type info

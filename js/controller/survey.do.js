@@ -2,7 +2,6 @@ var answer_list = [];
 var answer_current_list = []; //当前页面答案缓存
 var questionIndex = 0; //当前页面题目在集合中的位置
 var pushAnswerNum = 0; //验证不通过时将questionIndex恢复当前页面初始值；
-var isValid = 0;
 var SurveyDo = Spine.Controller.sub({
     elements: {
         "#page_cont": "page_cont"

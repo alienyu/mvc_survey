@@ -399,65 +399,78 @@
                                   <li>03XXX<a href="#" class="delete"></a></li>
                                   <li class="color">04XX<a href="#" class="delete"></a></li>
                                 </ul>
-                                <a href="#" class="add"></a>
+                                <a href="#" id="init_editor" class="add"></a>
                               </div>
                             </div>
                             <div class="split_7">
-                              <div class=" border_blue grap_15 cont form_28">
-                                <div>
-                                  <label>逻辑名</label>
-                                  <input type="text">
+                                <div id="logic-settings-container" class="border_blue grap_15 cont form_28">
                                 </div>
-                                <div>
-                                  <label>选择逻辑类型</label>
-                                  <select><option>请选择类型</option></select>
-                                </div>
-                                <div>
-                                  <label class="float">逻辑条件</label>
-                                  <div>
-                                    <div>
-                                      <select><option>Q1AAA</option></select>
-                                      <select><option>Q1AAA</option></select>
-                                      <select><option>Q1AAA</option></select>
-                                    </div>
-                                    <div class="btn_opera"><a href="#" class="add"></a></div>
-                                  </div>
-                                </div>
-                                <div>
-                                  <label></label>
-                                  <textarea></textarea>
-                                </div>
-                                <div>
-                                  <label>逻辑行为</label>
-                                  <select><option>请选择</option></select>
-                                  <select><option>显示</option></select>
-                                </div>
-                                <!-- 选择映射 -->
-                                <div>
-                                  <label></label>
-                                  <select><option>请选择</option></select>
-                                  <select><option>显示</option></select>
-                                </div>
-                                <div>
-                                  <label class="float"></label>
-                                  <div class="unit">
-                                    <div>A: 111</div>
-                                    <div>B: 222</div>
-                                    <div>C: 333</div>
-                                  </div>
-                                  <div class="unit">
-                                    <div>A: 111</div>
-                                    <div>B: 222</div>
-                                    <div>C: 333</div>
-                                  </div>
-                                </div>
-                                <div class="clear"></div>
-                              </div>
                               <div class="btn_opera">
+                                <input type="button" value="保存" id="save_logic" class="btn_blue"/>
                                 <input type="button" value="上一步" onclick="$('#tabs').tabs('option', 'active', 1 );" class="btn_blue"/>
                                 <input type="button" value="下一步" onclick="$('#tabs').tabs('enable', 3);$('#tabs').tabs('option', 'active', 3 );" class="btn_blue"/>
                               </div>
                             </div>
+                        </script>
+                        <script type="text/x-jquery-tmpl" id="logic-settings-edit-template">
+                                <div>
+                                    <label>逻辑名</label>
+                                    <input id="logic_name" type="text" />
+                                </div>
+                                <div>
+                                    <label>选择逻辑类型</label>
+                                    <select id="logic_type">
+                                        <option value="0">请选择类型</option>
+                                        <option value="1">控制</option>
+                                        <option value="2">跳转</option>
+                                        <option value="3">选项映射</option>
+                                        <option value="4">甄别</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="float">逻辑条件</label>
+                                    <div>
+                                        <div>
+                                            <select id="questionList">
+                                                <option value="0">请选择</option>
+                                            </select>
+                                            <select id="condition_questionOption">
+                                                <option value="0">全部</option>
+                                            </select>
+                                            <select id="condition_type"><option value="0">不回答</option><option value="1">回答</option></select>
+                                        </div>
+                                        <div class="btn_opera"><a href="#" id="addCondition" class="add"></a></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label></label>
+                                    <textarea id="conditions"></textarea>
+                                </div>
+                                <div>
+                                    <label>逻辑行为</label>
+                                    <select id="action_question"><option>请选择</option></select>
+                                    <select id="actionType"><option value="1">显示</option><option value="0">不显示</option></select>
+                                </div>
+                                <!-- 选择映射 -->
+                                <!--<div>-->
+                                    <!--<label></label>-->
+                                    <!--<select><option>请选择</option></select>-->
+                                    <!--<select><option value="1">显示</option><option value="0">不显示</option></select>-->
+                                <!--</div>-->
+                                <!--<div>-->
+                                    <!--<label class="float"></label>-->
+                                    <!--<div class="unit">-->
+                                        <!--<div>A: 111</div>-->
+                                        <!--<div>B: 222</div>-->
+                                        <!--<div>C: 333</div>-->
+                                    <!--</div>-->
+                                    <!--<div class="unit">-->
+                                        <!--<div>A: 111</div>-->
+                                        <!--<div>B: 222</div>-->
+                                        <!--<div>C: 333</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <div class="clear"></div>
                         </script>
                         <!-- / logic settings template end -->
                         <!-- quota settings template start -->

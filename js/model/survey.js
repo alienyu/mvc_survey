@@ -1,6 +1,6 @@
 ﻿// this is used to defined the survey model
 var Survey = Spine.Model.sub();
-Survey.configure('Survey', 'questions', 'activeQustIndex');
+Survey.configure('Survey', 'questions', 'activeQustIndex', 'logicList');
 Survey.include({
     deleteQuestion: function (index) {
         if (this.activeQustIndex != index) {
@@ -50,7 +50,7 @@ Survey.include({
                 remark: $("#remark").val(), //备注
                 status: "", //状态
                 question_html: this._getQuestionHtml(), //问题HTML
-                logic_control_js: "", //逻辑js
+                logic_control_js: this.logicList, //逻辑js
                 quota_control_js: "", //配额js
                 topic_list: this._getTopicList(),
                 result_id: "", //答题ID

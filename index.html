@@ -472,45 +472,53 @@
                                 <div class="clear"></div>
                         </script>
                         <!-- / logic settings template end -->
+                        <!-- 显示逻辑列表 -->
+                        <script type="text/x-jquery-tmpl" id="quota-show-template">
+                            <li>${quota_name}<a href="#" class="delete" style="display:${quota_list_show}"></a></li>
+                        </script>
+                        <!--题目选项 -->
+                        <script type="text/x-jquery-tmpl" id="quota-question-list-template">
+                            <option>${index}.${question}</option>
+                        </script>
                         <!-- quota settings template start -->
-                        <script type="text/x-jquery-tmpl" id="quota-settings-template">
+                        <script type="text/x-jquery-tmpl" id="quota-setting-template">
+                            <div>
+                                <label>配额名称</label>
+                                <input type="text">
+                            </div>
+                            <div>
+                                <label class="float">配额条件</label>
+                                <div>
+                                    <select id="quota_questions"></select>
+                                    <select id="quota_question_options"></select>
+                                    <select id="is_answer"></select>
+                                </div>
+                                <div class="btn_opera"><a href="#" class="add"></a></div>
+                            </div>
+                            <div>
+                                <label>配额数</label>
+                                <input type="text">
+                            </div>
+                            <div>
+                                <label>达到配额后执行</label>
+                                <select>
+                                    <option>终止答题</option>
+                                    <option>继续答题</option>
+                                    <option>跳转</option></select>
+                                <label>终止提示</label>
+                                <input type="text">
+                            </div>
+                        </script>
+                        <script type="text/x-jquery-tmpl" id="quota-template">
                             <div class="split_3 border_blue">
                               <div class="page_subhead top">配额名称</div>
-                              <div class="page_subhead_cont aside">
-                                <ul>
-                                  <li>01XXX<a href="#" class="delete"></a></li>
-                                  <li class="color">02XXX<a href="#" class="delete"></a></li>
-                                  <li>03XXX<a href="#" class="delete"></a></li>
-                                  <li class="color">04XX<a href="#" class="delete"></a></li>
-                                </ul>
-                                <a href="#" class="add"></a>
+                              <div id="quota_show" class="page_subhead_cont aside">
+                                  <ul></ul>
                               </div>
+                              <div><a href="#" id="add_quota" class="add"></a></div>
                             </div>
                             <div class="split_7">
-                              <div class=" border_blue grap_15 cont form_28">
-                                <div>
-                                  <label>配额名称</label>
-                                  <input type="text">
-                                </div>
-                                <div>
-                                    <label class="float">配额条件</label>
-                                    <div>
-                                      <select><option>Q1AAA</option></select>
-                                      <select><option>全部</option></select>
-                                      <select><option>回答</option></select>
-                                    </div>
-                                    <div class="btn_opera"><a href="#" class="add"></a></div>
-                                </div>
-                                <div>
-                                  <label>配额数</label>
-                                  <input type="text">              
-                                </div>
-                                <div>
-                                  <label>达到配额后执行</label>
-                                  <select><option>终止答题</option></select>
-                                  <label>终止提示</label>
-                                  <input type="text">
-                                </div>
+                              <div id="quota_setting" class="border_blue grap_15 cont form_28" >
                               </div>
                               <div class="btn_opera">
                                 <input type="button" value="上一步" onclick="$('#tabs').tabs('option', 'active', 2 );" class="btn_blue"/>

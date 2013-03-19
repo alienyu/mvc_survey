@@ -4,7 +4,8 @@ var QuotaSettings = Spine.Controller.sub({
     },
 
     events: {
-        "click  #add_quota" : "addQuota"
+        "click  #add_quota": "addQuota",
+        "change #quota_questions": "changeOption"
     },
     show: function () {
         this.el.html(this.template());
@@ -25,9 +26,20 @@ var QuotaSettings = Spine.Controller.sub({
                     var option = "<option value=" + i + ">" + e.index + "." + e.content + "</option>";
                     var answer = "<option value='0'>回答</option><option value='1'>不回答</option>"
                     $('#quota_question_options').append(option);
-                    $('#is_answer').append(answer);
+                    $('#is_answer').html(answer);
                 })
             }
+        })
+    },
+
+    changeOption: function() {
+        $('#quota_question_options').empty();
+        var i = parseInt($('#quota_questions').find("option:selected").val()) - 1;
+        $(surveyInstance.questions[i].options).each(function(i,e) {
+            var option = "<option value=" + i + ">" + e.index + "." + e.content + "</option>";
+            var answer = "<option value='0'>回答</option><option value='1'>不回答</option>";
+            $('#quota_question_options').append(option);
+            $('#is_answer').html(answer);
         })
     }
 });

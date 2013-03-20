@@ -16,12 +16,39 @@ var SurveyDo = Spine.Controller.sub({
 
     show: function () {
         $(".paper_next_container:gt(0)").hide();
-        this.pagingSurvey();
+        this._initQuestion();
     },
 
     init: function () {
-        this.currentIndex = 0;
+        this.currentPage = 0;
         this.show();
+        this.logicList = {};
+        this._initLogicList();
+    },
+
+    _initLogicList: function() {
+        this.logicList = JSON.parse(json.logic_control_js);
+
+        console.log(this.logicList);
+    },
+
+    _initQuestion: function () {
+        isValid = 0;
+        var that = this;
+        $("#page_cont").empty();
+        $("#page_cont").append($("<div></div>"));
+        var lastDiv = $("#page_cont div:last").hide();
+        $(json.question_html).each(function(index, element) {
+            lastDiv.append(element);
+            if ($(element).find(".questionary_list_opera").size() !== 0) {
+                $("#page_cont").append($("<div></div>"));
+                lastDiv = $("#page_cont div:last").hide();
+            };
+            that._initAreaOptions(element);
+        });
+        $($("#page_cont").children()[0]).show();
+        this._submitButtonShow();
+        $("#page_cont").find(".questionary_list_opera").remove();
     },
 
     pageNext: function (e) {
@@ -50,25 +77,13 @@ var SurveyDo = Spine.Controller.sub({
             answer_current_list = [];
         };
         isValid = 0;
-        this.pushAnswer();
-        if (isValid == 1) { return;}
-        var that = this;
-        $("#page_cont").empty();
-        $(json.question_html).each(function(index, element) {
-            if( index >= that.currentIndex ) {
+//        this.pushAnswer();
+//        if (isValid == 1) { return;}
 
-                that._initAreaOptions(element);
-
-                $("#page_cont").append(element);
-                if ($(element).find(".questionary_list_opera").size() !== 0) {
-                    that.currentIndex = index + 1;
-                    return false;
-                };
-
-                that._submitButtonShow(index);
-            }
-        });
-        $("#page_cont").find(".questionary_list_opera").remove();
+        $($("#page_cont").children()[this.currentPage]).hide();
+        this.currentPage += 1;
+        $($("#page_cont").children()[this.currentPage]).show();
+        this._submitButtonShow();
     },
 
     validTextArea: function(selected, question, element) {
@@ -95,6 +110,7 @@ var SurveyDo = Spine.Controller.sub({
         }
         return selected;
     },
+
     validMaxMinSelect: function(chosen, question) {
         var no =question.question_no;
         var max = parseInt(question.max_num);
@@ -259,9 +275,9 @@ var SurveyDo = Spine.Controller.sub({
 
     },
 
-    _submitButtonShow: function(index) {
+    _submitButtonShow: function() {
 
-        if (index + 1 === $(json.question_html).size()) {
+        if (this.currentPage + 1 === $($("#page_cont").children()).size()) {
             $("#save-answer").show();
             $(".btn_blue_3").hide();
         } else {

@@ -77,8 +77,10 @@ var SurveyDo = Spine.Controller.sub({
             answer_current_list = [];
         };
         isValid = 0;
-//        this.pushAnswer();
-//        if (isValid == 1) { return;}
+        this.pushAnswer();
+        if (isValid == 1) { return;}
+
+        //TODO: run logic
 
         $($("#page_cont").children()[this.currentPage]).hide();
         this.currentPage += 1;
@@ -157,11 +159,11 @@ var SurveyDo = Spine.Controller.sub({
     },
 
     pushAnswer: function() {
-        var questionNum = $('#page_cont').find('dl').length;
+        var questionNum = $($($('#page_cont').children())[this.currentPage]).find('dl').length;
         var questionCurrentIndex = 0;
         var that = this;
         for(i=0;i<questionNum;i++) {
-            var obj = $('#page_cont').find('dl')[questionCurrentIndex];
+            var obj = $($($('#page_cont').children())[this.currentPage]).find('dl')[questionCurrentIndex];
             var question = json.topic_list[questionIndex];
             var question_no = json.topic_list[questionIndex].question_no;
             var question_type = json.topic_list[questionIndex].question_type;

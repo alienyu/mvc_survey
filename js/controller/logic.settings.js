@@ -40,7 +40,7 @@ var LogicSettings = Spine.Controller.sub({
         switch(surveyInstance.questions[index].type) {
             case "single-select" :
             case "multi-select" :
-                //TODO: refactor here
+                //TODO:
                 $("#condition_questionOption").empty().append("<option>全部</option>");
                 $(surveyInstance.questions[index].options).each(function (index, element){
                     $("#condition_questionOption").append("<option value=" + index + ">" + element.index + element.content + "</option>");
@@ -57,14 +57,14 @@ var LogicSettings = Spine.Controller.sub({
     },
     _initQuestionList: function () {
         $(surveyInstance.questions).each(function (index, element) {
-            //TODO: refactor here
+            //TODO:
             var optionStr = "<option value=" + index + ">" + index + element.description + "</option>";
             $("#questionList").append(optionStr);
             $("#action_question").append(optionStr);
         });
     },
     renderLogicList: function () {
-        //TODO: refactor here
+        //TODO:
         $("#logicList").empty();
         $(surveyInstance.logicList).each(function(index, element) {
             if( index % 2 === 0){

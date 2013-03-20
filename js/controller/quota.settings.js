@@ -75,7 +75,6 @@ var QuotaSettings = Spine.Controller.sub({
         e.target.parentElement.remove();
     },
 
-    //TODO:logic has something bad
     getMap: function() {
         var options = [];
         var map = {};

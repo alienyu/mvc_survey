@@ -37,7 +37,6 @@ var LogicSettings = Spine.Controller.sub({
     },
     _initOptionList: function (e) {
         var index =$(e.target).val();
-        console.log(surveyInstance.questions[index].type);
         switch(surveyInstance.questions[index].type) {
             case "single-select" :
             case "multi-select" :
@@ -87,8 +86,8 @@ var LogicSettings = Spine.Controller.sub({
         this.logic.logicName = $("#logic_name").val();
         this.logic.action.type = $("#actionType").val();
         this.logic.action.queN = $("#action_question").val();
+        //TODO: need confirm here
         this.logic.action.optN = "";
-        //console.log(this.condition);
         surveyInstance.logicList.push(this.logic);
         this._initLogicObj();
         this.renderLogicList();
@@ -96,6 +95,8 @@ var LogicSettings = Spine.Controller.sub({
     },
     logicDelete: function (e) {
         var index = $(e.target).parents("li").index();
-        console.log(index);
+        $("#logicList").children()[index].remove();
+        surveyInstance.logicList.splice(index,1);
+        this.renderLogicList();
     }
 });

@@ -16,6 +16,7 @@ var QuotaSettings = Spine.Controller.sub({
     init: function () {
         this.quota_condition_index = 0;
         this.conditions = [];
+        this.quota_list = [];
         //show template
         this.show();
         //init widgets
@@ -73,9 +74,62 @@ var QuotaSettings = Spine.Controller.sub({
         e.target.parentElement.remove();
     },
 
-    saveQuota: function() {
+    //TODO:logic has something bad
+    getMap: function() {
+        var options = [];
+        var map = {};
+        var is_exist = 0;
         $(this.conditions).each(function(i,e) {
-            e;
+            is_exist = 0;
+            for (item in e) {
+                var key = item;
+                var value = e[item];
+                if ($.isEmptyObject(map)) {
+                    options.push(value);
+                    map[key] = options;
+                }
+                else {
+                    for (i in map) {
+                        if (item === i) {
+                            is_exist = 1;
+                        }
+                    }
+                    if (is_exist === 0) {
+                        //添加新项
+                        options = [];
+                        options.push(value);
+                        map[key] = options;
+                    }
+                    else {
+                        //存在Key,push值
+                        map[key].push(value);
+                    }
+                }
+            }
+        })
+        return map;
+    },
+
+    saveQuota: function() {
+        var map = this.getMap();
+        var quota_name = $('#quota_name').val();
+        var quota_num = $('#quota_num').val();
+        var quota_action = $('#quota_action').find("option:selected").val();
+        var quota_message = $('#quota_message').val();
+        var quotaOne =  new Quota ({
+            quota_name: quota_name,
+            map:map,
+            quota_num: quota_num,
+            quota_action: quota_action,
+            quota_message: quota_message
+        });
+        this.quota_list.push(quotaOne);
+        surveyInstance.quota_control_js = JSON.stringify(this.quota_list);
+        console.log(surveyInstance);
+        $('#quota_setting').empty();
+        $('#quota_show>ul').empty();
+        $(this.quota_list).each(function(i,e) {
+            $('#quota_show>ul').append( '<li>' + e.quota_name + '<a href="#" id="delete_quota" class="delete quota' + i + '"></a></li>');
         })
     }
 });

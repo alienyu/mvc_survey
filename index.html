@@ -22,6 +22,7 @@
     <script type="text/javascript" src="js/model/survey.js"></script>
     <script type="text/javascript" src="js/model/question.js"></script>
     <script type="text/javascript" src="js/model/option.js"></script>
+    <script type="text/javascript" src="js/model/quota.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript" src="js/lib/province_city_district/json-array-of-province.js"></script>
 </head>
@@ -484,7 +485,7 @@
                         <script type="text/x-jquery-tmpl" id="quota-setting-template">
                             <div>
                                 <label>配额名称</label>
-                                <input type="text">
+                                <input type="text" id="quota_name">
                             </div>
                             <div>
                                 <label class="float">配额条件</label>
@@ -498,16 +499,16 @@
                             <div><label></label><div id="select_result" class="border_blue" style="height:100px"></div></div>
                             <div>
                                 <label>配额数</label>
-                                <input type="text">
+                                <input type="text" id="quota_num">
                             </div>
                             <div>
                                 <label>达到配额后执行</label>
-                                <select>
-                                    <option>终止答题</option>
-                                    <option>继续答题</option>
-                                    <option>跳转</option></select>
+                                <select id="quota_action">
+                                    <option value="0">终止答题</option>
+                                    <option value="1">继续答题</option>
+                                    <option value="2">跳转</option></select>
                                 <label>终止提示</label>
-                                <input type="text">
+                                <input type="text" id="quota_message">
                             </div>
                         </script>
                         <script type="text/x-jquery-tmpl" id="quota-template">

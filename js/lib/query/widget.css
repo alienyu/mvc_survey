@@ -1,0 +1,47 @@
+﻿/*shortcut*/
+.shortcut-test{height:35px;}
+/*search*/
+.l-pd-db-cmp-search{height:auto;font-size:12px;padding:2px;}
+.l-pd-db-cmp-search-text{height:20px;width:200px;line-height:20px;margin-top:5px;}
+.l-pd-db-cmp-search-button{font-size:12px;width:auto;padding:0 5px;height:25px;margin:0 3px;}
+.l-pd-db-cmp-search-span{font-size:12px;font-style:italic;text-decoration:underline;margin-left:5px;color:#0070C0;cursor:pointer;background:white;border:none;}
+/*TreeOperate*/
+.l-m-w-t-TreeOperate-tree{}
+/*product*/
+.product-div{width:100%;height:auto;overflow:hidden;border:1px solid #ccc;border-bottom:none;}
+.product-li table{width:100%;height:auto;border-bottom:1px solid #ccc;}
+.product-li table tr td{height:35px;line-height:20px;padding:10px 0 0 10px;font-size:12px;font-family:微软雅黑;}
+.product-li table tr td.td2{width:35%;}
+.product-li table tr td.td3{width:20%;}
+.product-li table tr td.td4{width:15%;}
+.product-li table tr td.td5{width:15%;}
+.product-li table tr td.td6{width:15%;}
+.product-li table tr td.td8 span{text-align:center;width:20px;height:20px;display:inline-block;margin-right:10px;cursor:pointer;background-color:#FCD5B4;border:1px solid black;}
+
+/*requisite*/
+.left-bracketing-area span,.right-bracketing-area span{display:inline-block;cursor:pointer;padding:0 1px;margin:0 1px;}
+.left-bracketing-area span:hover,.right-bracketing-area span:hover{color:#5E9FE7;font-weight:bolder;}
+.warn-bracketing{color:red;font-weight:bolder;}
+.pair-bracketing{color:rgb(113, 207, 113);font-weight:bolder;}
+
+.closer{display: block;float:right;margin-top:-4px;clear:both;cursor: pointer;margin-left:4px;color:#D1D1D1;}
+.closer:hover{color:#000;}
+.select-value-field{border: 1px solid #b5b8c8;line-height: 18px;min-height: 22px;}
+.select-value-holder{margin:1px;padding:1px;position:relative;}
+.select-value-holder .text{background-color: #dfe8f6;padding:1px;}
+.select-value-field .select-value-holder:first-child .relation-text{display:none;}
+
+.left-bracketing ,.right-bracketing{color:#DDD;padding:5px;}
+
+.focus-bracketing{color :#5E9FE7 !important;cursor: pointer;}
+.relation-text{margin : 0 2px;color :#2767B5;cursor: pointer;}
+.disable-node{background-color:gray !important;}
+.simple-holder{margin:0px 6px;}
+.simple-holder .left-bracketing ,.simple-holder .right-bracketing,.simple-holder .relation-text {display:none;}
+
+/*chartColumn*/
+.chart-control-grid{/*overflow:hidden;*/}
+.chart-control-grid div{cursor:pointer;overflow: hidden !important;}
+.select-control-tr div{background-color:#CCC !important;}
+
+.control-field-area{}

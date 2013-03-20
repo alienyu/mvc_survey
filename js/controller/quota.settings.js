@@ -6,14 +6,16 @@ var QuotaSettings = Spine.Controller.sub({
     events: {
         "click .delete_quota": "deleteQuota",
         "click #save_quota": "saveQuota",
-        "click .delete_quota_condition": "deleteCondition",
+        "click .closer": "deleteCondition",
         "click #logic_result": "addCondition",
         "click #add_quota": "addQuota",
         "change #quota_questions": "changeOption"
     },
+
     show: function () {
         this.el.html(this.template());
     },
+
     init: function () {
         this.quota_condition_index = 0;
         this.conditions = [];
@@ -38,6 +40,11 @@ var QuotaSettings = Spine.Controller.sub({
                 })
             }
         })
+        this.query = Ext.create('yiengine.Query',{
+            height:80,
+            width:600,
+            renderTo: 'select_result'
+        });
     },
 
     changeOption: function() {
@@ -56,8 +63,20 @@ var QuotaSettings = Spine.Controller.sub({
         var question_name = $('#quota_questions').find("option:selected").text();
         var option_name = $('#quota_question_options').find("option:selected").text();
         var answer = $('#is_answer').find("option:selected").text();
-        var result = question_name + '选项' + option_name + answer;
-        $('#select_result').append('<div>' + result + '<a href="#" class="delete_quota_condition delete' + " condition" + this.quota_condition_index + '"></a></div>');
+        if(!this.query){
+            this.query = Ext.create('yiengine.Query',{
+                        height:80,
+                        width:600,
+                        renderTo: 'select_result'
+                  });
+        }
+        this.query.addValue({
+            question:question_name,
+            option:option_name,
+            answer:answer,
+            description:question_name + option_name + answer
+        });
+        $('.x-component').addClass("condition" + this.quota_condition_index);
         //缓存条件
         var quota_question_index = question_name.split('.')[0];
         var option_index = option_name !== "全部" ? option_name.split('.')[0].charCodeAt() - 64 : 0;
@@ -70,9 +89,25 @@ var QuotaSettings = Spine.Controller.sub({
     },
 
     deleteCondition: function(e) {
-        var index = parseInt(e.target.classList[2].match(/\d/)[0]);
+        var index = parseInt($(e.target.parentElement.parentElement).attr('class').split(' ').pop().match(/\d/)[0]);
         delete this.conditions[index];
         e.target.parentElement.remove();
+    },
+
+   unique: function(data) {
+        data = data || [];
+        var a = {};
+        for (var i = 0; i < data.length; i++) {
+            var v = data[i];
+            if (typeof(a[v]) == 'undefined') {
+                a[v] = 1;
+            }
+        };
+        data.length = 0;
+        for (var i in a) {
+            data[data.length] = i;
+        }
+        return data;
     },
 
     getMap: function() {
@@ -106,7 +141,10 @@ var QuotaSettings = Spine.Controller.sub({
                     }
                 }
             }
-        })
+        });
+        for(i in map) {
+            map[i] = this.unique(map[i]);
+        };
         return map;
     },
 

@@ -134,6 +134,7 @@ var QuotaSettings = Spine.Controller.sub({
             }
         })
         this.conditions = [];
+        this.quota_condition_index = 0;
     },
 
     deleteQuota: function(e) {

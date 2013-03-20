@@ -4,8 +4,9 @@ var QuotaSettings = Spine.Controller.sub({
     },
 
     events: {
+        "click .delete_quota": "deleteQuota",
         "click #save_quota": "saveQuota",
-        "click #delete_quota_condition": "deleteCondition",
+        "click .delete_quota_condition": "deleteCondition",
         "click #logic_result": "addCondition",
         "click #add_quota": "addQuota",
         "change #quota_questions": "changeOption"
@@ -56,7 +57,7 @@ var QuotaSettings = Spine.Controller.sub({
         var option_name = $('#quota_question_options').find("option:selected").text();
         var answer = $('#is_answer').find("option:selected").text();
         var result = question_name + '选项' + option_name + answer;
-        $('#select_result').append('<div>' + result + '<a href="#" id="delete_quota_condition" class="delete' + " condition" + this.quota_condition_index + '"></a></div>');
+        $('#select_result').append('<div>' + result + '<a href="#" class="delete_quota_condition delete' + " condition" + this.quota_condition_index + '"></a></div>');
         //缓存条件
         var quota_question_index = question_name.split('.')[0];
         var option_index = option_name !== "全部" ? option_name.split('.')[0].charCodeAt() - 64 : 0;
@@ -69,7 +70,7 @@ var QuotaSettings = Spine.Controller.sub({
     },
 
     deleteCondition: function(e) {
-        var index = parseInt(e.target.classList[1].match(/\d/)[0]);
+        var index = parseInt(e.target.classList[2].match(/\d/)[0]);
         delete this.conditions[index];
         e.target.parentElement.remove();
     },
@@ -80,6 +81,7 @@ var QuotaSettings = Spine.Controller.sub({
         var map = {};
         var is_exist = 0;
         $(this.conditions).each(function(i,e) {
+            options = [];
             is_exist = 0;
             for (item in e) {
                 var key = item;
@@ -96,7 +98,6 @@ var QuotaSettings = Spine.Controller.sub({
                     }
                     if (is_exist === 0) {
                         //添加新项
-                        options = [];
                         options.push(value);
                         map[key] = options;
                     }
@@ -129,7 +130,17 @@ var QuotaSettings = Spine.Controller.sub({
         $('#quota_setting').empty();
         $('#quota_show>ul').empty();
         $(this.quota_list).each(function(i,e) {
-            $('#quota_show>ul').append( '<li>' + e.quota_name + '<a href="#" id="delete_quota" class="delete quota' + i + '"></a></li>');
+            if (e !== undefined) {
+                $('#quota_show>ul').append( '<li>' + e.quota_name + '<a href="#" class="delete_quota delete quota' + i + '"></a></li>');
+            }
         })
+        this.conditions = [];
+    },
+
+    deleteQuota: function(e) {
+        var index = parseInt(e.target.classList[2].match(/\d/)[0]);
+        delete this.quota_list[index];
+        e.target.parentElement.remove();
+        console.log(this.quota_list);
     }
 });

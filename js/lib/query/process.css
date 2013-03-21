@@ -1,0 +1,209 @@
+.task-icon{
+	background:url(../../images/modules/workflow/task.png)!important;
+	width: 16px;
+	height: 16px;
+}
+.v-task-icon{
+	background:url(../../images/modules/workflow/v-task.png)!important;
+	width: 16px;
+	height: 16px;
+}
+.sequenceflow-icon{
+	background:url(../../images/modules/workflow/sequenceflow.png)!important;
+	width: 16px;
+	height: 16px;
+}
+.v-sequenceflow-icon{
+	background:url(../../images/modules/workflow/v-sf.png)!important;
+	width: 16px;
+	height: 16px;
+}
+.gateway-icon{
+	background:url(../../images/modules/workflow/parallel.png)!important;
+	width: 16px;
+	height: 16px;
+}
+
+.start-icon{
+	background:url(../../images/modules/workflow/start.png)!important;
+	width: 16px;
+	height: 16px;
+}
+.end-icon{
+	background:url(../../images/modules/workflow/end.png)!important;
+	width: 16px;
+	height: 16px;
+}
+.close-icon{
+	background:url(../../images/modules/workflow/close.gif)!important;
+	width: 16px;
+	height: 16px;
+}
+.hourglass-icon{
+	background:url(../../images/modules/workflow/hourglass.png)!important;
+	width: 16px;
+	height: 16px;
+}
+.rhombus-icon{
+	background:url(../../images/modules/workflow/rhombus.png)!important;
+	width: 16px;
+	height: 16px;
+}
+.shape_square-icon{
+	background:url(../../images/modules/workflow/shape_square.png)!important;
+	width: 16px;
+	height: 16px;
+}
+.circle_green-icon{
+	background:url(../../images/modules/workflow/circle_green.png)!important;
+	width: 16px;
+	height: 16px;
+}
+.circle_red-icon{
+	background:url(../../images/modules/workflow/circle_red.png)!important;
+	width: 16px;
+	height: 16px;
+}
+
+#cmp-box .x-grid-cell-inner{
+	cursor: move;
+}
+
+#cmp-box .x-tree-icon-leaf{
+	margin-right : 5px;
+}
+.cmp{
+	position : absolute;
+}
+.node{
+	border-color: black;
+	border-style: solid;
+}
+.focus-node{
+	border-style: dotted;
+	border-width: 1px;
+	z-index : 1000 !important;
+	border-color: red;
+}
+.task{
+	background-color : rgb(200, 234, 243);
+	border-style: solid;
+	border-radius: 15px;
+	border-width: 1px;
+	width : 80px;
+	height : 50px;
+}
+.start{
+	border-radius: 100000px;
+	border-style: solid;
+	border-width: 1px;
+	width : 30px;
+	background-color: rgb(157, 241, 157);
+	height : 30px;
+}
+.vtask{
+	border-style: dashed;
+}
+.end{
+	border-radius: 100000px;
+	border-style: solid;
+	border-width: 1px;
+	width : 30px;
+	height : 30px;
+	background-color: rgb(219, 110, 100);
+}
+
+.gateway{
+	width : 40px;
+	height : 40px;
+	z-index : 100;
+}
+
+.sequence-flow{
+	z-index : -1;
+}
+.tool-box{
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	margin-right: -20px;
+	margin-top: -5px;
+}
+.tool{
+	display: block;
+	opacity: 0.5;
+}
+.tool-focus{
+    opacity: 1 !important;
+}
+
+.name-text{
+	display: block;
+	height:100%;
+	text-align : center;
+}
+.closer{
+	display: block;
+	float :right;
+	margin-top:-4px;
+	clear:both;
+	cursor: pointer;
+}
+.select-value-field{
+	border: 1px solid #b5b8c8;
+	margin-left: 5px;
+	line-height: 18px;
+	min-height: 22px;
+}
+.select-value-holder{
+	margin:1px;
+	margin-right : 8px;
+	padding:1px;
+	position: relative;
+}
+.select-value-holder .text{
+	background-color: #dfe8f6;
+	padding:1px;
+}
+.select-value-field .select-value-holder:first-child .relation-text{
+	display:none;
+}
+.top-text{
+	position: absolute;
+	top: -20px;
+	text-align: center;
+	width: 100%;
+}
+.bottom-text{
+	text-align: center;
+	font-weight: bold;
+	position: absolute;
+	bottom: -15px;
+	width: 100%;
+}
+.left-bracketing ,.right-bracketing{
+	color : rgb(243, 237, 232);
+	margin: 0 1px;
+}
+.focus-bracketing{
+	color : black !important;
+	cursor: pointer;
+}
+.select-bracketing{
+	color : black;
+	font-weight: bold;
+}
+.relation-text{
+	margin : 0 1px;
+	color : blue;
+	cursor: pointer;
+}
+.disable-node{
+	background-color : gray !important;
+}
+.simple-holder{
+	margin: 0px 6px;
+}
+.simple-holder .left-bracketing ,.simple-holder  .right-bracketing,.simple-holder .relation-text {
+	display:none;
+}

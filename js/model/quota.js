@@ -1,2 +1,2 @@
-var Quota = new Spine.Model.sub();
-Quota.configure("quota_name", "question_name", "option_no", "is_answer", "quota_num", "action", "message");
+var Quota = Spine.Model.sub();
+Quota.configure("Quota", "quota_name", "map", "quota_MaxNum", "quota_action", "quota_message");

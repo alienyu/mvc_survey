@@ -285,22 +285,8 @@ var SurveyDo = Spine.Controller.sub({
                         console.log(optionArray[index2]);
                         if(optionArray[index2].charAt(0) != "-"){ //正数 表示回答该项 触发条件
                             for(var value in selectValues){
-                                var selectQuestionValue = "0";
-                                switch(selectValues[value].question_value) {
-                                    case "A":
-                                        selectQuestionValue = "0";
-                                        break;
-                                    case "B":
-                                        selectQuestionValue = "1";
-                                        break;
-                                    case "C":
-                                        selectQuestionValue = "2";
-                                        break;
-                                    case "D":
-                                        selectQuestionValue = "3";
-                                        break;
-                                }
-                                if(optionArray[index2] === selectQuestionValue){
+                                var selectQuestionValue = selectValues[value].question_value.charCodeAt() - 65;
+                                if(optionArray[index2] == selectQuestionValue){
                                     condition = true;
                                     break;
                                 }
@@ -308,22 +294,8 @@ var SurveyDo = Spine.Controller.sub({
                         } else {//负数 表示不回答该项 触发条件
                             condition = true;
                             for(var value in selectValues){
-                                var selectQuestionValue = "0";
-                                switch(selectValues[value].question_value){
-                                    case "A":
-                                        selectQuestionValue = "0";
-                                        break;
-                                    case "B":
-                                        selectQuestionValue = "1";
-                                        break;
-                                    case "C":
-                                        selectQuestionValue = "2";
-                                        break;
-                                    case "D":
-                                        selectQuestionValue = "3";
-                                        break;
-                                }
-                                if(optionArray[index2].substr(1) === selectQuestionValue){
+                                var selectQuestionValue = selectValues[value].question_value.charCodeAt() - 65;
+                                if(optionArray[index2].substr(1) == selectQuestionValue){
                                     condition = false;
                                     break;
                                 }
@@ -334,12 +306,41 @@ var SurveyDo = Spine.Controller.sub({
 
                     if(condition){ //满足触发条件
                         var queN = this.logicList[index].action.queN;
-                        var optN =this.logicList[index].action.optN;
-                        if(this.logicList[index].logicType === "0" && this.logicList[index].action.type === "0" && condition){ //控制逻辑  不显示
-                            //$($("#page_cont>div>dl")[this.logicList[index].action.queN]).hide();
-                            $($($("#page_cont>div>dl")[queN]).find("div")[optN]).hide();
-                        } else if(this.logicList[index].logicType === "0" && this.logicList[index].action.type === "1" && condition){//控制逻辑  显示
-                            $($($("#page_cont>div>dl")[queN]).find("div")[optN]).show();
+                        switch (this.logicList[index].logicType) {
+                            case "0": //控制
+                                var optN =this.logicList[index].action.optN;
+                                if(this.logicList[index].action.type === "0"){ //控制逻辑  不显示
+                                    //$($("#page_cont>div>dl")[this.logicList[index].action.queN]).hide();
+                                    $($($("#page_cont>div>dl")[queN]).find("div")[optN]).hide();
+                                } else if(this.logicList[index].action.type === "1"){//控制逻辑  显示
+                                    $($($("#page_cont>div>dl")[queN]).find("div")[optN]).show();
+                                }
+                                break;
+                            case "1"://跳转
+                                this.currentPage = 0;
+                                var questionIndex = 0;
+                                $("#page_cont>div").each(function(index, element) {
+                                    element.children.each(function(index2, element2) {
+                                        if(questionIndex < queN) {
+                                            questionIndex += 1;
+                                            element2.hide();
+                                        } else {
+                                            break;
+                                        }
+                                    });
+                                    if(questionIndex < queN) {
+                                        element.hide();
+                                    } else {
+                                        break;
+                                    }
+                                    this.currentPage += 1;
+                                });
+                                this.currentPage -= 1;
+                                break;
+                            case "2"://选项映射
+                                break;
+                            case "3"://甄别
+                                break;
                         }
                     }
                 }
@@ -347,7 +348,7 @@ var SurveyDo = Spine.Controller.sub({
         }
     },
 
-    _detectCondition: function () {
+    _detectCondition: function () { //include logic and quota
 
     },
 
@@ -372,22 +373,8 @@ var SurveyDo = Spine.Controller.sub({
                         console.log(optionArray[index2]);
                         if(optionArray[index2].charAt(0) != "-"){ //正数 表示回答该项 触发条件
                             for(var value in selectValues){
-                                var selectQuestionValue = "0";
-                                switch(selectValues[value].question_value) {
-                                    case "A":
-                                        selectQuestionValue = "0";
-                                        break;
-                                    case "B":
-                                        selectQuestionValue = "1";
-                                        break;
-                                    case "C":
-                                        selectQuestionValue = "2";
-                                        break;
-                                    case "D":
-                                        selectQuestionValue = "3";
-                                        break;
-                                }
-                                if(optionArray[index2] === selectQuestionValue){
+                                var selectQuestionValue = selectValues[value].question_value.charCodeAt() - 65;
+                                if(optionArray[index2] == selectQuestionValue){
                                     condition = true;
                                     break;
                                 }
@@ -400,22 +387,8 @@ var SurveyDo = Spine.Controller.sub({
                         } else {//负数 表示不回答该项 触发条件
                             condition = true;
                             for(var value in selectValues) {
-                                var selectQuestionValue = "0";
-                                switch(selectValues[value].question_value) {
-                                    case "A":
-                                        selectQuestionValue = "0";
-                                        break;
-                                    case "B":
-                                        selectQuestionValue = "1";
-                                        break;
-                                    case "C":
-                                        selectQuestionValue = "2";
-                                        break;
-                                    case "D":
-                                        selectQuestionValue = "3";
-                                        break;
-                                }
-                                if(optionArray[index2].substr(1) === selectQuestionValue){
+                                var selectQuestionValue = selectValues[value].question_value.charCodeAt() - 65;
+                                if(optionArray[index2].substr(1) == selectQuestionValue){
                                     condition = false;
                                     break;
                                 }
@@ -428,12 +401,12 @@ var SurveyDo = Spine.Controller.sub({
                     }
 
                     if(condition){ //满足触发条件
-                        if(this.quotaList[index].quota_action === "0" && condition) { //配额  终止答题
+                        if(this.quotaList[index].quota_action === "0") { //配额  终止答题
                             alert(currentQuota.quota_message);
                             this.quotaResult = false;
-                        } else if(this.quotaList[index].quota_action === "1" && condition) {//配额  继续答题
+                        } else if(this.quotaList[index].quota_action === "1") {//配额  继续答题
 
-                        } else if(this.quotaList[index].quota_action === "2" && condition) {//配额  跳转
+                        } else if(this.quotaList[index].quota_action === "2") {//配额  跳转
 
                         }
                     }

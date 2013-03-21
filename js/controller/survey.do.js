@@ -333,10 +333,13 @@ var SurveyDo = Spine.Controller.sub({
 //                    console.log(this.logicList[index].action);
 
                     if(condition){ //满足触发条件
+                        var queN = this.logicList[index].action.queN;
+                        var optN =this.logicList[index].action.optN;
                         if(this.logicList[index].logicType === "0" && this.logicList[index].action.type === "0" && condition){ //控制逻辑  不显示
-                            $($("#page_cont>div>dl")[this.logicList[index].action.queN]).hide();
+                            //$($("#page_cont>div>dl")[this.logicList[index].action.queN]).hide();
+                            $($($("#page_cont>div>dl")[queN]).find("div")[optN]).hide();
                         } else if(this.logicList[index].logicType === "0" && this.logicList[index].action.type === "1" && condition){//控制逻辑  显示
-                            $("#page_cont>div>dl")[this.logicList[index].action.queN].show();
+                            $($($("#page_cont>div>dl")[queN]).find("div")[optN]).show();
                         }
                     }
                 }

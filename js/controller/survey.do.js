@@ -22,14 +22,10 @@ var SurveyDo = Spine.Controller.sub({
     init: function () {
         this.currentPage = 0;
         this.show();
-        this.logicList = {};
-        this._initLogicList();
-    },
-
-    _initLogicList: function() {
         this.logicList = JSON.parse(json.logic_control_js);
-
+        this.quotaList = JSON.parse(json.quota_control_js);
         console.log(this.logicList);
+        console.log(this.quotaList);
     },
 
     _initQuestion: function () {
@@ -80,12 +76,14 @@ var SurveyDo = Spine.Controller.sub({
         this.pushAnswer();
         if (isValid == 1) { return;}
 
-        //TODO: run logic
 
         $($("#page_cont").children()[this.currentPage]).hide();
         this.currentPage += 1;
         $($("#page_cont").children()[this.currentPage]).show();
         this._submitButtonShow();
+
+        //TODO: run logic
+        this._runLogic();
     },
 
     validTextArea: function(selected, question, element) {
@@ -265,6 +263,94 @@ var SurveyDo = Spine.Controller.sub({
 
         //            }
         //        });
+    },
+
+    _runLogic: function () {
+        //console.log($(this.logicList));
+        for(var obj in answer_current_list) {
+            for(var index in this.logicList) {
+                var questionIndex = answer_current_list[obj].question_no - 1;//要查找的问题对象序号
+                if(this.logicList[index].map[questionIndex]) { //查找问题有无对应逻辑条件
+                    var currentLogic = this.logicList[index];
+                    console.log(currentLogic);
+                    var optionArray = currentLogic.map[questionIndex]; //获得逻辑条件集合
+                    var condition = false;
+
+                    var selectValues = answer_current_list[obj].answer_detail_list; //该问题当前已选答案
+                    //开始遍历条件选项 若每个选项都满足 则触发条件
+                    for(var index2 in optionArray) {
+                        console.log(optionArray[index2]);
+                        if(optionArray[index2].charAt(0) != "-"){ //正数 表示回答该项 触发条件
+                            for(var value in selectValues){
+                                var selectQuestionValue = 0;
+                                switch(selectValues[value].question_value) {
+                                    case "A":
+                                        selectQuestionValue = 0;
+                                        break;
+                                    case "B":
+                                        selectQuestionValue = 1;
+                                        break;
+                                    case "C":
+                                        selectQuestionValue = 2;
+                                        break;
+                                        selectQuestionValue = 3;
+                                    case "D":
+                                        break;
+                                }
+                                if(parseInt(optionArray[index2]) === selectQuestionValue){
+                                    condition = true;
+                                    break;
+                                }
+                            }
+                        } else {//负数 表示不回答该项 触发条件
+                            condition = true;
+                            for(var value in selectValues){
+                                var selectQuestionValue = 0;
+                                switch(selectValues[value].question_value){
+                                    case "A":
+                                        selectQuestionValue = 0;
+                                        break;
+                                    case "B":
+                                        selectQuestionValue = 1;
+                                        break;
+                                    case "C":
+                                        selectQuestionValue = 2;
+                                        break;
+                                        selectQuestionValue = 3;
+                                    case "D":
+                                        break;
+                                }
+                                if(parseInt(optionArray[index2].substr(1)) === selectQuestionValue){
+                                    condition = false;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+//                    console.log(this.logicList[index].action);
+
+                    if(condition){ //满足触发条件
+                        if(this.logicList[index].logicType === "0" && this.logicList[index].action.type === "0" && condition){ //控制逻辑  不显示
+                            $($("#page_cont>div>dl")[this.logicList[index].action.queN]).hide();
+                        } else if(this.logicList[index].logicType === "0" && this.logicList[index].action.type === "1" && condition){//控制逻辑  显示
+                            $("#page_cont>div>dl")[this.logicList[index].action.queN].show();
+                        }
+                    }
+                }
+            }
+        }
+    },
+
+    _detectCondition: function () {
+
+    },
+
+    _triggerAction : function () {
+
+    },
+
+    _runQuota: function () {
+
     },
 
     _initAreaOptions: function(element) {

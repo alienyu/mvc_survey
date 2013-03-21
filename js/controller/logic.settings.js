@@ -4,6 +4,7 @@ var LogicSettings = Spine.Controller.sub({
     },
 
     events: {
+        "click .one_logic": "showLogic",
         "click .delete_logic": "deleteLogic",
         "click #save_logic": "saveLogic",
         "click .closer": "deleteCondition",
@@ -71,7 +72,7 @@ var LogicSettings = Spine.Controller.sub({
         var i = parseInt($('#action_questions').find("option:selected").val()) - 1;
         $(surveyInstance.questions[i].options).each(function(i,e) {
             var option = "<option value=" + i + ">" + e.index + "." + e.content + "</option>";
-            var show = '<option value="1">显示</option><option value="0">不显示</option>'
+            var show = '<option value="0">显示</option><option value="1">不显示</option>'
             $('#action_options').append(option);
             $('#actionType').html(show);
         })
@@ -125,6 +126,7 @@ var LogicSettings = Spine.Controller.sub({
         for (var i in a) {
             data[data.length] = i;
         }
+        return data;
     },
 
     getMap: function() {
@@ -189,7 +191,7 @@ var LogicSettings = Spine.Controller.sub({
         $('#logicList').empty();
         $(this.logic_list).each(function(i,e) {
             if (e !== undefined) {
-                $('#logicList').append( '<li>' + e.logicName + '<a href="#" class="delete_logic delete quota' + i + '"></a></li>');
+                $('#logicList').append( '<li><div class="one_logic">' + e.logicName + '</div><a href="#" class="delete_logic delete quota' + i + '"></a></li>');
             }
         })
         this.conditions = [];
@@ -201,5 +203,31 @@ var LogicSettings = Spine.Controller.sub({
         delete this.logic_list[index];
         e.target.parentElement.remove();
         console.log(this.logic_list);
+    },
+
+    showLogic: function(e) {
+        this.addLogic();
+        var index = parseInt($(e.target.parentElement).find('a').attr('class').split(' ')[2].match(/\d/)[0]);
+        var one_logic = this.logic_list[index];
+        var logic_name = one_logic.logicName;
+        var logic_type = one_logic.logicType;
+        var map = one_logic.map;
+        var action_type = one_logic.action.type;
+        var action_qu = one_logic.action.queN;
+        var action_op = one_logic.action.optN;
+        //回显
+        $('#action_options').empty();
+        $(surveyInstance.questions[action_qu-1].options).each(function(i,e) {
+            var option = "<option value=" + i + ">" + e.index + "." + e.content + "</option>";
+            var show = '<option value="0">显示</option><option value="1">不显示</option>'
+            $('#action_options').append(option);
+            $('#actionType').html(show);
+        })
+        $('#logic_name').val(logic_name);
+        $('#logic_type').find('option')[logic_type].selected = true;
+        $('#action_questions').find('option')[action_qu-1].selected = true;
+        $('#action_options').find('option')[action_op-1].selected = true;
+        $('#actionType').find('option')[action_type].selected = true;
+        //TODO:map
     }
 });

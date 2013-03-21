@@ -50,7 +50,7 @@ Survey.include({
                 remark: $("#remark").val(), //备注
                 status: "", //状态
                 question_html: this._getQuestionHtml(), //问题HTML
-                logic_control_js: this.logicList, //逻辑js
+                logic_control_js: JSON.stringify(this.logicList), //逻辑js
                 quota_control_js: "", //配额js
                 topic_list: this._getTopicList(),
                 result_id: "", //答题ID

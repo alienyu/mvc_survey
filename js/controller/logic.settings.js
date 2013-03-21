@@ -47,11 +47,11 @@ var LogicSettings = Spine.Controller.sub({
                 });
                 break;
             case  "open":
-                $("#condition_questionOption")._hide();
+                $("#condition_questionOption").hide();
                 break;
             case  "area":
-                $("#condition_questionOption")._hide();
-                $("#condition_type")._hide();
+                $("#condition_questionOption").hide();
+                $("#condition_type").hide();
                 break;
         }
     },
@@ -84,6 +84,7 @@ var LogicSettings = Spine.Controller.sub({
     },
     addLogic: function () {
         this.logic.logicName = $("#logic_name").val();
+        this.logic.logicType = $("#logic_type").val();
         this.logic.action.type = $("#actionType").val();
         this.logic.action.queN = $("#action_question").val();
         //TODO: need confirm here

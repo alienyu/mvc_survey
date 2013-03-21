@@ -16,12 +16,36 @@ var SurveyDo = Spine.Controller.sub({
 
     show: function () {
         $(".paper_next_container:gt(0)").hide();
-        this.pagingSurvey();
+        this._initQuestion();
     },
 
     init: function () {
-        this.currentIndex = 0;
+        this.currentPage = 0;
         this.show();
+        this.quotaResult = true;
+        this.logicList = JSON.parse(json.logic_control_js);
+        this.quotaList = JSON.parse(json.quota_control_js);
+        console.log(this.logicList);
+        console.log(this.quotaList);
+    },
+
+    _initQuestion: function () {
+        isValid = 0;
+        var that = this;
+        $("#page_cont").empty();
+        $("#page_cont").append($("<div></div>"));
+        var lastDiv = $("#page_cont div:last").hide();
+        $(json.question_html).each(function(index, element) {
+            lastDiv.append(element);
+            if ($(element).find(".questionary_list_opera").size() !== 0) {
+                $("#page_cont").append($("<div></div>"));
+                lastDiv = $("#page_cont div:last").hide();
+            };
+            that._initAreaOptions(element);
+        });
+        $($("#page_cont").children()[0]).show();
+        this._submitButtonShow();
+        $("#page_cont").find(".questionary_list_opera").remove();
     },
 
     pageNext: function (e) {
@@ -52,23 +76,17 @@ var SurveyDo = Spine.Controller.sub({
         isValid = 0;
         this.pushAnswer();
         if (isValid == 1) { return;}
-        var that = this;
-        $("#page_cont").empty();
-        $(json.question_html).each(function(index, element) {
-            if( index >= that.currentIndex ) {
 
-                that._initAreaOptions(element);
+        //TODO: run logic
+        this._runLogic();
+        this._runQuota();
 
-                $("#page_cont").append(element);
-                if ($(element).find(".questionary_list_opera").size() !== 0) {
-                    that.currentIndex = index + 1;
-                    return false;
-                };
-
-                that._submitButtonShow(index);
-            }
-        });
-        $("#page_cont").find(".questionary_list_opera").remove();
+        if(this.quotaResult) {
+            $($("#page_cont").children()[this.currentPage]).hide();
+            this.currentPage += 1;
+            $($("#page_cont").children()[this.currentPage]).show();
+            this._submitButtonShow();
+        }
     },
 
     validTextArea: function(selected, question, element) {
@@ -95,6 +113,7 @@ var SurveyDo = Spine.Controller.sub({
         }
         return selected;
     },
+
     validMaxMinSelect: function(chosen, question) {
         var no =question.question_no;
         var max = parseInt(question.max_num);
@@ -141,11 +160,11 @@ var SurveyDo = Spine.Controller.sub({
     },
 
     pushAnswer: function() {
-        var questionNum = $('#page_cont').find('dl').length;
+        var questionNum = $($($('#page_cont').children())[this.currentPage]).find('dl').length;
         var questionCurrentIndex = 0;
         var that = this;
         for(i=0;i<questionNum;i++) {
-            var obj = $('#page_cont').find('dl')[questionCurrentIndex];
+            var obj = $($($('#page_cont').children())[this.currentPage]).find('dl')[questionCurrentIndex];
             var question = json.topic_list[questionIndex];
             var question_no = json.topic_list[questionIndex].question_no;
             var question_type = json.topic_list[questionIndex].question_type;
@@ -249,6 +268,177 @@ var SurveyDo = Spine.Controller.sub({
         //        });
     },
 
+    _runLogic: function () {
+        //console.log($(this.logicList));
+        for(var obj in answer_current_list) {
+            for(var index in this.logicList) {
+                var questionIndex = answer_current_list[obj].question_no - 1;//要查找的问题对象序号
+                if(this.logicList[index].map[questionIndex]) { //查找问题有无对应逻辑条件
+                    var currentLogic = this.logicList[index];
+                    console.log(currentLogic);
+                    var optionArray = currentLogic.map[questionIndex]; //获得逻辑条件集合
+                    var condition = false;
+
+                    var selectValues = answer_current_list[obj].answer_detail_list; //该问题当前已选答案
+                    //开始遍历条件选项 若每个选项都满足 则触发条件
+                    for(var index2 in optionArray) {
+                        console.log(optionArray[index2]);
+                        if(optionArray[index2].charAt(0) != "-"){ //正数 表示回答该项 触发条件
+                            for(var value in selectValues){
+                                var selectQuestionValue = "0";
+                                switch(selectValues[value].question_value) {
+                                    case "A":
+                                        selectQuestionValue = "0";
+                                        break;
+                                    case "B":
+                                        selectQuestionValue = "1";
+                                        break;
+                                    case "C":
+                                        selectQuestionValue = "2";
+                                        break;
+                                    case "D":
+                                        selectQuestionValue = "3";
+                                        break;
+                                }
+                                if(optionArray[index2] === selectQuestionValue){
+                                    condition = true;
+                                    break;
+                                }
+                            }
+                        } else {//负数 表示不回答该项 触发条件
+                            condition = true;
+                            for(var value in selectValues){
+                                var selectQuestionValue = "0";
+                                switch(selectValues[value].question_value){
+                                    case "A":
+                                        selectQuestionValue = "0";
+                                        break;
+                                    case "B":
+                                        selectQuestionValue = "1";
+                                        break;
+                                    case "C":
+                                        selectQuestionValue = "2";
+                                        break;
+                                    case "D":
+                                        selectQuestionValue = "3";
+                                        break;
+                                }
+                                if(optionArray[index2].substr(1) === selectQuestionValue){
+                                    condition = false;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+//                    console.log(this.logicList[index].action);
+
+                    if(condition){ //满足触发条件
+                        if(this.logicList[index].logicType === "0" && this.logicList[index].action.type === "0" && condition){ //控制逻辑  不显示
+                            $($("#page_cont>div>dl")[this.logicList[index].action.queN]).hide();
+                        } else if(this.logicList[index].logicType === "0" && this.logicList[index].action.type === "1" && condition){//控制逻辑  显示
+                            $("#page_cont>div>dl")[this.logicList[index].action.queN].show();
+                        }
+                    }
+                }
+            }
+        }
+    },
+
+    _detectCondition: function () {
+
+    },
+
+    _triggerAction : function () {
+
+    },
+
+    _runQuota: function () {
+//console.log($(this.logicList));
+        for(var obj in answer_current_list) {
+            for(var index in this.quotaList) {
+                var questionIndex = answer_current_list[obj].question_no - 1;//要查找的问题对象序号
+                if(this.quotaList[index].map[questionIndex]) { //查找问题有无对应配额条件
+                    var currentQuota = this.quotaList[index];
+                    console.log(currentQuota);
+                    var optionArray = currentQuota.map[questionIndex]; //获得配额条件集合
+                    var condition = false;
+
+                    var selectValues = answer_current_list[obj].answer_detail_list; //该问题当前已选答案
+                    //开始遍历条件选项 若每个选项都满足 则触发条件
+                    for(var index2 in optionArray) {
+                        console.log(optionArray[index2]);
+                        if(optionArray[index2].charAt(0) != "-"){ //正数 表示回答该项 触发条件
+                            for(var value in selectValues){
+                                var selectQuestionValue = "0";
+                                switch(selectValues[value].question_value) {
+                                    case "A":
+                                        selectQuestionValue = "0";
+                                        break;
+                                    case "B":
+                                        selectQuestionValue = "1";
+                                        break;
+                                    case "C":
+                                        selectQuestionValue = "2";
+                                        break;
+                                    case "D":
+                                        selectQuestionValue = "3";
+                                        break;
+                                }
+                                if(optionArray[index2] === selectQuestionValue){
+                                    condition = true;
+                                    break;
+                                }
+                            }
+
+                            if(condition && (currentQuota.number + 1) <= currentQuota.quota_MaxNum){
+                                this.quotaList[index].number += 1;
+                                condition = false;
+                            }
+                        } else {//负数 表示不回答该项 触发条件
+                            condition = true;
+                            for(var value in selectValues) {
+                                var selectQuestionValue = "0";
+                                switch(selectValues[value].question_value) {
+                                    case "A":
+                                        selectQuestionValue = "0";
+                                        break;
+                                    case "B":
+                                        selectQuestionValue = "1";
+                                        break;
+                                    case "C":
+                                        selectQuestionValue = "2";
+                                        break;
+                                    case "D":
+                                        selectQuestionValue = "3";
+                                        break;
+                                }
+                                if(optionArray[index2].substr(1) === selectQuestionValue){
+                                    condition = false;
+                                    break;
+                                }
+                            }
+
+                            if(condition && (currentQuota.number + 1) <= currentQuota.quota_MaxNum){
+                                this.quotaList[index].number += 1;
+                            }
+                        }
+                    }
+
+                    if(condition){ //满足触发条件
+                        if(this.quotaList[index].quota_action === "0" && condition) { //配额  终止答题
+                            alert(currentQuota.quota_message);
+                            this.quotaResult = false;
+                        } else if(this.quotaList[index].quota_action === "1" && condition) {//配额  继续答题
+
+                        } else if(this.quotaList[index].quota_action === "2" && condition) {//配额  跳转
+
+                        }
+                    }
+                }
+            }
+        }
+    },
+
     _initAreaOptions: function(element) {
 
         if($(element).find('.province').size() !== 0) {
@@ -259,9 +449,9 @@ var SurveyDo = Spine.Controller.sub({
 
     },
 
-    _submitButtonShow: function(index) {
+    _submitButtonShow: function() {
 
-        if (index + 1 === $(json.question_html).size()) {
+        if (this.currentPage + 1 === $($("#page_cont").children()).size()) {
             $("#save-answer").show();
             $(".btn_blue_3").hide();
         } else {

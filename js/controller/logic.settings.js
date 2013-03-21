@@ -125,7 +125,6 @@ var LogicSettings = Spine.Controller.sub({
         for (var i in a) {
             data[data.length] = i;
         }
-        return data;
     },
 
     getMap: function() {

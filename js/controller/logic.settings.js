@@ -4,7 +4,7 @@ var LogicSettings = Spine.Controller.sub({
     },
 
     events: {
-        "click .delete_quota": "deleteQuota",
+        "click .delete_logic": "deleteLogic",
         "click #save_logic": "saveLogic",
         "click .closer": "deleteCondition",
         "click #logic_result": "addCondition",
@@ -190,14 +190,14 @@ var LogicSettings = Spine.Controller.sub({
         $('#logicList').empty();
         $(this.logic_list).each(function(i,e) {
             if (e !== undefined) {
-                $('#logicList').append( '<li>' + e.logicName + '<a href="#" class="delete_quota delete quota' + i + '"></a></li>');
+                $('#logicList').append( '<li>' + e.logicName + '<a href="#" class="delete_logic delete quota' + i + '"></a></li>');
             }
         })
         this.conditions = [];
         this.logic_condition_index = 0;
     },
 
-    deleteQuota: function(e) {
+    deleteLogic: function(e) {
         var index = parseInt(e.target.classList[2].match(/\d/)[0]);
         delete this.logic_list[index];
         e.target.parentElement.remove();

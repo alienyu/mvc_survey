@@ -23,6 +23,7 @@
     <script type="text/javascript" src="js/model/question.js"></script>
     <script type="text/javascript" src="js/model/option.js"></script>
     <script type="text/javascript" src="js/model/quota.js"></script>
+    <script type="text/javascript" src="js/model/logic.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript" src="js/lib/province_city_district/json-array-of-province.js"></script>
 
@@ -396,18 +397,22 @@
                                 {{/if}}
                             </div>
                         </script>
+
+                        <!--题目选项 -->
+                        <script type="text/x-jquery-tmpl" id="question-list-template">
+                            <option value=${index}>${index}.${question}</option>
+                        </script>
+
                         <!-- logic settings template start -->
-                        <script type="text/x-jquery-tmpl" id="logic-settings-template">
+                        <script type="text/x-jquery-tmpl" id="logic-template">
                             <div class="split_3 border_blue">
                               <div class="page_subhead top">逻辑题名</div>
                               <div class="page_subhead_cont aside">
-                                <ul id="logicList">
-                                  <li>01XXX<a href="#" class="delete"></a></li>
-                                  <li class="color">02XXX<a href="#" class="delete"></a></li>
-                                  <li>03XXX<a href="#" class="delete"></a></li>
-                                  <li class="color">04XX<a href="#" class="delete"></a></li>
-                                </ul>
-                                <a href="#" id="init_editor" class="add"></a>
+                                <div>
+                                    <ul id="logicList">
+                                    </ul>
+                                </div>
+                                <div><a href="#" id="add_logic" class="add"></a></div>
                               </div>
                             </div>
                             <div class="split_7">
@@ -420,7 +425,7 @@
                               </div>
                             </div>
                         </script>
-                        <script type="text/x-jquery-tmpl" id="logic-settings-edit-template">
+                        <script type="text/x-jquery-tmpl" id="logic-settings-template">
                                 <div>
                                     <label>逻辑名</label>
                                     <input id="logic_name" type="text" />
@@ -438,56 +443,24 @@
                                     <label class="float">逻辑条件</label>
                                     <div>
                                         <div>
-                                            <select id="questionList">
-                                                <option value="0">请选择</option>
-                                            </select>
-                                            <select id="condition_questionOption">
-                                                <option value="0">全部</option>
-                                            </select>
-                                            <select id="condition_type"><option value="0">不回答</option><option value="1">回答</option></select>
+                                            <select id="logic_questions"></select>
+                                            <select id="logic_question_options"></select>
+                                            <select id="logic_is_answer"></select>
                                         </div>
-                                        <div class="btn_opera"><a href="#" id="addCondition" class="add"></a></div>
+                                        <div class="btn_opera"><a href="#" id="logic_result" class="add"></a></div>
                                     </div>
                                 </div>
-                                <div>
-                                    <label></label>
-                                    <textarea id="conditions"></textarea>
-                                </div>
+                                <div><label></label><div id="logic_select_result"></div></div>
                                 <div>
                                     <label>逻辑行为</label>
-                                    <select id="action_question"><option>请选择</option></select>
+                                    <select id="action_questions"></select>
+                                    <select id="action_options"></select>
                                     <select id="actionType"><option value="1">显示</option><option value="0">不显示</option></select>
                                 </div>
-                                <!-- 选择映射 -->
-                                <!--<div>-->
-                                    <!--<label></label>-->
-                                    <!--<select><option>请选择</option></select>-->
-                                    <!--<select><option value="1">显示</option><option value="0">不显示</option></select>-->
-                                <!--</div>-->
-                                <!--<div>-->
-                                    <!--<label class="float"></label>-->
-                                    <!--<div class="unit">-->
-                                        <!--<div>A: 111</div>-->
-                                        <!--<div>B: 222</div>-->
-                                        <!--<div>C: 333</div>-->
-                                    <!--</div>-->
-                                    <!--<div class="unit">-->
-                                        <!--<div>A: 111</div>-->
-                                        <!--<div>B: 222</div>-->
-                                        <!--<div>C: 333</div>-->
-                                    <!--</div>-->
-                                <!--</div>-->
                                 <div class="clear"></div>
                         </script>
-                        <!-- / logic settings template end -->
-                        <!-- 显示逻辑列表 -->
-                        <script type="text/x-jquery-tmpl" id="quota-show-template">
-                            <li>${quota_name}<a href="#" class="delete" style="display:${quota_list_show}"></a></li>
-                        </script>
-                        <!--题目选项 -->
-                        <script type="text/x-jquery-tmpl" id="quota-question-list-template">
-                            <option value=${index}>${index}.${question}</option>
-                        </script>
+                        <!-- logic settings template end -->
+
                         <!-- quota settings template start -->
                         <script type="text/x-jquery-tmpl" id="quota-setting-template">
                             <div>
@@ -499,11 +472,11 @@
                                 <div>
                                     <select id="quota_questions"></select>
                                     <select id="quota_question_options"></select>
-                                    <select id="is_answer"></select>
+                                    <select id="quota_is_answer"></select>
                                 </div>
-                                <div class="btn_opera"><a href="#" id="logic_result" class="add"></a></div>
+                                <div class="btn_opera"><a href="#" id="quota_result" class="add"></a></div>
                             </div>
-                            <div><label></label><div id="select_result"></div></div>
+                            <div><label></label><div id="quota_select_result"></div></div>
                             <div>
                                 <label>配额数</label>
                                 <input type="text" id="quota_num">
@@ -536,7 +509,6 @@
                               </div>
 
                             </div>
-                            
                         </script>
                         <!-- / quota settings template end -->
                     </div>

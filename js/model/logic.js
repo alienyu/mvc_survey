@@ -1,2 +1,2 @@
 var Logic = Spine.Model.sub();
-Logic.configure('logicName', 'logicType', 'condition', 'action');
+Logic.configure('Logic', 'logicName', 'logicType', 'map', 'action');

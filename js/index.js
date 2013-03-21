@@ -5,7 +5,7 @@ $(function () {
             //tab initial
             $("#tabs").tabs({active: 0, disabled: [1, 2, 3], customClass:"progress_bar"});
 
-            window.surveyInstance = new Survey({ questions: [], logicList: [] });
+            window.surveyInstance = new Survey({ questions: []});
 
             this.baseinfo = new BaseInfo({ el: $("#add-base-info") });
             this.surveycreate = new SurveyCreate({ el: $("#build-survey-questions") });

@@ -7,7 +7,7 @@ var QuotaSettings = Spine.Controller.sub({
         "click .delete_quota": "deleteQuota",
         "click #save_quota": "saveQuota",
         "click .closer": "deleteCondition",
-        "click #logic_result": "addCondition",
+        "click #quota_result": "addCondition",
         "click #add_quota": "addQuota",
         "change #quota_questions": "changeOption"
     },
@@ -28,22 +28,24 @@ var QuotaSettings = Spine.Controller.sub({
     addQuota: function() {
         $('#quota_setting').empty();
         $('#quota-setting-template').tmpl().appendTo($('#quota_setting'));
+        this.conditions = [];
+        this.quota_condition_index = 0;
         $(surveyInstance.questions).each(function(i,e) {
-            $('#quota-question-list-template').tmpl({"index":i+1,"question":e.description}).appendTo($('#quota_questions'));
+            $('#question-list-template').tmpl({"index":i+1,"question":e.description}).appendTo($('#quota_questions'));
             if (i==0) {
                 $('#quota_question_options').append("<option>全部</option>");
                 $(e.options).each(function(i,e) {
                     var option = "<option value=" + i + ">" + e.index + "." + e.content + "</option>";
                     var answer = "<option value='0'>回答</option><option value='1'>不回答</option>"
                     $('#quota_question_options').append(option);
-                    $('#is_answer').html(answer);
+                    $('#quota_is_answer').html(answer);
                 })
             }
-        })
+        });
         this.query = Ext.create('yiengine.Query',{
             height:80,
             width:600,
-            renderTo: 'select_result'
+            renderTo: 'quota_select_result'
         });
     },
 
@@ -55,19 +57,19 @@ var QuotaSettings = Spine.Controller.sub({
             var option = "<option value=" + i + ">" + e.index + "." + e.content + "</option>";
             var answer = "<option value='0'>回答</option><option value='1'>不回答</option>";
             $('#quota_question_options').append(option);
-            $('#is_answer').html(answer);
+            $('#quota_is_answer').html(answer);
         })
     },
 
     addCondition: function() {
         var question_name = $('#quota_questions').find("option:selected").text();
         var option_name = $('#quota_question_options').find("option:selected").text();
-        var answer = $('#is_answer').find("option:selected").text();
+        var answer = $('#quota_is_answer').find("option:selected").text();
         if(!this.query){
             this.query = Ext.create('yiengine.Query',{
                         height:80,
                         width:600,
-                        renderTo: 'select_result'
+                        renderTo: 'quota_select_result'
                   });
         }
         this.query.addValue({
@@ -76,7 +78,6 @@ var QuotaSettings = Spine.Controller.sub({
             answer:answer,
             description:question_name + option_name + answer
         });
-        $('.x-component').addClass("condition" + this.quota_condition_index);
         //缓存条件
         var quota_question_index = question_name.split('.')[0];
         var option_index = option_name !== "全部" ? option_name.split('.')[0].charCodeAt() - 64 : 0;
@@ -89,7 +90,8 @@ var QuotaSettings = Spine.Controller.sub({
     },
 
     deleteCondition: function(e) {
-        var index = parseInt($(e.target.parentElement.parentElement).attr('class').split(' ').pop().match(/\d/)[0]);
+        var minus = parseInt($('#quota_select_result').children().attr('id').split('-')[1]);
+        var index = parseInt($(e.target.parentElement.parentElement).attr('id').split('-')[1])-minus-2;
         delete this.conditions[index];
         e.target.parentElement.remove();
     },
@@ -151,13 +153,13 @@ var QuotaSettings = Spine.Controller.sub({
     saveQuota: function() {
         var map = this.getMap();
         var quota_name = $('#quota_name').val();
-        var quota_num = $('#quota_num').val();
+        var quota_num = parseInt($('#quota_num').val());
         var quota_action = $('#quota_action').find("option:selected").val();
         var quota_message = $('#quota_message').val();
         var quotaOne =  new Quota ({
             quota_name: quota_name,
             map:map,
-            quota_num: quota_num,
+            quota_MaxNum: quota_num,
             quota_action: quota_action,
             quota_message: quota_message
         });

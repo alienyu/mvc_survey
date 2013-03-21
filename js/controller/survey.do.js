@@ -22,6 +22,7 @@ var SurveyDo = Spine.Controller.sub({
     init: function () {
         this.currentPage = 0;
         this.show();
+        this.quotaResult = true;
         this.logicList = JSON.parse(json.logic_control_js);
         this.quotaList = JSON.parse(json.quota_control_js);
         console.log(this.logicList);
@@ -76,14 +77,16 @@ var SurveyDo = Spine.Controller.sub({
         this.pushAnswer();
         if (isValid == 1) { return;}
 
-
-        $($("#page_cont").children()[this.currentPage]).hide();
-        this.currentPage += 1;
-        $($("#page_cont").children()[this.currentPage]).show();
-        this._submitButtonShow();
-
         //TODO: run logic
         this._runLogic();
+        this._runQuota();
+
+        if(this.quotaResult) {
+            $($("#page_cont").children()[this.currentPage]).hide();
+            this.currentPage += 1;
+            $($("#page_cont").children()[this.currentPage]).show();
+            this._submitButtonShow();
+        }
     },
 
     validTextArea: function(selected, question, element) {
@@ -282,22 +285,22 @@ var SurveyDo = Spine.Controller.sub({
                         console.log(optionArray[index2]);
                         if(optionArray[index2].charAt(0) != "-"){ //正数 表示回答该项 触发条件
                             for(var value in selectValues){
-                                var selectQuestionValue = 0;
+                                var selectQuestionValue = "0";
                                 switch(selectValues[value].question_value) {
                                     case "A":
-                                        selectQuestionValue = 0;
+                                        selectQuestionValue = "0";
                                         break;
                                     case "B":
-                                        selectQuestionValue = 1;
+                                        selectQuestionValue = "1";
                                         break;
                                     case "C":
-                                        selectQuestionValue = 2;
+                                        selectQuestionValue = "2";
                                         break;
-                                        selectQuestionValue = 3;
                                     case "D":
+                                        selectQuestionValue = "3";
                                         break;
                                 }
-                                if(parseInt(optionArray[index2]) === selectQuestionValue){
+                                if(optionArray[index2] === selectQuestionValue){
                                     condition = true;
                                     break;
                                 }
@@ -305,22 +308,22 @@ var SurveyDo = Spine.Controller.sub({
                         } else {//负数 表示不回答该项 触发条件
                             condition = true;
                             for(var value in selectValues){
-                                var selectQuestionValue = 0;
+                                var selectQuestionValue = "0";
                                 switch(selectValues[value].question_value){
                                     case "A":
-                                        selectQuestionValue = 0;
+                                        selectQuestionValue = "0";
                                         break;
                                     case "B":
-                                        selectQuestionValue = 1;
+                                        selectQuestionValue = "1";
                                         break;
                                     case "C":
-                                        selectQuestionValue = 2;
+                                        selectQuestionValue = "2";
                                         break;
-                                        selectQuestionValue = 3;
                                     case "D":
+                                        selectQuestionValue = "3";
                                         break;
                                 }
-                                if(parseInt(optionArray[index2].substr(1)) === selectQuestionValue){
+                                if(optionArray[index2].substr(1) === selectQuestionValue){
                                     condition = false;
                                     break;
                                 }
@@ -350,7 +353,90 @@ var SurveyDo = Spine.Controller.sub({
     },
 
     _runQuota: function () {
+//console.log($(this.logicList));
+        for(var obj in answer_current_list) {
+            for(var index in this.quotaList) {
+                var questionIndex = answer_current_list[obj].question_no - 1;//要查找的问题对象序号
+                if(this.quotaList[index].map[questionIndex]) { //查找问题有无对应配额条件
+                    var currentQuota = this.quotaList[index];
+                    console.log(currentQuota);
+                    var optionArray = currentQuota.map[questionIndex]; //获得配额条件集合
+                    var condition = false;
 
+                    var selectValues = answer_current_list[obj].answer_detail_list; //该问题当前已选答案
+                    //开始遍历条件选项 若每个选项都满足 则触发条件
+                    for(var index2 in optionArray) {
+                        console.log(optionArray[index2]);
+                        if(optionArray[index2].charAt(0) != "-"){ //正数 表示回答该项 触发条件
+                            for(var value in selectValues){
+                                var selectQuestionValue = "0";
+                                switch(selectValues[value].question_value) {
+                                    case "A":
+                                        selectQuestionValue = "0";
+                                        break;
+                                    case "B":
+                                        selectQuestionValue = "1";
+                                        break;
+                                    case "C":
+                                        selectQuestionValue = "2";
+                                        break;
+                                    case "D":
+                                        selectQuestionValue = "3";
+                                        break;
+                                }
+                                if(optionArray[index2] === selectQuestionValue){
+                                    condition = true;
+                                    break;
+                                }
+                            }
+
+                            if(condition && (currentQuota.number + 1) <= currentQuota.quota_MaxNum){
+                                this.quotaList[index].number += 1;
+                                condition = false;
+                            }
+                        } else {//负数 表示不回答该项 触发条件
+                            condition = true;
+                            for(var value in selectValues) {
+                                var selectQuestionValue = "0";
+                                switch(selectValues[value].question_value) {
+                                    case "A":
+                                        selectQuestionValue = "0";
+                                        break;
+                                    case "B":
+                                        selectQuestionValue = "1";
+                                        break;
+                                    case "C":
+                                        selectQuestionValue = "2";
+                                        break;
+                                    case "D":
+                                        selectQuestionValue = "3";
+                                        break;
+                                }
+                                if(optionArray[index2].substr(1) === selectQuestionValue){
+                                    condition = false;
+                                    break;
+                                }
+                            }
+
+                            if(condition && (currentQuota.number + 1) <= currentQuota.quota_MaxNum){
+                                this.quotaList[index].number += 1;
+                            }
+                        }
+                    }
+
+                    if(condition){ //满足触发条件
+                        if(this.quotaList[index].quota_action === "0" && condition) { //配额  终止答题
+                            alert(currentQuota.quota_message);
+                            this.quotaResult = false;
+                        } else if(this.quotaList[index].quota_action === "1" && condition) {//配额  继续答题
+
+                        } else if(this.quotaList[index].quota_action === "2" && condition) {//配额  跳转
+
+                        }
+                    }
+                }
+            }
+        }
     },
 
     _initAreaOptions: function(element) {

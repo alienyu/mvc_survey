@@ -50,6 +50,24 @@ var SurveyCreate = Spine.Controller.sub({
                 break;
         }
         $(this.creatorArea).append(creatorTemplate);
+
+        //TODO: refactor here
+        if(this.question.matrixType != null) {
+             $("#type").children()[this.question.matrixType].checked = true;
+            if(this.question.matrixType == 0) {
+                $("#matrix_max_min_optionNum").hide();
+            }
+        }
+        if(this.question.xOptions != null) {
+            $(this.question.xOptions).each(function (index, element) {
+                $("#matrix_HeadOpt").append($("#matrix-option-template").tmpl({"optionIndex": String.fromCharCode(index + 65), "value": "value =" + element.text , "necessary": element.necessary ? "checked" : "" }));
+            });
+        }
+        if(this.question.yOptions != null) {
+            $(this.question.yOptions).each(function (index, element) {
+                $("#matrix_SideOpt").append($("#matrix-option-template").tmpl({"optionIndex": String.fromCharCode(index + 65), "value": "value =" + element.text , "necessary": element.necessary ? "checked" : "" }));
+            });
+        }
     },
 
     initRadioCreator: function () {
@@ -152,9 +170,9 @@ var SurveyCreate = Spine.Controller.sub({
 
     matrixTypeChange: function (e) {
         if(e.target.nextElementSibling){
-            $("#max_min_optionNum").remove();
+            $("#matrix_max_min_optionNum").hide();
         } else {
-            $("#creator-area").append($("#check-option-creator-template").tmpl());
+            $("#matrix_max_min_optionNum").show();
         }
     },
 
@@ -196,6 +214,11 @@ var SurveyCreate = Spine.Controller.sub({
                     break;
                 case "matrix":
                     this.getMatrixOptions();
+                    this.question.matrixType = $("input[name='matrix_type']")[0].checked ? 0 : 1; //0 单选 1 多选
+                    if(this.question.matrixType == 1){ //if multiSelect
+                        this.question.maxSelection = $("#max-select-num").val();
+                        this.question.minSelection = $("#min-select-num").val();
+                    }
                     break;
                 case "open":
                     this.question.valid_type = $('input[type=checkbox]').filter('#valid')[0].checked ? $('#validation').find("option:selected").text() : '';
@@ -230,13 +253,13 @@ var SurveyCreate = Spine.Controller.sub({
     getMatrixOptions: function () {
         //TODO: refactor here
         var XOptions = [], YOptions = [];
-        $("#matrix_HeadOpt div").each(function(index, element){
+        $("#matrix_HeadOpt .option-creator").each(function(index, element){
             XOptions.push({
                 text: $(element).find("input[type=text]").val(),
                 necessary: $(element).find("input[type=checkbox]")[0].checked
             });
         });
-        $("#matrix_SideOpt div").each(function(index, element){
+        $("#matrix_SideOpt .option-creator").each(function(index, element){
             YOptions.push({
                 text: $(element).find("input[type=text]").val(),
                 necessary: $(element).find("input[type=checkbox]")[0].checked

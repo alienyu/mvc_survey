@@ -325,14 +325,24 @@
                                 </div>
                                 <div class="btn_opera"><a href="#" class="add" id="matrix_addHeadOpt"></a></div>
                             </div>
+                            <div id="matrix_max_min_optionNum">
+                                <label>最多可选：</label>
+                                <select id="matrix_max-select-num">
+                                    <option value="1">1</option>
+                                </select>
+                                <label>最少可选：</label>
+                                <select id="matrix_min-select-num">
+                                    <option value="1">1</option>
+                                </select>
+                            </div>
                         </div>
                         </script>
                         <!-- This is for matrix question option template -->
                         <script type="text/x-jquery-tmpl" id="matrix-option-template">
                             <div class="option-creator">
                                 <span class="option-tag">${optionIndex}</span>:
-                                <input type="text"/>
-                                <input type="checkbox"/>必须回答
+                                <input type="text" ${value}>
+                                <input type="checkbox" ${necessary}>必须回答
                                 <div class="btn_opera">
                                     <a href="#" class="delete remove-option-tag"></a>
                                 </div>

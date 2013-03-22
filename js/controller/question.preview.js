@@ -55,11 +55,53 @@ var QuestionPreview = Spine.Controller.sub({
             radioValue.arrangement = question.arrangement === "0" ? "option_horizontal" :"";
             $("#radio-option-template").tmpl(radioValue).appendTo(".option-list:last");
         });
-
     },
 
-    initMatrixPreview: function () {
+    initMatrixPreview: function (matrixQuestion) {
         //TODO:for matrix
+        $(".option-list:last").append('<table><thead></thead></table>');
+        var matrixType = matrixQuestion.matrixType;
+        var xOptions = matrixQuestion.xOptions;
+        var yOptions = matrixQuestion.yOptions;
+        var rowTitle = "";
+        var columnTitle = "";
+        var column = '';
+        var row = '';
+        var content = '';
+        $(xOptions).each(function(i,row) {
+            rowTitle += "<td>" + row.text + "</td>'";
+        })
+        $('.option-list:last').find('table>thead').append("<td></td>" + rowTitle);
+        $(yOptions).each(function(rowIndex,rowElement) {
+            $(xOptions).each(function(columnIndex,columnElement) {
+                if (matrixType === 0 ) {
+                    column += "<td><input type='radio' name='" + rowIndex + "'/></td>"
+                }
+                else {
+                    column += "<td><input type='checkbox' name='" + rowIndex + "'/></td>"
+                }
+                columnTitle = "<td>" + rowElement.text + "</td>"
+                row = "<tr>" + columnTitle + column + "</tr>";
+            })
+            content += row;
+            column = '';
+        });
+        content = "<tbody>" + content + "</tbody>"
+        $('.option-list:last').find('thead').after(content);
+    },
+
+    getValue: function () {
+        var answer = [];
+        var each_answer = '';
+        $('#table').find('tbody>tr').each(function(rowIndex,rowElement) {
+            $(rowElement).find('td').slice(1,100).each(function(columnIndex,columnElement) {
+                if ($(columnElement).find('input')[0].checked === true) {
+                    each_answer = "(" + rowIndex + "," + columnIndex + ")";
+                    answer.push(each_answer);
+                }
+            })
+        })
+        console.log(answer);
     },
 
     initOpenPreview: function (element) {
@@ -98,7 +140,7 @@ var QuestionPreview = Spine.Controller.sub({
                     that.initRadioCheckPreview(element, index);
                     break;
                 case "matrix":
-                    that.initMatrixPreview();
+                    that.initMatrixPreview(element);
                     break;
                 case "open":
                     that.initOpenPreview(element);

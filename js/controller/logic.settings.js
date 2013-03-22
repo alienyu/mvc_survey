@@ -112,7 +112,7 @@ var LogicSettings = Spine.Controller.sub({
         var logicOne =  new Logic ({
             logicName: logic_name,
             logicType: logic_type,
-            map:this.query.getValue(),
+            condition:this.query.getValue(),
             action: {
                 type: action_type,
                 queN: logic_action_question,
@@ -152,7 +152,6 @@ var LogicSettings = Spine.Controller.sub({
         var one_logic = this.logic_list[this.update_index];
         var logic_name = one_logic.logicName;
         var logic_type = one_logic.logicType;
-        var map = one_logic.map;
         var action_type = one_logic.action.type;
         var action_qu = one_logic.action.queN;
         var action_op = one_logic.action.optN;
@@ -177,9 +176,8 @@ var LogicSettings = Spine.Controller.sub({
             width:600,
             renderTo: 'logic_select_result'
         });
-        $(this.logic_list[this.update_index].map).each(function(i,e){
+        $(this.logic_list[this.update_index].condition).each(function(i,e){
             that.query.addValue(e);
         })
-
     }
 });

@@ -7,7 +7,6 @@ var LogicSettings = Spine.Controller.sub({
         "click .one_logic": "showLogic",
         "click .delete_logic": "deleteLogic",
         "click #save_logic": "saveLogic",
-        "click .closer": "deleteCondition",
         "click #logic_result": "addCondition",
         "click #add_logic": "addLogic",
         "change #logic_questions": "changeOption",
@@ -19,9 +18,8 @@ var LogicSettings = Spine.Controller.sub({
     },
 
     init: function () {
-        this.logic_condition_index = 0;
-        this.conditions = [];
         this.logic_list = [];
+        this.cache_logic_list = [];
         //show template
         this.show();
         //init widgets
@@ -30,8 +28,6 @@ var LogicSettings = Spine.Controller.sub({
     addLogic: function() {
         $('#logic-settings-container').empty();
         $('#logic-settings-template').tmpl().appendTo($('#logic-settings-container'));
-        this.conditions = [];
-        this.logic_condition_index = 0;
         $(surveyInstance.questions).each(function(i,e) {
             $('#question-list-template').tmpl({"index":i+1,"question":e.description}).appendTo($('#logic_questions'));
             $('#question-list-template').tmpl({"index":i+1,"question":e.description}).appendTo($('#action_questions'));
@@ -82,6 +78,10 @@ var LogicSettings = Spine.Controller.sub({
         var question_name = $('#logic_questions').find("option:selected").text();
         var option_name = $('#logic_question_options').find("option:selected").text();
         var answer = $('#logic_is_answer').find("option:selected").text();
+        var question_index = question_name.split('.')[0];
+        var option_index = option_name !== "全部" ? option_name.split('.')[0].charCodeAt() - 64 : 0;
+        var is_answer = answer == "回答" ? 1 : 0;
+
         if(!this.query){
             this.query = Ext.create('yiengine.Query',{
                 height:80,
@@ -93,82 +93,16 @@ var LogicSettings = Spine.Controller.sub({
             question:question_name,
             option:option_name,
             answer:answer,
-            description:question_name + option_name + answer
+            description:question_name + option_name + answer,
+            question_index: question_index,
+            option_index: option_index,
+            is_answer: is_answer
         });
         //缓存条件
-        var logic_question_index = question_name.split('.')[0];
-        var option_index = option_name !== "全部" ? option_name.split('.')[0].charCodeAt() - 64 : 0;
-        var condition = answer == "回答" ? option_index : option_index * (-1);
-        var each_condition = {};
-        each_condition[logic_question_index] = condition;
-        this.conditions.push(each_condition);
-        this.logic_condition_index++;
-        console.log(this.conditions);
-    },
-
-    deleteCondition: function(e) {
-        var minus = parseInt($('#logic_select_result').children().attr('id').split('-')[1]);
-        var index = parseInt($(e.target.parentElement.parentElement).attr('id').split('-')[1])-minus-2;
-        delete this.conditions[index];
-        e.target.parentElement.remove();
-    },
-
-    unique: function(data) {
-        data = data || [];
-        var a = {};
-        for (var i = 0; i < data.length; i++) {
-            var v = data[i];
-            if (typeof(a[v]) == 'undefined') {
-                a[v] = 1;
-            }
-        };
-        data.length = 0;
-        for (var i in a) {
-            data[data.length] = i;
-        }
-        return data;
-    },
-
-    getMap: function() {
-        var options = [];
-        var map = {};
-        var is_exist = 0;
-        $(this.conditions).each(function(i,e) {
-            options = [];
-            is_exist = 0;
-            for (item in e) {
-                var key = item;
-                var value = e[item];
-                if ($.isEmptyObject(map)) {
-                    options.push(value);
-                    map[key] = options;
-                }
-                else {
-                    for (i in map) {
-                        if (item === i) {
-                            is_exist = 1;
-                        }
-                    }
-                    if (is_exist === 0) {
-                        //添加新项
-                        options.push(value);
-                        map[key] = options;
-                    }
-                    else {
-                        //存在Key,push值
-                        map[key].push(value);
-                    }
-                }
-            }
-        });
-        for(i in map) {
-            map[i] = this.unique(map[i]);
-        };
-        return map;
+        console.log(this.query.getValue());
     },
 
     saveLogic: function() {
-        var map = this.getMap();
         var logic_name = $('#logic_name').val();
         var logic_type = $('#logic_type').find("option:selected").val();
         var logic_action_question = $('#action_questions').find("option:selected").val();
@@ -177,15 +111,27 @@ var LogicSettings = Spine.Controller.sub({
         var logicOne =  new Logic ({
             logicName: logic_name,
             logicType: logic_type,
-            map:map,
+            map:JSON.stringify(this.query.getValue()),
             action: {
                 type: action_type,
                 queN: logic_action_question,
                 optN: logic_action_option
             }
         });
+        var cacheLogicOne = new Logic ({
+            logicName: logic_name,
+            logicType: logic_type,
+            map:this.query.getValue(),
+            action: {
+                type: action_type,
+                queN: logic_action_question,
+                optN: logic_action_option
+            }
+        })
         this.logic_list.push(logicOne);
+        this.cache_logic_list.push(cacheLogicOne);
         surveyInstance.logic_control_js = JSON.stringify(this.logic_list);
+        console.log(this.cache_logic_list);
         console.log(surveyInstance);
         $('#logic-settings-container').empty();
         $('#logicList').empty();
@@ -194,8 +140,6 @@ var LogicSettings = Spine.Controller.sub({
                 $('#logicList').append( '<li><div class="one_logic">' + e.logicName + '</div><a href="#" class="delete_logic delete quota' + i + '"></a></li>');
             }
         })
-        this.conditions = [];
-        this.logic_condition_index = 0;
     },
 
     deleteLogic: function(e) {

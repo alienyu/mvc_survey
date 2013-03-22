@@ -19,7 +19,6 @@ var LogicSettings = Spine.Controller.sub({
 
     init: function () {
         this.logic_list = [];
-        this.cache_logic_list = [];
         //show template
         this.show();
         //init widgets
@@ -98,8 +97,6 @@ var LogicSettings = Spine.Controller.sub({
             option_index: option_index,
             is_answer: is_answer
         });
-        //缓存条件
-        console.log(this.query.getValue());
     },
 
     saveLogic: function() {
@@ -111,25 +108,14 @@ var LogicSettings = Spine.Controller.sub({
         var logicOne =  new Logic ({
             logicName: logic_name,
             logicType: logic_type,
-            map:JSON.stringify(this.query.getValue()),
-            action: {
-                type: action_type,
-                queN: logic_action_question,
-                optN: logic_action_option
-            }
-        });
-        var cacheLogicOne = new Logic ({
-            logicName: logic_name,
-            logicType: logic_type,
             map:this.query.getValue(),
             action: {
                 type: action_type,
                 queN: logic_action_question,
                 optN: logic_action_option
             }
-        })
+        });
         this.logic_list.push(logicOne);
-        this.cache_logic_list.push(cacheLogicOne);
         surveyInstance.logic_control_js = JSON.stringify(this.logic_list);
         console.log(this.cache_logic_list);
         console.log(surveyInstance);

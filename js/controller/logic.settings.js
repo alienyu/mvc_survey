@@ -18,6 +18,8 @@ var LogicSettings = Spine.Controller.sub({
     },
 
     init: function () {
+        this.update_index = 0;
+        this.is_update = 0;
         this.logic_list = [];
         //show template
         this.show();
@@ -25,6 +27,7 @@ var LogicSettings = Spine.Controller.sub({
     },
 
     addLogic: function() {
+        this.is_update = 0;
         $('#logic-settings-container').empty();
         $('#logic-settings-template').tmpl().appendTo($('#logic-settings-container'));
         $(surveyInstance.questions).each(function(i,e) {
@@ -66,7 +69,8 @@ var LogicSettings = Spine.Controller.sub({
         $('#action_options').empty();
         var i = parseInt($('#action_questions').find("option:selected").val()) - 1;
         $(surveyInstance.questions[i].options).each(function(i,e) {
-            var option = "<option value=" + i + ">" + e.index + "." + e.content + "</option>";
+            var value = i+1;
+            var option = "<option value=" + value + ">" + e.index + "." + e.content + "</option>";
             var show = '<option value="0">显示</option><option value="1">不显示</option>'
             $('#action_options').append(option);
             $('#actionType').html(show);
@@ -115,7 +119,12 @@ var LogicSettings = Spine.Controller.sub({
                 optN: logic_action_option
             }
         });
-        this.logic_list.push(logicOne);
+        if (this.is_update === 0) {
+            this.logic_list.push(logicOne);
+        }
+        else {
+            this.logic_list[this.update_index] = logicOne;
+        }
         surveyInstance.logic_control_js = JSON.stringify(this.logic_list);
         console.log(this.cache_logic_list);
         console.log(surveyInstance);
@@ -123,7 +132,7 @@ var LogicSettings = Spine.Controller.sub({
         $('#logicList').empty();
         $(this.logic_list).each(function(i,e) {
             if (e !== undefined) {
-                $('#logicList').append( '<li><div class="one_logic">' + e.logicName + '</div><a href="#" class="delete_logic delete quota' + i + '"></a></li>');
+                $('#logicList').append( '<li><span class="one_logic">' + e.logicName + '</span><a href="#" class="delete_logic delete quota' + i + '"></a></li>');
             }
         })
     },
@@ -137,8 +146,10 @@ var LogicSettings = Spine.Controller.sub({
 
     showLogic: function(e) {
         this.addLogic();
-        var index = parseInt($(e.target.parentElement).find('a').attr('class').split(' ')[2].match(/\d/)[0]);
-        var one_logic = this.logic_list[index];
+        this.is_update = 1;
+        var that = this;
+        this.update_index = parseInt($(e.target.parentElement).find('a').attr('class').split(' ')[2].match(/\d/)[0]);
+        var one_logic = this.logic_list[this.update_index];
         var logic_name = one_logic.logicName;
         var logic_type = one_logic.logicType;
         var map = one_logic.map;
@@ -148,7 +159,8 @@ var LogicSettings = Spine.Controller.sub({
         //回显
         $('#action_options').empty();
         $(surveyInstance.questions[action_qu-1].options).each(function(i,e) {
-            var option = "<option value=" + i + ">" + e.index + "." + e.content + "</option>";
+            var value = i+1;
+            var option = "<option value=" + value + ">" + e.index + "." + e.content + "</option>";
             var show = '<option value="0">显示</option><option value="1">不显示</option>'
             $('#action_options').append(option);
             $('#actionType').html(show);
@@ -158,6 +170,16 @@ var LogicSettings = Spine.Controller.sub({
         $('#action_questions').find('option')[action_qu-1].selected = true;
         $('#action_options').find('option')[action_op-1].selected = true;
         $('#actionType').find('option')[action_type].selected = true;
-        //TODO:map
+        //show conditions
+        $('#logic_select_result').empty();
+        this.query = Ext.create('yiengine.Query',{
+            height:80,
+            width:600,
+            renderTo: 'logic_select_result'
+        });
+        $(this.logic_list[this.update_index].map).each(function(i,e){
+            that.query.addValue(e);
+        })
+
     }
 });

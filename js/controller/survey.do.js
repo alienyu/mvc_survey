@@ -277,9 +277,9 @@ var SurveyDo = Spine.Controller.sub({
         console.info(rule);
         var mapTrue;
         var jsonRule = JSON.parse(rule);
-        for (key in jsonRule) {
+        for (var key in jsonRule) {
             mapTrue = (answer_current_list[parseInt(key) - 1].answer_detail_list[0].question_value === String.fromCharCode((jsonRule[key][0]) + 64));
-        };
+        }
        return mapTrue;
     },
 

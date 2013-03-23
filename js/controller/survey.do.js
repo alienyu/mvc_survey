@@ -274,11 +274,9 @@ var SurveyDo = Spine.Controller.sub({
 
     //此方法将条件和答案列表比较，最终返回结果，和__runLogic等功能类似，有重复，需要删除一个； TODO：1.对开放题和逻辑题的支持， 2，执行action
     mapLogic: function (rule) {
-        console.info(rule);
         var mapTrue;
         var jsonRule = JSON.parse(rule);
         for (var key in jsonRule) {
-            debugger;
             var currentQueAnswer = answer_current_list[parseInt(key) - 1].answer_detail_list[0].question_value;
             if(jsonRule[key] === "allNotAnswer") {
                 //所有选项都不选时候的判断

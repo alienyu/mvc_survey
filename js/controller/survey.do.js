@@ -355,7 +355,6 @@ var SurveyDo = Spine.Controller.sub({
                      //$($("#page_cont>div>dl")[item.action.queN]).hide();
                      $($("#page_cont>div>dl")[item.action.queN].children[1].children[item.action.optN - 1]).hide();
                  }
-                 $(item).remove();
                 //TODO: delete current logic when whose action is triggered
              } else {
                 alert("你的答案没有匹配条件");

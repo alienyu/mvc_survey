@@ -79,7 +79,7 @@ var SurveyDo = Spine.Controller.sub({
 
         //TODO: run logic
         this._runLogic();
-        this._runQuota();
+        this.resolveRules();
 
         if(this.quotaResult) {
             $($("#page_cont").children()[this.currentPage]).hide();
@@ -268,83 +268,82 @@ var SurveyDo = Spine.Controller.sub({
         //        });
     },
 
-    _runLogic: function () {
-        //console.log($(this.logicList));
-        for(var obj in answer_current_list) {
-            for(var index in this.logicList) {
-                var questionIndex = answer_current_list[obj].question_no - 1;//要查找的问题对象序号
-                if(this.logicList[index].map[questionIndex]) { //查找问题有无对应逻辑条件
-                    var currentLogic = this.logicList[index];
-                    console.log(currentLogic);
-                    var optionArray = currentLogic.map[questionIndex]; //获得逻辑条件集合
-                    var condition = false;
+    //mock的rules，来自于allen的creator中的query plugin生成
+    test_rules: '[{"logicName":"1111111","logicType":"0","condition":[{"question":"1.gds","option":"A.gfdgd","answer":"回答","description":"1.gdsA.gfdgd回答","question_index":"1","option_index":1,"is_answer":1,"logical_oper":"","id":"","name":"","left_barcket":1,"right_barcket":0,"property":"","dimension_value":"","data_type":"","supplier_id":""},{"question":"1.gds","option":"B.gager","answer":"回答","description":"1.gdsB.gager回答","question_index":"1","option_index":2,"is_answer":1,"logical_oper":"OR","id":"","name":"","left_barcket":0,"right_barcket":1,"property":"","dimension_value":"","data_type":"","supplier_id":""},{"question":"2.g4g","option":"C.g4wgr","answer":"回答","description":"2.g4gC.g4wgr回答","question_index":"2","option_index":3,"is_answer":1,"logical_oper":"AND","id":"","name":"","left_barcket":1,"right_barcket":0,"property":"","dimension_value":"","data_type":"","supplier_id":""},{"question":"3.g4qag4rg","option":"D.gwr","answer":"回答","description":"3.g4qag4rgD.gwr回答","question_index":"3","option_index":4,"is_answer":1,"logical_oper":"OR","id":"","name":"","left_barcket":1,"right_barcket":0,"property":"","dimension_value":"","data_type":"","supplier_id":""},{"question":"3.g4qag4rg","option":"B.gr4waer","answer":"回答","description":"3.g4qag4rgB.gr4waer回答","question_index":"3","option_index":2,"is_answer":1,"logical_oper":"AND","id":"","name":"","left_barcket":0,"right_barcket":2,"property":"","dimension_value":"","data_type":"","supplier_id":""}],"action":{"type":"0","queN":"1","optN":"1"}}]',
+    //test_rules: '[{"logicName":"","logicType":"0","condition":[{"question":"1.test1","option":"全部","answer":"不回答","description":"1.test1全部不回答","question_index":"1","option_index":0,"is_answer":0,"logical_oper":"","id":"","name":"","left_barcket":2,"right_barcket":0,"property":"","dimension_value":"","data_type":"","supplier_id":""},{"question":"1.test1","option":"A.1","answer":"不回答","description":"1.test1A.1不回答","question_index":"1","option_index":1,"is_answer":0,"logical_oper":"OR","id":"","name":"","left_barcket":0,"right_barcket":1,"property":"","dimension_value":"","data_type":"","supplier_id":""},{"question":"2.test2","option":"A.1","answer":"回答","description":"2.test2A.1回答","question_index":"2","option_index":1,"is_answer":1,"logical_oper":"AND","id":"","name":"","left_barcket":0,"right_barcket":1,"property":"","dimension_value":"","data_type":"","supplier_id":""},{"question":"3.test3","option":"全部","answer":"回答","description":"3.test3全部回答","question_index":"3","option_index":0,"is_answer":1,"logical_oper":"OR","id":"","name":"","left_barcket":0,"right_barcket":0,"property":"","dimension_value":"","data_type":"","supplier_id":""}],"action":{"type":"0","queN":"1","optN":"1"}}]',
 
-                    var selectValues = answer_current_list[obj].answer_detail_list; //该问题当前已选答案
-                    //开始遍历条件选项 若每个选项都满足 则触发条件
-                    for(var index2 in optionArray) {
-                        console.log(optionArray[index2]);
-                        if(optionArray[index2].charAt(0) != "-"){ //正数 表示回答该项 触发条件
-                            for(var value in selectValues){
-                                var selectQuestionValue = selectValues[value].question_value.charCodeAt() - 65;
-                                if(optionArray[index2] == selectQuestionValue){
-                                    condition = true;
-                                    break;
-                                }
-                            }
-                        } else {//负数 表示不回答该项 触发条件
-                            condition = true;
-                            for(var value in selectValues){
-                                var selectQuestionValue = selectValues[value].question_value.charCodeAt() - 65;
-                                if(optionArray[index2].substr(1) == selectQuestionValue){
-                                    condition = false;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-//                    console.log(this.logicList[index].action);
-
-                    if(condition){ //满足触发条件
-                        var queN = this.logicList[index].action.queN;
-                        switch (this.logicList[index].logicType) {
-                            case "0": //控制
-                                var optN =this.logicList[index].action.optN;
-                                if(this.logicList[index].action.type === "0"){ //控制逻辑  不显示
-                                    //$($("#page_cont>div>dl")[this.logicList[index].action.queN]).hide();
-                                    $($($("#page_cont>div>dl")[queN]).find("div")[optN]).hide();
-                                } else if(this.logicList[index].action.type === "1"){//控制逻辑  显示
-                                    $($($("#page_cont>div>dl")[queN]).find("div")[optN]).show();
-                                }
-                                break;
-                            case "1"://跳转
-                                this.currentPage = 0;
-                                var questionIndex = 0;
-                                $("#page_cont>div").each(function(index, element) {
-                                    element.children.each(function(index2, element2) {
-                                        if(questionIndex < queN) {
-                                            questionIndex += 1;
-                                            element2.hide();
-                                        } else {
-                                            break;
-                                        }
-                                    });
-                                    if(questionIndex < queN) {
-                                        element.hide();
-                                    } else {
-                                        break;
-                                    }
-                                    this.currentPage += 1;
-                                });
-                                this.currentPage -= 1;
-                                break;
-                            case "2"://选项映射
-                                break;
-                            case "3"://甄别
-                                break;
-                        }
-                    }
-                }
+    //此方法将条件和答案列表比较，最终返回结果，和__runLogic等功能类似，有重复，需要删除一个； TODO：1.对开放题和逻辑题的支持， 2，执行action
+    mapLogic: function (rule) {
+        var mapTrue;
+        var jsonRule = JSON.parse(rule);
+        for (var key in jsonRule) {
+            var currentQueAnswer = answer_current_list[parseInt(key) - 1].answer_detail_list[0].question_value;
+            if(jsonRule[key] === "allNotAnswer") {
+                //所有选项都不选时候的判断
+                mapTrue = (currentQueAnswer === "");
+            } else if (jsonRule[key] === "allAnswer") {
+                //TODO： 所有选项都选择时候的判断，暂时处理为只要选择一个选项就匹配成功
+                mapTrue = (currentQueAnswer !== "");
+            } else if (jsonRule[key] < 0) {
+                //某个特定选项不选择时候的判断
+                mapTrue = (currentQueAnswer !== String.fromCharCode((jsonRule[key]) + 64));
+            } else {
+                //某个特定选项选择时候的判断
+                mapTrue = (currentQueAnswer === String.fromCharCode((jsonRule[key]) + 64));
             }
+        }
+       return mapTrue;
+    },
+
+    //此方法用来解析每一条rule，最后的返回结果是可以使用eval执行的js逻辑语句
+    resolveRule: function (rule) {
+        var ruleString = this.ruleToString(rule);
+        //获得逻辑字符串之后取出其中有用的条件部分去和答案列表做匹配并将结果返回
+        return ruleString.map(function(item, index){
+            var left_bar_index = item.indexOf(item.match("{"));
+            var right_bar_index = item.indexOf(item.match("}"));
+            var leftString = item.substring(0,left_bar_index) + " ";
+            var rightString = item.substring(right_bar_index+1);
+            return leftString + this.App.surveyDo.mapLogic(item.substring(left_bar_index, right_bar_index+1)) + rightString;
+        }).join(" ");
+    },
+
+    //将获取的逻辑解析成括号和逻辑字符连接的字符串
+    ruleToString: function (rule) {
+        return rule.condition.map(function (item,index) {
+            oneRule={};
+            if(item.option_index){
+                oneRule[item.question_index] = (item.is_answer == 1 ? item.option_index : -item.option_index);
+            } else {
+                oneRule[item.question_index] = (item.is_answer == 1 ? "allAnswer" : "allNotAnswer");
+            }
+            return (item.logical_oper.replace("AND", "&&").replace("OR", "||") + "(".duplicate(item.left_barcket)) + JSON.stringify(oneRule) + (")".duplicate(item.right_barcket));
+        });
+    },
+
+    //分析rules的入口方法
+    resolveRules: function (){
+        var that = this;
+        var rule = JSON.parse(this.test_rules);
+        //解析每一条rule，返回结果是直接可以eavl的js 字符串逻辑表达式
+        $(rule).each(function(index, item){
+             if (eval(that.resolveRule(item))) {
+                //如果条件成立则执行rules中的动作，执行方法为doRules
+                //TODO: doRules方法尚未实现
+                // this.doRules(item.action);
+                alert("你的条件匹配成功，可以执行动作了");
+             } else {
+                alert("你的答案没有匹配条件");
+             }
+        });
+    },
+
+    _runLogic: function (logicList) {
+        //mabye this is useful for duRule method, do not remove it now
+        if(this.logicList[index].logicType === "0" && this.logicList[index].action.type === "0" && condition){ //控制逻辑  不显示
+            $($("#page_cont>div>dl")[this.logicList[index].action.queN]).hide();
+        } else if(this.logicList[index].logicType === "0" && this.logicList[index].action.type === "1" && condition){//控制逻辑  显示
+            $("#page_cont>div>dl")[this.logicList[index].action.queN].show();
         }
     },
 

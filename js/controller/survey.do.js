@@ -11,7 +11,9 @@ var SurveyDo = Spine.Controller.sub({
         "click #save-answer": "saveAnswer",
         "change div dl dd select": "areaSelectChange",
         "click #next-page": "pagingSurvey",
-        "click .page_next": "pageNext"
+        "click .page_next": "pageNext",
+        "change input[type='checkbox']": "selectChange",
+        "change input[type='radio']": "selectChange"
     },
 
     show: function () {
@@ -74,12 +76,8 @@ var SurveyDo = Spine.Controller.sub({
             answer_current_list = [];
         };
         isValid = 0;
-        this.pushAnswer();
+        this.pushAnswer(true);
         if (isValid == 1) { return;}
-
-        //TODO: run logic
-        //this._runLogic();
-        this.resolveRules();
 
         if(this.quotaResult) {
             $($("#page_cont").children()[this.currentPage]).hide();
@@ -87,6 +85,13 @@ var SurveyDo = Spine.Controller.sub({
             $($("#page_cont").children()[this.currentPage]).show();
             this._submitButtonShow();
         }
+    },
+
+    selectChange: function () {
+        //TODO:1 bind event when it is open option
+        answer_current_list = [];
+        this.pushAnswer(false);
+        this.resolveRules();
     },
 
     validTextArea: function(selected, question, element) {
@@ -159,7 +164,7 @@ var SurveyDo = Spine.Controller.sub({
         };
     },
 
-    pushAnswer: function() {
+    pushAnswer: function(tag) { //tag：used to distinguish selectChange event and nextPage button click event (true:  nextPage button click, do validAnswer; false: selectChange event not do validAnswer, reset questionIndex)
         var questionNum = $($($('#page_cont').children())[this.currentPage]).find('dl').length;
         var questionCurrentIndex = 0;
         var that = this;
@@ -168,7 +173,9 @@ var SurveyDo = Spine.Controller.sub({
             var question = json.topic_list[questionIndex];
             var question_no = json.topic_list[questionIndex].question_no;
             var question_type = json.topic_list[questionIndex].question_type;
-            that.validAnswer(question, obj);
+            if(tag){
+                that.validAnswer(question, obj);
+            }
             var answer_detail_list = [];
             if (isValid == 1){questionIndex = pushAnswerNum;answer_current_list = [];return};
             switch (question_type) {
@@ -232,6 +239,9 @@ var SurveyDo = Spine.Controller.sub({
             questionCurrentIndex++;
             questionIndex++;
         }
+        if(!tag){
+            questionIndex = pushAnswerNum;
+        }
     },
 
     saveAnswer: function() {
@@ -275,10 +285,15 @@ var SurveyDo = Spine.Controller.sub({
 
     //此方法将条件和答案列表比较，最终返回结果，和__runLogic等功能类似，有重复，需要删除一个； TODO：1.对开放题和逻辑题的支持， 2，执行action
     mapLogic: function (rule) {
-        var mapTrue;
+        var mapTrue , all_answeredQuestion_answer = answer_list.concat(answer_current_list);
         var jsonRule = JSON.parse(rule);
         for (var key in jsonRule) {
-            var currentQueAnswer = answer_current_list[parseInt(key) - 1].answer_detail_list[0].question_value;
+            var currentQueAnswer;
+            if(all_answeredQuestion_answer[parseInt(key) - 1].answer_detail_list[0]){
+                currentQueAnswer = all_answeredQuestion_answer[parseInt(key) - 1].answer_detail_list[0].question_value;
+            } else {
+                return false;
+            }
             if(jsonRule[key] === "allNotAnswer") {
                 //所有选项都不选时候的判断
                 mapTrue = (currentQueAnswer === "");
@@ -330,7 +345,7 @@ var SurveyDo = Spine.Controller.sub({
         $(this.logicList).each(function(index, item){
              if (eval(that.resolveRule(item))) {
                 //如果条件成立则执行rules中的动作，执行方法为doRules
-                //TODO: doRules方法尚未实现
+                //TODO: doRules方法尚未Refactor
                 // this.doRules(item.action);
                 alert("你的条件匹配成功，可以执行动作了");
                  if(item.logicType === "0" && item.action.type === "0" ) { //控制逻辑  显示
@@ -340,6 +355,8 @@ var SurveyDo = Spine.Controller.sub({
                      //$($("#page_cont>div>dl")[item.action.queN]).hide();
                      $($("#page_cont>div>dl")[item.action.queN].children[1].children[item.action.optN - 1]).hide();
                  }
+                 $(item).remove();
+                //TODO: delete current logic when whose action is triggered
              } else {
                 alert("你的答案没有匹配条件");
              }

@@ -126,7 +126,6 @@ var LogicSettings = Spine.Controller.sub({
             this.logic_list[this.update_index] = logicOne;
         }
         surveyInstance.logic_control_js = JSON.stringify(this.logic_list);
-        console.log(this.cache_logic_list);
         console.log(surveyInstance);
         $('#logic-settings-container').empty();
         $('#logicList').empty();

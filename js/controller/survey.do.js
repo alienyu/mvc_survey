@@ -253,7 +253,7 @@ var SurveyDo = Spine.Controller.sub({
         };
         pushAnswerNum = questionIndex;
         isValid = 0;
-        this.pushAnswer();
+        this.pushAnswer(true);
         if (isValid == 1) {return};
         $(answer_current_list).each(function(i,e) {
             answer_list.push(e);

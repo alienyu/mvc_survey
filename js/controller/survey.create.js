@@ -10,11 +10,14 @@ var SurveyCreate = Spine.Controller.sub({
 
     events: {
         "click #add-option-tag": "addOption",
+        "click #matrix_addSideOpt": "addSideOpt",
+        "click #matrix_addHeadOpt": "addHeadOpt",
         "click .remove-option-tag": "removeOption",
         "click #question-save": "saveQuestion",
         "change .type-select": "changeSelectionView",
         "change #areaType input[type='checkbox']": "areaLinkage",
-        "change .upload": "uploadImg"
+        "change .upload": "uploadImg",
+        "change input[name='matrix_type']": "matrixTypeChange"
     },
 
     show: function () {
@@ -34,6 +37,7 @@ var SurveyCreate = Spine.Controller.sub({
                 break;
             case "matrix":
                 //TODO:create matrix question
+                creatorTemplate = this.initMatrixCreator();
                 break;
             case "open":
                 creatorTemplate = this.initOpenCreator();
@@ -46,6 +50,24 @@ var SurveyCreate = Spine.Controller.sub({
                 break;
         }
         $(this.creatorArea).append(creatorTemplate);
+
+        //TODO: refactor here
+        if(this.question.matrixType != null) {
+             $("#type").children()[this.question.matrixType].checked = true;
+            if(this.question.matrixType == 0) {
+                $("#matrix_max_min_optionNum").hide();
+            }
+        }
+        if(this.question.xOptions != null) {
+            $(this.question.xOptions).each(function (index, element) {
+                $("#matrix_HeadOpt").append($("#matrix-option-template").tmpl({"optionIndex": String.fromCharCode(index + 65), "value": "value =" + element.text , "necessary": element.necessary ? "checked" : "" }));
+            });
+        }
+        if(this.question.yOptions != null) {
+            $(this.question.yOptions).each(function (index, element) {
+                $("#matrix_SideOpt").append($("#matrix-option-template").tmpl({"optionIndex": String.fromCharCode(index + 65), "value": "value =" + element.text , "necessary": element.necessary ? "checked" : "" }));
+            });
+        }
     },
 
     initRadioCreator: function () {
@@ -71,6 +93,11 @@ var SurveyCreate = Spine.Controller.sub({
     initCheckCreator: function () {
         var optionCreatorTemp = $("#check-option-creator-template").tmpl().before(this.initRadioCreator());
         return optionCreatorTemp;
+    },
+
+    initMatrixCreator: function () {
+        var matrixCreatorTemp = $("#matrix-option-creator-template").tmpl();
+        return matrixCreatorTemp;
     },
 
     initOpenCreator: function () {
@@ -131,6 +158,24 @@ var SurveyCreate = Spine.Controller.sub({
         this.changeOptionsNum();
     },
 
+    addSideOpt: function () {
+        var sideOption = $("#matrix-option-template").tmpl({"optionIndex": String.fromCharCode($("#matrix_SideOpt").children().size() + 65)});
+        $("#matrix_SideOpt").append(sideOption);
+    },
+
+    addHeadOpt: function () {
+        var sideOption = $("#matrix-option-template").tmpl({"optionIndex": String.fromCharCode($("#matrix_HeadOpt").children().size() + 65)});
+        $("#matrix_HeadOpt").append(sideOption);
+    },
+
+    matrixTypeChange: function (e) {
+        if(e.target.nextElementSibling){
+            $("#matrix_max_min_optionNum").hide();
+        } else {
+            $("#matrix_max_min_optionNum").show();
+        }
+    },
+
     optionCreatorTemplate: function (indexTag, type) {
         type = typeof type !== 'undefined' ? type : "0";
         return $("#radio-option-creator-template").tmpl({ "optionTag": indexTag, "type": type }).find(".option-creator");
@@ -138,7 +183,8 @@ var SurveyCreate = Spine.Controller.sub({
 
     removeOption: function (e) {
         $(e.target).parents(".option-creator").remove();
-        var optionCreators = $('#option-creators .option-creator');
+        //var optionCreators = $('#option-creators .option-creator');
+        var optionCreators = $('.option-creator'); //updated to adapt matrix question options delete, maybe some bug TODO: modify bug of headOpt change when delete sideOpt
         optionCreators.each(function (item, element) {
             $(element).find(".option-tag").html((String.fromCharCode(65 + item)));
         });
@@ -165,6 +211,14 @@ var SurveyCreate = Spine.Controller.sub({
                     this.getOptions(options);
                     this.question.maxSelection = $('#max-select-num').find("option:selected").text();
                     this.question.minSelection = $('#min-select-num').find("option:selected").text();
+                    break;
+                case "matrix":
+                    this.getMatrixOptions();
+                    this.question.matrixType = $("input[name='matrix_type']")[0].checked ? 0 : 1; //0 单选 1 多选
+                    if(this.question.matrixType == 1){ //if multiSelect
+                        this.question.maxSelection = $("#max-select-num").val();
+                        this.question.minSelection = $("#min-select-num").val();
+                    }
                     break;
                 case "open":
                     this.question.valid_type = $('input[type=checkbox]').filter('#valid')[0].checked ? $('#validation').find("option:selected").text() : '';
@@ -194,6 +248,25 @@ var SurveyCreate = Spine.Controller.sub({
         });
         this.question.options = options;
         this.question.arrangement = $('#arrangement').find("option:selected").val();
+    },
+
+    getMatrixOptions: function () {
+        //TODO: refactor here
+        var XOptions = [], YOptions = [];
+        $("#matrix_HeadOpt .option-creator").each(function(index, element){
+            XOptions.push({
+                text: $(element).find("input[type=text]").val(),
+                necessary: $(element).find("input[type=checkbox]")[0].checked
+            });
+        });
+        $("#matrix_SideOpt .option-creator").each(function(index, element){
+            YOptions.push({
+                text: $(element).find("input[type=text]").val(),
+                necessary: $(element).find("input[type=checkbox]")[0].checked
+            });
+        });
+        this.question.xOptions = XOptions;
+        this.question.yOptions = YOptions;
     },
 
     getArea: function () {

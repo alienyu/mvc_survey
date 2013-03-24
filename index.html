@@ -300,7 +300,7 @@
                         </script>
                         <!-- This is for check question options template -->
                         <script type="text/x-jquery-tmpl" id="check-option-creator-template">
-                            <div>
+                            <div id="max_min_optionNum">
                                 <label>最多可选：</label>
                                 <select id="max-select-num">
                                     <option value="1">1</option>
@@ -309,6 +309,43 @@
                                 <select id="min-select-num">
                                     <option value="1">1</option>
                                 </select>
+                            </div>
+                        </script>
+                        <!-- This is for matrix question template -->
+                        <script type="text/x-jquery-tmpl" id="matrix-option-creator-template">
+                        <div>
+                            <div id="type">类型：<input type="radio" name="matrix_type"/>单选<input type="radio" name="matrix_type"/>多选</div>
+                            <div>表侧选项
+                                <div id="matrix_SideOpt">
+                                </div>
+                                <div class="btn_opera"><a href="#" class="add" id="matrix_addSideOpt"></a></div>
+                            </div>
+                            <div>表头选项
+                                <div id="matrix_HeadOpt">
+                                </div>
+                                <div class="btn_opera"><a href="#" class="add" id="matrix_addHeadOpt"></a></div>
+                            </div>
+                            <div id="matrix_max_min_optionNum">
+                                <label>最多可选：</label>
+                                <select id="matrix_max-select-num">
+                                    <option value="1">1</option>
+                                </select>
+                                <label>最少可选：</label>
+                                <select id="matrix_min-select-num">
+                                    <option value="1">1</option>
+                                </select>
+                            </div>
+                        </div>
+                        </script>
+                        <!-- This is for matrix question option template -->
+                        <script type="text/x-jquery-tmpl" id="matrix-option-template">
+                            <div class="option-creator">
+                                <span class="option-tag">${optionIndex}</span>:
+                                <input type="text" ${value}>
+                                <input type="checkbox" ${necessary}>必须回答
+                                <div class="btn_opera">
+                                    <a href="#" class="delete remove-option-tag"></a>
+                                </div>
                             </div>
                         </script>
                         <!-- This is for open question options template -->

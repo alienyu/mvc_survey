@@ -78,7 +78,7 @@ var SurveyDo = Spine.Controller.sub({
         if (isValid == 1) { return;}
 
         //TODO: run logic
-        this._runLogic();
+        //this._runLogic();
         this.resolveRules();
 
         if(this.quotaResult) {
@@ -269,8 +269,9 @@ var SurveyDo = Spine.Controller.sub({
     },
 
     //mock的rules，来自于allen的creator中的query plugin生成
-    test_rules: '[{"logicName":"1111111","logicType":"0","condition":[{"question":"1.gds","option":"A.gfdgd","answer":"回答","description":"1.gdsA.gfdgd回答","question_index":"1","option_index":1,"is_answer":1,"logical_oper":"","id":"","name":"","left_barcket":1,"right_barcket":0,"property":"","dimension_value":"","data_type":"","supplier_id":""},{"question":"1.gds","option":"B.gager","answer":"回答","description":"1.gdsB.gager回答","question_index":"1","option_index":2,"is_answer":1,"logical_oper":"OR","id":"","name":"","left_barcket":0,"right_barcket":1,"property":"","dimension_value":"","data_type":"","supplier_id":""},{"question":"2.g4g","option":"C.g4wgr","answer":"回答","description":"2.g4gC.g4wgr回答","question_index":"2","option_index":3,"is_answer":1,"logical_oper":"AND","id":"","name":"","left_barcket":1,"right_barcket":0,"property":"","dimension_value":"","data_type":"","supplier_id":""},{"question":"3.g4qag4rg","option":"D.gwr","answer":"回答","description":"3.g4qag4rgD.gwr回答","question_index":"3","option_index":4,"is_answer":1,"logical_oper":"OR","id":"","name":"","left_barcket":1,"right_barcket":0,"property":"","dimension_value":"","data_type":"","supplier_id":""},{"question":"3.g4qag4rg","option":"B.gr4waer","answer":"回答","description":"3.g4qag4rgB.gr4waer回答","question_index":"3","option_index":2,"is_answer":1,"logical_oper":"AND","id":"","name":"","left_barcket":0,"right_barcket":2,"property":"","dimension_value":"","data_type":"","supplier_id":""}],"action":{"type":"0","queN":"1","optN":"1"}}]',
+    //test_rules: '[{"logicName":"1111111","logicType":"0","condition":[{"question":"1.gds","option":"A.gfdgd","answer":"回答","description":"1.gdsA.gfdgd回答","question_index":"1","option_index":1,"is_answer":1,"logical_oper":"","id":"","name":"","left_barcket":1,"right_barcket":0,"property":"","dimension_value":"","data_type":"","supplier_id":""},{"question":"1.gds","option":"B.gager","answer":"回答","description":"1.gdsB.gager回答","question_index":"1","option_index":2,"is_answer":1,"logical_oper":"OR","id":"","name":"","left_barcket":0,"right_barcket":1,"property":"","dimension_value":"","data_type":"","supplier_id":""},{"question":"2.g4g","option":"C.g4wgr","answer":"回答","description":"2.g4gC.g4wgr回答","question_index":"2","option_index":3,"is_answer":1,"logical_oper":"AND","id":"","name":"","left_barcket":1,"right_barcket":0,"property":"","dimension_value":"","data_type":"","supplier_id":""},{"question":"3.g4qag4rg","option":"D.gwr","answer":"回答","description":"3.g4qag4rgD.gwr回答","question_index":"3","option_index":4,"is_answer":1,"logical_oper":"OR","id":"","name":"","left_barcket":1,"right_barcket":0,"property":"","dimension_value":"","data_type":"","supplier_id":""},{"question":"3.g4qag4rg","option":"B.gr4waer","answer":"回答","description":"3.g4qag4rgB.gr4waer回答","question_index":"3","option_index":2,"is_answer":1,"logical_oper":"AND","id":"","name":"","left_barcket":0,"right_barcket":2,"property":"","dimension_value":"","data_type":"","supplier_id":""}],"action":{"type":"0","queN":"1","optN":"1"}}]',
     //test_rules: '[{"logicName":"","logicType":"0","condition":[{"question":"1.test1","option":"全部","answer":"不回答","description":"1.test1全部不回答","question_index":"1","option_index":0,"is_answer":0,"logical_oper":"","id":"","name":"","left_barcket":2,"right_barcket":0,"property":"","dimension_value":"","data_type":"","supplier_id":""},{"question":"1.test1","option":"A.1","answer":"不回答","description":"1.test1A.1不回答","question_index":"1","option_index":1,"is_answer":0,"logical_oper":"OR","id":"","name":"","left_barcket":0,"right_barcket":1,"property":"","dimension_value":"","data_type":"","supplier_id":""},{"question":"2.test2","option":"A.1","answer":"回答","description":"2.test2A.1回答","question_index":"2","option_index":1,"is_answer":1,"logical_oper":"AND","id":"","name":"","left_barcket":0,"right_barcket":1,"property":"","dimension_value":"","data_type":"","supplier_id":""},{"question":"3.test3","option":"全部","answer":"回答","description":"3.test3全部回答","question_index":"3","option_index":0,"is_answer":1,"logical_oper":"OR","id":"","name":"","left_barcket":0,"right_barcket":0,"property":"","dimension_value":"","data_type":"","supplier_id":""}],"action":{"type":"0","queN":"1","optN":"1"}}]',
+    //test_rules: '[{"logicName":"1111","logicType":"0","condition":[{"question":"1.gfdgd","option":"A.fgdfgd","answer":"回答","description":"1.gfdgdA.fgdfgd回答","question_index":"1","option_index":1,"is_answer":1,"logical_oper":"","id":"","name":"","left_barcket":0,"right_barcket":0,"property":"","dimension_value":"","data_type":"","supplier_id":""},{"question":"2.gfs","option":"B.r32","answer":"回答","description":"2.gfsB.r32回答","question_index":"2","option_index":2,"is_answer":1,"logical_oper":"AND","id":"","name":"","left_barcket":0,"right_barcket":0,"property":"","dimension_value":"","data_type":"","supplier_id":""}],"action":{"type":"1","queN":"3","optN":"3"}}]',
 
     //此方法将条件和答案列表比较，最终返回结果，和__runLogic等功能类似，有重复，需要删除一个； TODO：1.对开放题和逻辑题的支持， 2，执行action
     mapLogic: function (rule) {
@@ -322,16 +323,23 @@ var SurveyDo = Spine.Controller.sub({
     },
 
     //分析rules的入口方法
-    resolveRules: function (){
+    resolveRules: function () {
         var that = this;
-        var rule = JSON.parse(this.test_rules);
+        //var rule = JSON.parse(json.logic_control_js);
         //解析每一条rule，返回结果是直接可以eavl的js 字符串逻辑表达式
-        $(rule).each(function(index, item){
+        $(this.logicList).each(function(index, item){
              if (eval(that.resolveRule(item))) {
                 //如果条件成立则执行rules中的动作，执行方法为doRules
                 //TODO: doRules方法尚未实现
                 // this.doRules(item.action);
                 alert("你的条件匹配成功，可以执行动作了");
+                 if(item.logicType === "0" && item.action.type === "0" ) { //控制逻辑  显示
+                     //$($("#page_cont>div>dl")[item.action.queN]).show();
+                     $($("#page_cont>div>dl")[item.action.queN].children[1].children[item.action.optN - 1]).show();
+                 } else if(item.logicType === "0" && item.action.type === "1") {//控制逻辑  不显示
+                     //$($("#page_cont>div>dl")[item.action.queN]).hide();
+                     $($("#page_cont>div>dl")[item.action.queN].children[1].children[item.action.optN - 1]).hide();
+                 }
              } else {
                 alert("你的答案没有匹配条件");
              }
